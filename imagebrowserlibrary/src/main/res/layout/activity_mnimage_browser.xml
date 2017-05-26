@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/browser_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:id="@+id/rl_black_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        />
+
+    <com.maning.imagebrowserlibrary.MNGestureView
+        android:id="@+id/mnGestureView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPagerBrowser"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.maning.imagebrowserlibrary.MNGestureView>
+
+
+
+    <TextView
+        android:id="@+id/tvNumShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/mn_browser_num_bg"
+        android:paddingBottom="6dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="6dp"
+        android:text="0/0"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+</RelativeLayout>

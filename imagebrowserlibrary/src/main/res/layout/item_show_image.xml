@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wheel="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_browser_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000">
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="centerInside" />
+
+    <RelativeLayout
+        android:id="@+id/rl_image_placeholder_bg"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_centerInParent="true"
+        android:background="#e7e7e7">
+
+        <ImageView
+            android:id="@+id/iv_fail"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/mn_icon_load_fail" />
+
+    </RelativeLayout>
+
+    <com.maning.imagebrowserlibrary.ProgressWheel
+        android:id="@+id/progressWheel"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        wheel:matProg_barColor="#FFFFFF"
+        wheel:matProg_barWidth="4dp"
+        wheel:matProg_progressIndeterminate="true" />
+
+</RelativeLayout>
