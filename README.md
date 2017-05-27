@@ -9,6 +9,15 @@
 #### 截图:
 ![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/002.png)
 
+## 使用Module添加：
+#### imagebrowserlibrary
+
+``` gradle
+	compile project(':imagebrowserlibrary')
+
+```
+
+
 ## 内部依赖库:
 ``` gradle
 
