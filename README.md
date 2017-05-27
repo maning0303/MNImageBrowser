@@ -9,8 +9,7 @@
 #### 截图:
 ![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/002.png)
 
-## 使用Module添加：
-#### imagebrowserlibrary
+## (方便自定义修改)下载源码使用Module添加：imagebrowserlibrary
 
 ``` gradle
 	compile project(':imagebrowserlibrary')
