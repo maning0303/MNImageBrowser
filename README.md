@@ -16,6 +16,19 @@
 
 ```
 
+## 代码使用:
+``` java
+
+    /**
+     * 打开浏览页面
+     * @param context   上下文
+     * @param view      点击的当前View
+     * @param position  默认打开第几个
+     * @param imageList 数据源ArrayList<String>
+     */
+    MNImageBrowser.showImageBrowser(context, imageView, position, sourceImageList);
+
+```
 
 ## 内部依赖库:
 ``` gradle
