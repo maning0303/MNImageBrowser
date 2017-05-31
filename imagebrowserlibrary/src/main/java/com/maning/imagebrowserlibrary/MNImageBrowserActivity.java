@@ -171,7 +171,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            View inflate = layoutInflater.inflate(R.layout.item_show_image, container, false);
+            View inflate = layoutInflater.inflate(R.layout.mn_image_browser_item_show_image, container, false);
             PhotoView imageView = (PhotoView) inflate.findViewById(R.id.imageView);
             RelativeLayout rl_browser_root = (RelativeLayout) inflate.findViewById(R.id.rl_browser_root);
             final ProgressWheel progressWheel = (ProgressWheel) inflate.findViewById(R.id.progressWheel);
