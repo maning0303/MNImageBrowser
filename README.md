@@ -5,10 +5,11 @@
 ## 截图
 
 #### gif比较慢:
-![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/001.gif)
+![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser001.gif)
 
 #### 截图:
-![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/002.png)
+![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser002.png)
+![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser003.png)
 
 ## 如何添加
 
