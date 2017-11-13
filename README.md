@@ -1,5 +1,5 @@
 # MNImageBrowser
-一个基本的图片浏览框架,向下滑动关闭,方便以后使用.
+一个基本的图片浏览框架,向下滑动关闭,方便使用.
 [![](https://jitpack.io/v/maning0303/MNImageBrowser.svg)](https://jitpack.io/#maning0303/MNImageBrowser)
 
 ## 截图
