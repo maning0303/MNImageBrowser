@@ -7,11 +7,14 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.maning.imagebrowserlibrary.MNImageBrowser;
 import com.maning.imagebrowserlibrary.MNImageBrowserActivity;
@@ -26,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> sourceImageList;
 
     private Context context;
+
+    public int ViewPagerTransformType =  MNImageBrowserActivity.ViewPagerTransform_Default;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    MNImageBrowser.showImageBrowser(context, viewHolder.imageView, position, sourceImageList);
+                    MNImageBrowser.showImageBrowser(context, viewHolder.imageView, position, ViewPagerTransformType, sourceImageList);
                 }
             });
 
@@ -109,4 +114,39 @@ public class MainActivity extends AppCompatActivity {
             ImageView imageView;
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_01:
+                ViewPagerTransformType = MNImageBrowserActivity.ViewPagerTransform_Default;
+                break;
+            case R.id.menu_02:
+                ViewPagerTransformType = MNImageBrowserActivity.ViewPagerTransform_DepthPage;
+                break;
+            case R.id.menu_03:
+                ViewPagerTransformType = MNImageBrowserActivity.ViewPagerTransform_RotateDown;
+                break;
+            case R.id.menu_04:
+                ViewPagerTransformType = MNImageBrowserActivity.ViewPagerTransform_RotateUp;
+                break;
+            case R.id.menu_05:
+                ViewPagerTransformType = MNImageBrowserActivity.ViewPagerTransform_ZoomIn;
+                break;
+            case R.id.menu_06:
+                ViewPagerTransformType = MNImageBrowserActivity.ViewPagerTransform_ZoomOutSlide;
+                break;
+            case R.id.menu_07:
+                ViewPagerTransformType = MNImageBrowserActivity.ViewPagerTransform_ZoomOut;
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

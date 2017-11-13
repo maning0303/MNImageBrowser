@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_01"
+        android:orderInCategory="1"
+        android:title="ViewPagerTransform_Default" />
+    <item
+        android:id="@+id/menu_02"
+        android:orderInCategory="1"
+        android:title="ViewPagerTransform_DepthPage" />
+    <item
+        android:id="@+id/menu_03"
+        android:orderInCategory="1"
+        android:title="ViewPagerTransform_RotateDown" />
+    <item
+        android:id="@+id/menu_04"
+        android:orderInCategory="1"
+        android:title="ViewPagerTransform_RotateUp" />
+    <item
+        android:id="@+id/menu_05"
+        android:orderInCategory="1"
+        android:title="ViewPagerTransform_ZoomIn" />
+    <item
+        android:id="@+id/menu_06"
+        android:orderInCategory="1"
+        android:title="ViewPagerTransform_ZoomOutSlide" />
+    <item
+        android:id="@+id/menu_07"
+        android:orderInCategory="1"
+        android:title="ViewPagerTransform_ZoomOut" />
+
+</menu>
