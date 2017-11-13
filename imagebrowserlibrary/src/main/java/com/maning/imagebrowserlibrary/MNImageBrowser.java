@@ -20,6 +20,7 @@ public class MNImageBrowser {
      * @param context   上下文
      * @param view      点击的当前View
      * @param position  默认打开第几个
+     * @param viewPagerTransformType  图片滑动切换的效果：支持七种效果
      * @param imageList 数据源ArrayList<String>
      */
     public static void showImageBrowser(Context context, View view, int position, int viewPagerTransformType, ArrayList<String> imageList) {
