@@ -33,7 +33,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     private Context context;
 
     private MNGestureView mnGestureView;
-    private ViewPager viewPagerBrowser;
+    private MNViewPager viewPagerBrowser;
     private TextView tvNumShow;
     private RelativeLayout rl_black_bg;
 
@@ -73,7 +73,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        viewPagerBrowser = (ViewPager) findViewById(R.id.viewPagerBrowser);
+        viewPagerBrowser = (MNViewPager) findViewById(R.id.viewPagerBrowser);
         mnGestureView = (MNGestureView) findViewById(R.id.mnGestureView);
         tvNumShow = (TextView) findViewById(R.id.tvNumShow);
         rl_black_bg = (RelativeLayout) findViewById(R.id.rl_black_bg);
