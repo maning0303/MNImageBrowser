@@ -28,4 +28,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     compile project(':imagebrowserlibrary')
+    //测试
+//    compile 'com.github.maning0303:MNImageBrowser:V1.0.3'
 }
