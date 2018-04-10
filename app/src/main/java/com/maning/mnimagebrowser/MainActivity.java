@@ -1,11 +1,8 @@
 package com.maning.mnimagebrowser;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,11 +17,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.maning.imagebrowserlibrary.MNImageBrowser;
-import com.maning.imagebrowserlibrary.MNImageBrowserActivity;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
 import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
-import com.maning.mndialoglibrary.MProgressDialog;
 import com.maning.mndialoglibrary.MStatusDialog;
 import com.squareup.picasso.Picasso;
 import com.yanzhenjie.permission.Action;

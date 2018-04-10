@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,14 +38,6 @@ import java.util.ArrayList;
  */
 public class MNImageBrowserActivity extends AppCompatActivity {
 
-//    public final static int ViewPagerTransform_Default = 0;
-//    public final static int ViewPagerTransform_DepthPage = 1;
-//    public final static int ViewPagerTransform_RotateDown = 2;
-//    public final static int ViewPagerTransform_RotateUp = 3;
-//    public final static int ViewPagerTransform_ZoomIn = 4;
-//    public final static int ViewPagerTransform_ZoomOutSlide = 5;
-//    public final static int ViewPagerTransform_ZoomOut = 6;
-
     private Context context;
 
     private MNGestureView mnGestureView;
@@ -65,6 +58,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     public OnClickListener onClickListener;
     //相关配置信息
     public static ImageBrowserConfig imageBrowserConfig;
+    private MyAdapter imageBrowserAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,16 +101,17 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         onClickListener = imageBrowserConfig.getOnClickListener();
         onLongClickListener = imageBrowserConfig.getOnLongClickListener();
 
-        if(imageUrlList.size() == 1){
+        if (imageUrlList.size() == 1) {
             tvNumShow.setVisibility(View.GONE);
-        }else{
+        } else {
             tvNumShow.setVisibility(View.VISIBLE);
             tvNumShow.setText(String.valueOf((currentPosition + 1) + "/" + imageUrlList.size()));
         }
     }
 
     private void initViewPager() {
-        viewPagerBrowser.setAdapter(new MyAdapter());
+        imageBrowserAdapter = new MyAdapter();
+        viewPagerBrowser.setAdapter(imageBrowserAdapter);
         viewPagerBrowser.setCurrentItem(currentPosition);
         setViewPagerTransforms();
         viewPagerBrowser.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -133,6 +128,18 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        mnGestureView.setOnGestureListener(new MNGestureView.OnCanSwipeListener() {
+            @Override
+            public boolean canSwipe() {
+                View view = imageBrowserAdapter.getPrimaryItem();
+                PhotoView imageView = (PhotoView) view.findViewById(R.id.imageView);
+                if(imageView.getScale() != 1.0){
+                    return false;
+                }
+                return true;
             }
         });
 
@@ -200,10 +207,21 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
     private class MyAdapter extends PagerAdapter {
 
+        private View mCurrentView;
+
         private LayoutInflater layoutInflater;
 
         public MyAdapter() {
             layoutInflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+            mCurrentView = (View)object;
+        }
+
+        public View getPrimaryItem() {
+            return mCurrentView;
         }
 
         @Override
@@ -228,7 +246,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             final RelativeLayout rl_browser_root = (RelativeLayout) inflate.findViewById(R.id.rl_browser_root);
             final String url = imageUrlList.get(position);
             //图片加载
-            imageEngine.loadImage(context,url,imageView);
+            imageEngine.loadImage(context, url, imageView);
 
             rl_browser_root.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -240,9 +258,11 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    float scale = imageView.getScale();
+                    Log.i("-------", scale + "");
                     //单击事件
-                    if(onClickListener != null){
-                        onClickListener.onClick(MNImageBrowserActivity.this,imageView,position,url);
+                    if (onClickListener != null) {
+                        onClickListener.onClick(MNImageBrowserActivity.this, imageView, position, url);
                     }
                     finishBrowser();
                 }
@@ -250,8 +270,8 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             imageView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    if(onLongClickListener != null){
-                        onLongClickListener.onLongClick(MNImageBrowserActivity.this,imageView,position,url);
+                    if (onLongClickListener != null) {
+                        onLongClickListener.onLongClick(MNImageBrowserActivity.this, imageView, position, url);
                     }
                     return false;
                 }

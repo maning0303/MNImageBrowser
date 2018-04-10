@@ -58,6 +58,13 @@ public class MNGestureView extends RelativeLayout {
                 float deltaX = event.getRawX() - mDisplacementX;
                 float deltaY = event.getRawY() - mDisplacementY;
 
+                //只有在不缩放的状态才能下滑
+                if(onCanSwipeListener!= null){
+                    boolean canSwipe = onCanSwipeListener.canSwipe();
+                    if(!canSwipe){
+                        break;
+                    }
+                }
 
                 // set the touch and cancel event
                 if (deltaY > 0 && (Math.abs(deltaY) > ViewConfiguration.get(getContext()).getScaledTouchSlop() * 2 && Math.abs(deltaX) < Math.abs(deltaY) / 2)
@@ -133,6 +140,17 @@ public class MNGestureView extends RelativeLayout {
 
     public void setOnSwipeListener(OnSwipeListener onSwipeListener) {
         this.onSwipeListener = onSwipeListener;
+    }
+
+    public interface OnCanSwipeListener{
+        //可不可以下滑关闭
+        boolean canSwipe();
+    }
+
+    private OnCanSwipeListener onCanSwipeListener;
+
+    public void setOnGestureListener(OnCanSwipeListener onCanSwipeListener){
+        this.onCanSwipeListener = onCanSwipeListener;
     }
 
 }
