@@ -42,22 +42,84 @@
 ## 代码使用:
 ``` java
 
-    
+    MNImageBrowser.with(context)
+             //非必须-图片切换动画
+             .setTransformType(transformType)
+             //必须-当前位置
+             .setCurrentPosition(position)
+             //必须-图片加载用户自己去选择
+             .setImageEngine(new GlideImageEngine())
+             .setImageEngine(new PicassoImageEngine())
+             //必须-图片集合
+             .setImageList(sourceImageList)
+             //非必须-图片单击监听
+             .setOnClickListener(new OnClickListener() {
+                 @Override
+                 public void onClick(FragmentActivity activity, ImageView view, int position, String url) {
+                    //单击监听
+                 }
+             })
+             //非必须-图片长按监听
+             .setOnLongClickListener(new OnLongClickListener() {
+                 @Override
+                 public void onLongClick(final FragmentActivity activity, final ImageView imageView, int position, String url) {
+                    //长按监听
+                 }
+             })
+             //打开
+             .show(viewHolder.imageView);
     
 ```
+
+
+## 图片加载需要实现ImageEngine：
+``` java
+
+    //Picasso
+    public class PicassoImageEngine implements ImageEngine {
+        @Override
+        public void loadImage(Context context, String url, ImageView imageView) {
+            Picasso.with(context).load(url).into(imageView);
+        }
+    
+    }
+    
+    //Glide
+    public class GlideImageEngine implements ImageEngine {
+        @Override
+        public void loadImage(Context context, String url, ImageView imageView) {
+            Glide.with(context).load(url).into(imageView);
+        }
+    
+    }
+    
+    //其它
+    public class XXXImageEngine implements ImageEngine {
+            @Override
+            public void loadImage(Context context, String url, ImageView imageView) {
+                //加载图片实现
+            }
+        
+        }
+
+```
+
 
 ## ViewPagerTransform 提供7种效果：
 ``` java
 
-    MNImageBrowserActivity：
+    ImageBrowserConfig：
 
-    public final static int ViewPagerTransform_Default = 0;
-    public final static int ViewPagerTransform_DepthPage = 1;
-    public final static int ViewPagerTransform_RotateDown = 2;
-    public final static int ViewPagerTransform_RotateUp = 3;
-    public final static int ViewPagerTransform_ZoomIn = 4;
-    public final static int ViewPagerTransform_ZoomOutSlide = 5;
-    public final static int ViewPagerTransform_ZoomOut = 6;
+    //枚举类型
+    public enum TransformType {
+        Transform_Default,
+        Transform_DepthPage,
+        Transform_RotateDown,
+        Transform_RotateUp,
+        Transform_ZoomIn,
+        Transform_ZoomOutSlide,
+        Transform_ZoomOut,
+    }
 
 ```
 
@@ -67,8 +129,6 @@
 
     //图片手势缩放
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
-    //图片加载
-    compile 'com.squareup.picasso:picasso:2.5.2'
 
 ```
 
@@ -78,7 +138,7 @@
 Name | Describe |
 --- | --- |
 [GankMM](https://github.com/maning0303/GankMM) | （Material Design & MVP & Retrofit + OKHttp & RecyclerView ...）Gank.io Android客户端：每天一张美女图片，一个视频短片，若干Android，iOS等程序干货，周一到周五每天更新，数据全部由 干货集中营 提供,持续更新。 |
-[MNUpdateAPK](https://github.com/maning0303/MNUpdateAPK) | Android APK 版本更新的下载和安装,适配7.0,简单方便。 |
+[MNUpdateAPK](https://github.com/maning0303/MNUpdateAPK) | Android APK 版本更新的下载和安装,适配7.0，8.0,简单方便。 |
 [MNImageBrowser](https://github.com/maning0303/MNImageBrowser) | 交互特效的图片浏览框架,微信向下滑动动态关闭 |
 [MNCalendar](https://github.com/maning0303/MNCalendar) | 简单的日历控件练习，水平方向日历支持手势滑动切换，跳转月份；垂直方向日历选取区间范围。 |
 [MClearEditText](https://github.com/maning0303/MClearEditText) | 带有删除功能的EditText |
