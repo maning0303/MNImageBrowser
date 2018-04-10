@@ -1,8 +1,6 @@
-package com.maning.mnimagebrowser;
+package com.maning.mnimagebrowser.utils;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.view.View;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

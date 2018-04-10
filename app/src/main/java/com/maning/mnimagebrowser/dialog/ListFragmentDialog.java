@@ -1,4 +1,4 @@
-package com.maning.mnimagebrowser;
+package com.maning.mnimagebrowser.dialog;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.maning.mndialoglibrary.base.BaseFragmentDialog;
+import com.maning.mnimagebrowser.R;
 
 /**
  * <pre>

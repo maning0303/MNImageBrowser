@@ -1,4 +1,4 @@
-package com.maning.mnimagebrowser;
+package com.maning.mnimagebrowser.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -1,10 +1,10 @@
-package com.maning.mnimagebrowser;
+package com.maning.mnimagebrowser.engine;
 
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.maning.imagebrowserlibrary.ImageEngine;
+import com.maning.mnimagebrowser.R;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -16,11 +16,11 @@ import com.squareup.picasso.Picasso;
  *     version: 1.0
  * </pre>
  */
-public class GlideImageEngine implements ImageEngine {
+public class PicassoImageEngine implements ImageEngine {
 
     @Override
     public void loadImage(Context context, String url, ImageView imageView) {
-        Glide.with(context).load(url).placeholder(R.mipmap.ic_launcher).into(imageView);
+        Picasso.with(context).load(url).placeholder(R.mipmap.ic_launcher).into(imageView);
     }
 
 }
