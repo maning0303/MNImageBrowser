@@ -18,7 +18,6 @@ android {
         }
     }
 }
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -26,8 +25,14 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile 'com.github.maning0303:MNProgressHUD:V1.0.6'
+    compile 'com.yanzhenjie:permission:2.0.0-rc4'
+
 
     compile project(':imagebrowserlibrary')
     //测试
 //    compile 'com.github.maning0303:MNImageBrowser:V1.0.3'
 }
+

@@ -13,17 +13,17 @@
         android:background="#000000"
         />
 
-    <com.maning.imagebrowserlibrary.MNGestureView
+    <com.maning.imagebrowserlibrary.view.MNGestureView
         android:id="@+id/mnGestureView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.maning.imagebrowserlibrary.MNViewPager
+        <com.maning.imagebrowserlibrary.view.MNViewPager
             android:id="@+id/viewPagerBrowser"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </com.maning.imagebrowserlibrary.MNGestureView>
+    </com.maning.imagebrowserlibrary.view.MNGestureView>
 
 
 

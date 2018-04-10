@@ -16,6 +16,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.chrisbanes.photoview.PhotoView;
+import com.maning.imagebrowserlibrary.listeners.OnClickListener;
+import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
+import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
 import com.maning.imagebrowserlibrary.transforms.DefaultTransformer;
 import com.maning.imagebrowserlibrary.transforms.DepthPageTransformer;
 import com.maning.imagebrowserlibrary.transforms.RotateDownTransformer;
@@ -23,8 +26,8 @@ import com.maning.imagebrowserlibrary.transforms.RotateUpTransformer;
 import com.maning.imagebrowserlibrary.transforms.ZoomInTransformer;
 import com.maning.imagebrowserlibrary.transforms.ZoomOutSlideTransformer;
 import com.maning.imagebrowserlibrary.transforms.ZoomOutTransformer;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
+import com.maning.imagebrowserlibrary.view.MNGestureView;
+import com.maning.imagebrowserlibrary.view.MNViewPager;
 
 import java.util.ArrayList;
 
@@ -34,16 +37,13 @@ import java.util.ArrayList;
  */
 public class MNImageBrowserActivity extends AppCompatActivity {
 
-    public final static String IntentKey_ImageList = "IntentKey_ImageList";
-    public final static String IntentKey_CurrentPosition = "IntentKey_CurrentPosition";
-    public final static String IntentKey_ViewPagerTransformType = "IntentKey_ViewPagerTransformType";
-    public final static int ViewPagerTransform_Default = 0;
-    public final static int ViewPagerTransform_DepthPage = 1;
-    public final static int ViewPagerTransform_RotateDown = 2;
-    public final static int ViewPagerTransform_RotateUp = 3;
-    public final static int ViewPagerTransform_ZoomIn = 4;
-    public final static int ViewPagerTransform_ZoomOutSlide = 5;
-    public final static int ViewPagerTransform_ZoomOut = 6;
+//    public final static int ViewPagerTransform_Default = 0;
+//    public final static int ViewPagerTransform_DepthPage = 1;
+//    public final static int ViewPagerTransform_RotateDown = 2;
+//    public final static int ViewPagerTransform_RotateUp = 3;
+//    public final static int ViewPagerTransform_ZoomIn = 4;
+//    public final static int ViewPagerTransform_ZoomOutSlide = 5;
+//    public final static int ViewPagerTransform_ZoomOut = 6;
 
     private Context context;
 
@@ -52,9 +52,19 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     private TextView tvNumShow;
     private RelativeLayout rl_black_bg;
 
-    private ArrayList<String> imageUrlList = new ArrayList<>();
+    //图片地址
+    private ArrayList<String> imageUrlList;
+    //当前位置
     private int currentPosition;
-    private int currentViewPagerTransform;
+    //当前切换的动画
+    private ImageBrowserConfig.TransformType transformType;
+    //图片加载引擎
+    public ImageEngine imageEngine;
+    //监听
+    public OnLongClickListener onLongClickListener;
+    public OnClickListener onClickListener;
+    //相关配置信息
+    public static ImageBrowserConfig imageBrowserConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +72,6 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         setWindowFullScreen();
         setContentView(R.layout.activity_mnimage_browser);
         context = this;
-
-        initIntent();
 
         initViews();
 
@@ -83,12 +91,6 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         }
     }
 
-    private void initIntent() {
-        imageUrlList = getIntent().getStringArrayListExtra(IntentKey_ImageList);
-        currentPosition = getIntent().getIntExtra(IntentKey_CurrentPosition, 1);
-        currentViewPagerTransform = getIntent().getIntExtra(IntentKey_ViewPagerTransformType, ViewPagerTransform_Default);
-    }
-
     private void initViews() {
         viewPagerBrowser = (MNViewPager) findViewById(R.id.viewPagerBrowser);
         mnGestureView = (MNGestureView) findViewById(R.id.mnGestureView);
@@ -98,7 +100,19 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        tvNumShow.setText(String.valueOf((currentPosition + 1) + "/" + imageUrlList.size()));
+        imageUrlList = imageBrowserConfig.getImageList();
+        currentPosition = imageBrowserConfig.getPosition();
+        transformType = imageBrowserConfig.getTransformType();
+        imageEngine = imageBrowserConfig.getImageEngine();
+        onClickListener = imageBrowserConfig.getOnClickListener();
+        onLongClickListener = imageBrowserConfig.getOnLongClickListener();
+
+        if(imageUrlList.size() == 1){
+            tvNumShow.setVisibility(View.GONE);
+        }else{
+            tvNumShow.setVisibility(View.VISIBLE);
+            tvNumShow.setText(String.valueOf((currentPosition + 1) + "/" + imageUrlList.size()));
+        }
     }
 
     private void initViewPager() {
@@ -151,28 +165,29 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     }
 
     private void setViewPagerTransforms() {
-        if (currentViewPagerTransform == ViewPagerTransform_Default) {
+        if (transformType == ImageBrowserConfig.TransformType.Transform_Default) {
             viewPagerBrowser.setPageTransformer(true, new DefaultTransformer());
-        } else if (currentViewPagerTransform == ViewPagerTransform_DepthPage) {
+        } else if (transformType == ImageBrowserConfig.TransformType.Transform_DepthPage) {
             viewPagerBrowser.setPageTransformer(true, new DepthPageTransformer());
-        } else if (currentViewPagerTransform == ViewPagerTransform_RotateDown) {
+        } else if (transformType == ImageBrowserConfig.TransformType.Transform_RotateDown) {
             viewPagerBrowser.setPageTransformer(true, new RotateDownTransformer());
-        } else if (currentViewPagerTransform == ViewPagerTransform_RotateUp) {
+        } else if (transformType == ImageBrowserConfig.TransformType.Transform_RotateUp) {
             viewPagerBrowser.setPageTransformer(true, new RotateUpTransformer());
-        } else if (currentViewPagerTransform == ViewPagerTransform_ZoomIn) {
+        } else if (transformType == ImageBrowserConfig.TransformType.Transform_ZoomIn) {
             viewPagerBrowser.setPageTransformer(true, new ZoomInTransformer());
-        } else if (currentViewPagerTransform == ViewPagerTransform_ZoomOutSlide) {
+        } else if (transformType == ImageBrowserConfig.TransformType.Transform_ZoomOutSlide) {
             viewPagerBrowser.setPageTransformer(true, new ZoomOutSlideTransformer());
-        } else if (currentViewPagerTransform == ViewPagerTransform_ZoomOut) {
+        } else if (transformType == ImageBrowserConfig.TransformType.Transform_ZoomOut) {
             viewPagerBrowser.setPageTransformer(true, new ZoomOutTransformer());
         } else {
-            viewPagerBrowser.setPageTransformer(true, new ZoomOutSlideTransformer());
+            viewPagerBrowser.setPageTransformer(true, new DefaultTransformer());
         }
     }
 
     private void finishBrowser() {
         tvNumShow.setVisibility(View.GONE);
         rl_black_bg.setAlpha(0);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         finish();
         this.overridePendingTransition(0, R.anim.browser_exit_anim);
     }
@@ -207,31 +222,13 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
+        public Object instantiateItem(ViewGroup container, final int position) {
             View inflate = layoutInflater.inflate(R.layout.mn_image_browser_item_show_image, container, false);
-            PhotoView imageView = (PhotoView) inflate.findViewById(R.id.imageView);
-            RelativeLayout rl_browser_root = (RelativeLayout) inflate.findViewById(R.id.rl_browser_root);
-            final ProgressWheel progressWheel = (ProgressWheel) inflate.findViewById(R.id.progressWheel);
-            final RelativeLayout rl_image_placeholder_bg = (RelativeLayout) inflate.findViewById(R.id.rl_image_placeholder_bg);
-            final ImageView iv_fail = (ImageView) inflate.findViewById(R.id.iv_fail);
-
-            iv_fail.setVisibility(View.GONE);
-
-            String url = imageUrlList.get(position);
-            Picasso.with(context).load(url).into(imageView, new Callback() {
-                @Override
-                public void onSuccess() {
-                    progressWheel.setVisibility(View.GONE);
-                    rl_image_placeholder_bg.setVisibility(View.GONE);
-                    iv_fail.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onError() {
-                    progressWheel.setVisibility(View.GONE);
-                    iv_fail.setVisibility(View.VISIBLE);
-                }
-            });
+            final PhotoView imageView = (PhotoView) inflate.findViewById(R.id.imageView);
+            final RelativeLayout rl_browser_root = (RelativeLayout) inflate.findViewById(R.id.rl_browser_root);
+            final String url = imageUrlList.get(position);
+            //图片加载
+            imageEngine.loadImage(context,url,imageView);
 
             rl_browser_root.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -243,7 +240,20 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //单击事件
+                    if(onClickListener != null){
+                        onClickListener.onClick(MNImageBrowserActivity.this,imageView,position,url);
+                    }
                     finishBrowser();
+                }
+            });
+            imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if(onLongClickListener != null){
+                        onLongClickListener.onLongClick(MNImageBrowserActivity.this,imageView,position,url);
+                    }
+                    return false;
                 }
             });
 

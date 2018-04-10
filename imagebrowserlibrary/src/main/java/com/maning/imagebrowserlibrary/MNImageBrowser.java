@@ -7,6 +7,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 
+import com.maning.imagebrowserlibrary.listeners.OnClickListener;
+import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
+import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
+
 import java.util.ArrayList;
 
 /**
@@ -14,35 +18,58 @@ import java.util.ArrayList;
  */
 public class MNImageBrowser {
 
-    /**
-     * 打开浏览页面
-     *
-     * @param context   上下文
-     * @param view      点击的当前View
-     * @param position  默认打开第几个
-     * @param viewPagerTransformType  图片滑动切换的效果：支持七种效果
-     * @param imageList 数据源ArrayList<String>
-     */
-    public static void showImageBrowser(Context context, View view, int position, int viewPagerTransformType, ArrayList<String> imageList) {
-        Intent intent = new Intent(context, MNImageBrowserActivity.class);
-        intent.putExtra(MNImageBrowserActivity.IntentKey_ImageList, imageList);
-        intent.putExtra(MNImageBrowserActivity.IntentKey_CurrentPosition, position);
-        intent.putExtra(MNImageBrowserActivity.IntentKey_ViewPagerTransformType, viewPagerTransformType);
-        startBrowserAvtivity(context, view, intent);
+    private Context context;
+    private ImageBrowserConfig imageBrowserConfig;
+
+    private MNImageBrowser(Context context) {
+        this.context = context;
+        imageBrowserConfig = new ImageBrowserConfig();
     }
 
-    /**
-     * 打开浏览页面
-     *
-     * @param context   上下文
-     * @param view      点击的当前View
-     * @param position  默认打开第几个
-     * @param imageList 数据源ArrayList<String>
-     */
-    public static void showImageBrowser(Context context, View view, int position, ArrayList<String> imageList) {
+    public static MNImageBrowser with(Context context) {
+        return new MNImageBrowser(context);
+    }
+
+    public MNImageBrowser setImageList(ArrayList<String> imageList) {
+        imageBrowserConfig.setImageList(imageList);
+        return this;
+    }
+
+    public MNImageBrowser setCurrentPosition(int position) {
+        imageBrowserConfig.setPosition(position);
+        return this;
+    }
+
+    public MNImageBrowser setTransformType(ImageBrowserConfig.TransformType transformType) {
+        imageBrowserConfig.setTransformType(transformType);
+        return this;
+    }
+
+    public MNImageBrowser setImageEngine(ImageEngine imageEngine) {
+        imageBrowserConfig.setImageEngine(imageEngine);
+        return this;
+    }
+
+    public MNImageBrowser setOnClickListener(OnClickListener onClickListener) {
+        imageBrowserConfig.setOnClickListener(onClickListener);
+        return this;
+    }
+
+    public MNImageBrowser setOnLongClickListener(OnLongClickListener onLongClickListener) {
+        imageBrowserConfig.setOnLongClickListener(onLongClickListener);
+        return this;
+    }
+
+    public void show(View view) {
+        //判断是不是空
+        if (imageBrowserConfig.getImageList() == null || imageBrowserConfig.getImageList().size() <= 0) {
+            return;
+        }
+        if(imageBrowserConfig.getImageEngine() == null){
+            return;
+        }
+        MNImageBrowserActivity.imageBrowserConfig = imageBrowserConfig;
         Intent intent = new Intent(context, MNImageBrowserActivity.class);
-        intent.putExtra(MNImageBrowserActivity.IntentKey_ImageList, imageList);
-        intent.putExtra(MNImageBrowserActivity.IntentKey_CurrentPosition, position);
         startBrowserAvtivity(context, view, intent);
     }
 

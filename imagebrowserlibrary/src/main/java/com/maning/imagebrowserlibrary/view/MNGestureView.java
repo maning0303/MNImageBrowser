@@ -1,4 +1,4 @@
-package com.maning.imagebrowserlibrary;
+package com.maning.imagebrowserlibrary.view;
 
 import android.content.Context;
 import android.graphics.Color;

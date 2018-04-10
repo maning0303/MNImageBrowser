@@ -2,8 +2,11 @@ package com.maning.mnimagebrowser;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,9 +21,18 @@ import android.widget.Toast;
 
 import com.maning.imagebrowserlibrary.MNImageBrowser;
 import com.maning.imagebrowserlibrary.MNImageBrowserActivity;
+import com.maning.imagebrowserlibrary.listeners.OnClickListener;
+import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
+import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
+import com.maning.mndialoglibrary.MProgressDialog;
+import com.maning.mndialoglibrary.MStatusDialog;
 import com.squareup.picasso.Picasso;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Context context;
 
-    public int ViewPagerTransformType =  MNImageBrowserActivity.ViewPagerTransform_Default;
+    public ImageBrowserConfig.TransformType transformType = ImageBrowserConfig.TransformType.Transform_Default;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +113,25 @@ public class MainActivity extends AppCompatActivity {
             viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    MNImageBrowser.showImageBrowser(context, viewHolder.imageView, position, ViewPagerTransformType, sourceImageList);
+                    MNImageBrowser.with(context)
+                            .setTransformType(transformType)
+                            .setCurrentPosition(position)
+//                            .setImageEngine(new GlideImageEngine())
+                            .setImageEngine(new PicassoImageEngine())
+                            .setImageList(sourceImageList)
+                            .setOnClickListener(new OnClickListener() {
+                                @Override
+                                public void onClick(FragmentActivity activity, ImageView view, int position, String url) {
+                                    Toast.makeText(context, "单击监听" + position, Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setOnLongClickListener(new OnLongClickListener() {
+                                @Override
+                                public void onLongClick(final FragmentActivity activity, final ImageView imageView, int position, String url) {
+                                    showListDialog(activity, imageView);
+                                }
+                            })
+                            .show(viewHolder.imageView);
                 }
             });
 
@@ -115,6 +144,44 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void showListDialog(final FragmentActivity activity, final ImageView imageView) {
+        new ListFragmentDialog(new ListFragmentDialog.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                if (position == 1) {
+                    //检查权限
+                    AndPermission.with(activity)
+                            .permission(Permission.WRITE_EXTERNAL_STORAGE)
+                            .onGranted(new Action() {
+                                @Override
+                                public void onAction(List<String> permissions) {
+                                    //保存图片
+                                    imageView.buildDrawingCache(true);
+                                    imageView.buildDrawingCache();
+                                    Bitmap bitmap = imageView.getDrawingCache();
+                                    String path = Environment.getExternalStorageDirectory() + "/test.png";
+                                    boolean flag = BitmapUtils.saveBitmap(bitmap, path);
+                                    imageView.setDrawingCacheEnabled(false);
+                                    if(flag){
+                                        new MStatusDialog(activity).show("保存成功",activity.getResources().getDrawable(R.mipmap.ic_launcher));
+                                    }else{
+                                        new MStatusDialog(activity).show("保存失败",activity.getResources().getDrawable(R.mipmap.ic_launcher));
+                                    }
+                                }
+                            })
+                            .onDenied(new Action() {
+                                @Override
+                                public void onAction(List<String> permissions) {
+                                    new MStatusDialog(activity).show("权限获取失败",activity.getResources().getDrawable(R.mipmap.ic_launcher));
+                                }
+                            })
+                            .start();
+
+                }
+            }
+        }).show(activity.getSupportFragmentManager(), "");
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -125,25 +192,25 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_01:
-                ViewPagerTransformType = MNImageBrowserActivity.ViewPagerTransform_Default;
+                transformType = ImageBrowserConfig.TransformType.Transform_Default;
                 break;
             case R.id.menu_02:
-                ViewPagerTransformType = MNImageBrowserActivity.ViewPagerTransform_DepthPage;
+                transformType = ImageBrowserConfig.TransformType.Transform_DepthPage;
                 break;
             case R.id.menu_03:
-                ViewPagerTransformType = MNImageBrowserActivity.ViewPagerTransform_RotateDown;
+                transformType = ImageBrowserConfig.TransformType.Transform_RotateDown;
                 break;
             case R.id.menu_04:
-                ViewPagerTransformType = MNImageBrowserActivity.ViewPagerTransform_RotateUp;
+                transformType = ImageBrowserConfig.TransformType.Transform_RotateUp;
                 break;
             case R.id.menu_05:
-                ViewPagerTransformType = MNImageBrowserActivity.ViewPagerTransform_ZoomIn;
+                transformType = ImageBrowserConfig.TransformType.Transform_ZoomIn;
                 break;
             case R.id.menu_06:
-                ViewPagerTransformType = MNImageBrowserActivity.ViewPagerTransform_ZoomOutSlide;
+                transformType = ImageBrowserConfig.TransformType.Transform_ZoomOutSlide;
                 break;
             case R.id.menu_07:
-                ViewPagerTransformType = MNImageBrowserActivity.ViewPagerTransform_ZoomOut;
+                transformType = ImageBrowserConfig.TransformType.Transform_ZoomOut;
                 break;
         }
         return super.onOptionsItemSelected(item);
