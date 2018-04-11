@@ -20,7 +20,12 @@ public class GlideImageEngine implements ImageEngine {
 
     @Override
     public void loadImage(Context context, String url, ImageView imageView) {
-        Glide.with(context).load(url).placeholder(R.mipmap.ic_launcher).into(imageView);
+        Glide.with(context)
+                .load(url)
+                .asBitmap()
+                .fitCenter()
+                .placeholder(R.drawable.default_placeholder)
+                .into(imageView);
     }
 
 }

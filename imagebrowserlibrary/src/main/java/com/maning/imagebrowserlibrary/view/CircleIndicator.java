@@ -33,8 +33,8 @@ public class CircleIndicator extends LinearLayout {
     private int mIndicatorHeight = -1;
     private int mAnimatorResId = R.animator.browser_scale_with_alpha;
     private int mAnimatorReverseResId = 0;
-    private int mIndicatorBackgroundResId = R.drawable.browser_white_radius;
-    private int mIndicatorUnselectedBackgroundResId = R.drawable.browser_white_radius;
+    private int mIndicatorBackgroundResId = R.drawable.mn_browser_white_radius;
+    private int mIndicatorUnselectedBackgroundResId = R.drawable.mn_browser_white_radius;
     private Animator mAnimatorOut;
     private Animator mAnimatorIn;
     private Animator mImmediateAnimatorOut;
@@ -87,7 +87,7 @@ public class CircleIndicator extends LinearLayout {
                 typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_ci_animator_reverse, 0);
         mIndicatorBackgroundResId =
                 typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_ci_drawable,
-                        R.drawable.browser_white_radius);
+                        R.drawable.mn_browser_white_radius);
         mIndicatorUnselectedBackgroundResId =
                 typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_ci_drawable_unselected,
                         mIndicatorBackgroundResId);
@@ -106,7 +106,7 @@ public class CircleIndicator extends LinearLayout {
      */
     public void configureIndicator(int indicatorWidth, int indicatorHeight, int indicatorMargin) {
         configureIndicator(indicatorWidth, indicatorHeight, indicatorMargin,
-                R.animator.browser_scale_with_alpha, 0, R.drawable.browser_white_radius, R.drawable.browser_white_radius);
+                R.animator.browser_scale_with_alpha, 0, R.drawable.mn_browser_white_radius, R.drawable.mn_browser_white_radius);
     }
 
     public void configureIndicator(int indicatorWidth, int indicatorHeight, int indicatorMargin,
@@ -143,7 +143,7 @@ public class CircleIndicator extends LinearLayout {
         mImmediateAnimatorIn = createAnimatorIn(context);
         mImmediateAnimatorIn.setDuration(0);
 
-        mIndicatorBackgroundResId = (mIndicatorBackgroundResId == 0) ? R.drawable.browser_white_radius
+        mIndicatorBackgroundResId = (mIndicatorBackgroundResId == 0) ? R.drawable.mn_browser_white_radius
                 : mIndicatorBackgroundResId;
         mIndicatorUnselectedBackgroundResId =
                 (mIndicatorUnselectedBackgroundResId == 0) ? mIndicatorBackgroundResId

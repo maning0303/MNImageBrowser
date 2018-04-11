@@ -114,10 +114,10 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             rl_indicator.setVisibility(View.GONE);
         } else {
             rl_indicator.setVisibility(View.VISIBLE);
-            if(indicatorType == ImageBrowserConfig.IndicatorType.Indicator_Number){
+            if (indicatorType == ImageBrowserConfig.IndicatorType.Indicator_Number) {
                 numberIndicator.setVisibility(View.VISIBLE);
                 numberIndicator.setText(String.valueOf((currentPosition + 1) + "/" + imageUrlList.size()));
-            }else{
+            } else {
                 circleIndicator.setVisibility(View.VISIBLE);
             }
         }
@@ -151,7 +151,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             public boolean canSwipe() {
                 View view = imageBrowserAdapter.getPrimaryItem();
                 PhotoView imageView = (PhotoView) view.findViewById(R.id.imageView);
-                if(imageView.getScale() != 1.0){
+                if (imageView.getScale() != 1.0) {
                     return false;
                 }
                 return true;
@@ -180,7 +180,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
             @Override
             public void overSwipe() {
-                if(imageUrlList.size() > 1){
+                if (imageUrlList.size() > 1) {
                     rl_indicator.setVisibility(View.VISIBLE);
                 }
                 rl_black_bg.setAlpha(1);
@@ -234,7 +234,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
         @Override
         public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            mCurrentView = (View)object;
+            mCurrentView = (View) object;
         }
 
         public View getPrimaryItem() {

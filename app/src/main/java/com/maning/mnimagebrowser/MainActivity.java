@@ -16,6 +16,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.maning.imagebrowserlibrary.ImageEngine;
 import com.maning.imagebrowserlibrary.MNImageBrowser;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     public ImageBrowserConfig.TransformType transformType = ImageBrowserConfig.TransformType.Transform_Default;
     public ImageBrowserConfig.IndicatorType indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Number;
+    private ImageEngine imageEngine = new GlideImageEngine();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-            Picasso.with(context).load(sourceImageList.get(position)).into(viewHolder.imageView);
+            Picasso.with(context).load(sourceImageList.get(position)).placeholder(R.drawable.default_placeholder).into(viewHolder.imageView);
 
             viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -116,13 +118,11 @@ public class MainActivity extends AppCompatActivity {
                             .setTransformType(transformType)
                             .setIndicatorType(indicatorType)
                             .setCurrentPosition(position)
-                            .setImageEngine(new GlideImageEngine())
-//                            .setImageEngine(new PicassoImageEngine())
+                            .setImageEngine(imageEngine)
                             .setImageList(sourceImageList)
                             .setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(FragmentActivity activity, ImageView view, int position, String url) {
-                                    Toast.makeText(context, "单击监听" + position, Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .setOnLongClickListener(new OnLongClickListener() {
@@ -217,6 +217,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_09:
                 indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Circle;
+                break;
+            case R.id.menu_10:
+                imageEngine = new GlideImageEngine();
+                break;
+            case R.id.menu_11:
+                imageEngine = new PicassoImageEngine();
                 break;
         }
         return super.onOptionsItemSelected(item);

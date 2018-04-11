@@ -38,5 +38,13 @@
         android:id="@+id/menu_09"
         android:orderInCategory="1"
         android:title="Indicator_Circle" />
+    <item
+        android:id="@+id/menu_10"
+        android:orderInCategory="1"
+        android:title="GlideImageEngine" />
+    <item
+        android:id="@+id/menu_11"
+        android:orderInCategory="1"
+        android:title="PicassoImageEngine" />
 
 </menu>

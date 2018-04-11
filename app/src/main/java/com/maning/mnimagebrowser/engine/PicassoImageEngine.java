@@ -20,7 +20,9 @@ public class PicassoImageEngine implements ImageEngine {
 
     @Override
     public void loadImage(Context context, String url, ImageView imageView) {
-        Picasso.with(context).load(url).placeholder(R.mipmap.ic_launcher).into(imageView);
+        Picasso.with(context).load(url)
+                .placeholder(R.drawable.default_placeholder)
+                .into(imageView);
     }
 
 }
