@@ -10,7 +10,9 @@
 
         <activity
             android:name="com.maning.imagebrowserlibrary.MNImageBrowserActivity"
-            android:theme="@style/ImageBrowserTheme" />
+            android:theme="@style/ImageBrowserTheme"
+            android:launchMode="singleTop"
+            />
 
 
     </application>

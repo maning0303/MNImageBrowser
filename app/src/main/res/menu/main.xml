@@ -30,5 +30,13 @@
         android:id="@+id/menu_07"
         android:orderInCategory="1"
         android:title="ViewPagerTransform_ZoomOut" />
+    <item
+        android:id="@+id/menu_08"
+        android:orderInCategory="1"
+        android:title="Indicator_Number" />
+    <item
+        android:id="@+id/menu_09"
+        android:orderInCategory="1"
+        android:title="Indicator_Circle" />
 
 </menu>

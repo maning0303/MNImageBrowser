@@ -22,6 +22,7 @@ import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
 import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
 import com.maning.mndialoglibrary.MStatusDialog;
 import com.maning.mnimagebrowser.dialog.ListFragmentDialog;
+import com.maning.mnimagebrowser.engine.GlideImageEngine;
 import com.maning.mnimagebrowser.engine.PicassoImageEngine;
 import com.maning.mnimagebrowser.utils.BitmapUtils;
 import com.squareup.picasso.Picasso;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
 
     public ImageBrowserConfig.TransformType transformType = ImageBrowserConfig.TransformType.Transform_Default;
+    public ImageBrowserConfig.IndicatorType indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         sourceImageList.add("http://7xi8d6.com1.z0.glb.clouddn.com/2017-04-12-17662441_1675934806042139_7236493360834281472_n.jpg");
         sourceImageList.add("http://7xi8d6.com1.z0.glb.clouddn.com/2017-04-13-17882785_926451654163513_7725522121023029248_n.jpg");
         sourceImageList.add("http://7xi8d6.com1.z0.glb.clouddn.com/2017-04-14-17881962_1329090457138411_8289893708619317248_n.jpg");
-        sourceImageList.add("http://7xi8d6.com1.z0.glb.clouddn.com/2017-04-16-17934400_1738549946443321_2924146161843437568_n.jpg");
 
         gvImages.setAdapter(new NineGridAdapter());
     }
@@ -113,9 +114,10 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     MNImageBrowser.with(context)
                             .setTransformType(transformType)
+                            .setIndicatorType(indicatorType)
                             .setCurrentPosition(position)
-//                            .setImageEngine(new GlideImageEngine())
-                            .setImageEngine(new PicassoImageEngine())
+                            .setImageEngine(new GlideImageEngine())
+//                            .setImageEngine(new PicassoImageEngine())
                             .setImageList(sourceImageList)
                             .setOnClickListener(new OnClickListener() {
                                 @Override
@@ -209,6 +211,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_07:
                 transformType = ImageBrowserConfig.TransformType.Transform_ZoomOut;
+                break;
+            case R.id.menu_08:
+                indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Number;
+                break;
+            case R.id.menu_09:
+                indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Circle;
                 break;
         }
         return super.onOptionsItemSelected(item);

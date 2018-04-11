@@ -9,6 +9,7 @@
 
 #### 截图:
 ![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser002.png)
+![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser004.png)
 ![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser003.png)
 
 ## 如何添加
@@ -42,16 +43,20 @@
 ## 代码使用:
 ``` java
 
+    public ImageBrowserConfig.TransformType transformType = ImageBrowserConfig.TransformType.Transform_Default;
+    public ImageBrowserConfig.IndicatorType indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Number;
+
     MNImageBrowser.with(context)
-             //非必须-图片切换动画
-             .setTransformType(transformType)
              //必须-当前位置
              .setCurrentPosition(position)
              //必须-图片加载用户自己去选择
-             .setImageEngine(new GlideImageEngine())
-             .setImageEngine(new PicassoImageEngine())
+             .setImageEngine(new XXXImageEngine())
              //必须-图片集合
              .setImageList(sourceImageList)
+             //非必须-图片切换动画
+             .setTransformType(transformType)
+             //非必须-指示器样式（默认文本样式：两种模式）
+             .setIndicatorType(indicatorType)
              //非必须-图片单击监听
              .setOnClickListener(new OnClickListener() {
                  @Override
@@ -62,7 +67,7 @@
              //非必须-图片长按监听
              .setOnLongClickListener(new OnLongClickListener() {
                  @Override
-                 public void onLongClick(final FragmentActivity activity, final ImageView imageView, int position, String url) {
+                 public void onLongClick(FragmentActivity activity, ImageView imageView, int position, String url) {
                     //长按监听
                  }
              })
@@ -95,17 +100,17 @@
     
     //其它
     public class XXXImageEngine implements ImageEngine {
-            @Override
-            public void loadImage(Context context, String url, ImageView imageView) {
-                //加载图片实现
-            }
-        
+        @Override
+        public void loadImage(Context context, String url, ImageView imageView) {
+            //加载图片实现
         }
+        
+     }
 
 ```
 
 
-## ViewPagerTransform 提供7种效果：
+## TransformType 提供7种效果：
 ``` java
 
     ImageBrowserConfig：
@@ -123,16 +128,38 @@
 
 ```
 
+## IndicatorType 提供2种效果：
+``` java
+
+    ImageBrowserConfig：
+
+    //枚举类型
+    public enum IndicatorType {
+        Indicator_Circle,
+        Indicator_Number
+    }
+
+```
+
 
 ## 内部依赖库:
 ``` gradle
 
     //图片手势缩放
-    compile 'com.github.chrisbanes:PhotoView:2.0.0'
+    compile 'com.github.chrisbanes:PhotoView:2.1.3'
 
 ```
 
 ## 详情见Demo
+
+## 版本记录：
+##### 版本 V1.1.0:
+    1.调用方式更加方便
+    2.图片加载方式外部实现
+    3.修复大图下拉和手势关闭冲突问题
+    4.单个图片不显示数量指示器
+    5.数量指示器两种模式（数字和圆点）
+    6.添加单击和长按监听
 
 ## 推荐:
 Name | Describe |

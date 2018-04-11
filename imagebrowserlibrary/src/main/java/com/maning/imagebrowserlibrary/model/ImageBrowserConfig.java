@@ -29,13 +29,28 @@ public class ImageBrowserConfig {
         Transform_ZoomOut,
     }
 
+    //枚举类型
+    public enum IndicatorType {
+        Indicator_Circle,
+        Indicator_Number
+    }
 
-    private ArrayList<String> imageList;
+    //当前位置
     private int position;
     private TransformType transformType = TransformType.Transform_Default;
+    private IndicatorType indicatorType = IndicatorType.Indicator_Number;
+    private ArrayList<String> imageList;
     private ImageEngine imageEngine;
     private OnClickListener onClickListener;
     private OnLongClickListener onLongClickListener;
+
+    public IndicatorType getIndicatorType() {
+        return indicatorType;
+    }
+
+    public void setIndicatorType(IndicatorType indicatorType) {
+        this.indicatorType = indicatorType;
+    }
 
     public OnClickListener getOnClickListener() {
         return onClickListener;

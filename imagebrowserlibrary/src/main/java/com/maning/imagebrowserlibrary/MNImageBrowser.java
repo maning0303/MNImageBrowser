@@ -60,6 +60,11 @@ public class MNImageBrowser {
         return this;
     }
 
+    public MNImageBrowser setIndicatorType(ImageBrowserConfig.IndicatorType indicatorType) {
+        imageBrowserConfig.setIndicatorType(indicatorType);
+        return this;
+    }
+
     public void show(View view) {
         //判断是不是空
         if (imageBrowserConfig.getImageList() == null || imageBrowserConfig.getImageList().size() <= 0) {
@@ -67,6 +72,9 @@ public class MNImageBrowser {
         }
         if(imageBrowserConfig.getImageEngine() == null){
             return;
+        }
+        if(imageBrowserConfig.getIndicatorType() == null){
+            imageBrowserConfig.setIndicatorType(ImageBrowserConfig.IndicatorType.Indicator_Number);
         }
         MNImageBrowserActivity.imageBrowserConfig = imageBrowserConfig;
         Intent intent = new Intent(context, MNImageBrowserActivity.class);

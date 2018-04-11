@@ -27,6 +27,7 @@ import com.maning.imagebrowserlibrary.transforms.RotateUpTransformer;
 import com.maning.imagebrowserlibrary.transforms.ZoomInTransformer;
 import com.maning.imagebrowserlibrary.transforms.ZoomOutSlideTransformer;
 import com.maning.imagebrowserlibrary.transforms.ZoomOutTransformer;
+import com.maning.imagebrowserlibrary.view.CircleIndicator;
 import com.maning.imagebrowserlibrary.view.MNGestureView;
 import com.maning.imagebrowserlibrary.view.MNViewPager;
 
@@ -42,8 +43,10 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
     private MNGestureView mnGestureView;
     private MNViewPager viewPagerBrowser;
-    private TextView tvNumShow;
     private RelativeLayout rl_black_bg;
+    private RelativeLayout rl_indicator;
+    private TextView numberIndicator;
+    private CircleIndicator circleIndicator;
 
     //图片地址
     private ArrayList<String> imageUrlList;
@@ -51,6 +54,8 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     private int currentPosition;
     //当前切换的动画
     private ImageBrowserConfig.TransformType transformType;
+    //切换器
+    private ImageBrowserConfig.IndicatorType indicatorType;
     //图片加载引擎
     public ImageEngine imageEngine;
     //监听
@@ -88,9 +93,12 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     private void initViews() {
         viewPagerBrowser = (MNViewPager) findViewById(R.id.viewPagerBrowser);
         mnGestureView = (MNGestureView) findViewById(R.id.mnGestureView);
-        tvNumShow = (TextView) findViewById(R.id.tvNumShow);
         rl_black_bg = (RelativeLayout) findViewById(R.id.rl_black_bg);
-
+        rl_indicator = (RelativeLayout) findViewById(R.id.rl_indicator);
+        circleIndicator = (CircleIndicator) findViewById(R.id.circleIndicator);
+        numberIndicator = (TextView) findViewById(R.id.numberIndicator);
+        circleIndicator.setVisibility(View.GONE);
+        numberIndicator.setVisibility(View.GONE);
     }
 
     private void initData() {
@@ -100,12 +108,18 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         imageEngine = imageBrowserConfig.getImageEngine();
         onClickListener = imageBrowserConfig.getOnClickListener();
         onLongClickListener = imageBrowserConfig.getOnLongClickListener();
+        indicatorType = imageBrowserConfig.getIndicatorType();
 
-        if (imageUrlList.size() == 1) {
-            tvNumShow.setVisibility(View.GONE);
+        if (imageUrlList.size() <= 1) {
+            rl_indicator.setVisibility(View.GONE);
         } else {
-            tvNumShow.setVisibility(View.VISIBLE);
-            tvNumShow.setText(String.valueOf((currentPosition + 1) + "/" + imageUrlList.size()));
+            rl_indicator.setVisibility(View.VISIBLE);
+            if(indicatorType == ImageBrowserConfig.IndicatorType.Indicator_Number){
+                numberIndicator.setVisibility(View.VISIBLE);
+                numberIndicator.setText(String.valueOf((currentPosition + 1) + "/" + imageUrlList.size()));
+            }else{
+                circleIndicator.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -114,6 +128,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         viewPagerBrowser.setAdapter(imageBrowserAdapter);
         viewPagerBrowser.setCurrentItem(currentPosition);
         setViewPagerTransforms();
+        circleIndicator.setViewPager(viewPagerBrowser);
         viewPagerBrowser.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -122,7 +137,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                tvNumShow.setText(String.valueOf((position + 1) + "/" + imageUrlList.size()));
+                numberIndicator.setText(String.valueOf((position + 1) + "/" + imageUrlList.size()));
             }
 
             @Override
@@ -151,7 +166,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
             @Override
             public void onSwiping(float deltaY) {
-                tvNumShow.setVisibility(View.GONE);
+                rl_indicator.setVisibility(View.GONE);
 
                 float mAlpha = 1 - deltaY / 500;
                 if (mAlpha < 0.3) {
@@ -165,7 +180,9 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
             @Override
             public void overSwipe() {
-                tvNumShow.setVisibility(View.VISIBLE);
+                if(imageUrlList.size() > 1){
+                    rl_indicator.setVisibility(View.VISIBLE);
+                }
                 rl_black_bg.setAlpha(1);
             }
         });
@@ -192,7 +209,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     }
 
     private void finishBrowser() {
-        tvNumShow.setVisibility(View.GONE);
+        rl_indicator.setVisibility(View.GONE);
         rl_black_bg.setAlpha(0);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         finish();
@@ -258,8 +275,6 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    float scale = imageView.getScale();
-                    Log.i("-------", scale + "");
                     //单击事件
                     if (onClickListener != null) {
                         onClickListener.onClick(MNImageBrowserActivity.this, imageView, position, url);
@@ -267,6 +282,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                     finishBrowser();
                 }
             });
+
             imageView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
