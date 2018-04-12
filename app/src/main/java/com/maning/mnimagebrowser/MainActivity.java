@@ -163,16 +163,16 @@ public class MainActivity extends AppCompatActivity {
                                     boolean flag = BitmapUtils.saveBitmap(bitmap, path);
                                     imageView.setDrawingCacheEnabled(false);
                                     if(flag){
-                                        new MStatusDialog(activity).show("保存成功",activity.getResources().getDrawable(R.mipmap.ic_launcher));
+                                        new MStatusDialog(activity).show("保存成功",activity.getResources().getDrawable(R.drawable.icon_save_success));
                                     }else{
-                                        new MStatusDialog(activity).show("保存失败",activity.getResources().getDrawable(R.mipmap.ic_launcher));
+                                        new MStatusDialog(activity).show("保存失败",activity.getResources().getDrawable(R.drawable.icon_save_fail));
                                     }
                                 }
                             })
                             .onDenied(new Action() {
                                 @Override
                                 public void onAction(List<String> permissions) {
-                                    new MStatusDialog(activity).show("权限获取失败",activity.getResources().getDrawable(R.mipmap.ic_launcher));
+                                    new MStatusDialog(activity).show("权限获取失败",activity.getResources().getDrawable(R.drawable.icon_save_fail));
                                 }
                             })
                             .start();

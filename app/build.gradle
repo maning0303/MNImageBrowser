@@ -33,6 +33,6 @@ dependencies {
 
     compile project(':imagebrowserlibrary')
     //测试
-//    compile 'com.github.maning0303:MNImageBrowser:V1.0.3'
+//    compile 'com.github.maning0303:MNImageBrowser:V1.1.0'
 }
 
