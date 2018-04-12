@@ -1,5 +1,5 @@
 # MNImageBrowser
-一个基本的图片浏览框架,向下滑动关闭,方便使用.
+一个图片浏览框架,类似微信图片浏览,手势向下滑动关闭,支持长按和单击监听,简单方便。
 [![](https://jitpack.io/v/maning0303/MNImageBrowser.svg)](https://jitpack.io/#maning0303/MNImageBrowser)
 
 ## 截图
