@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.maning.imagebrowserlibrary.ImageEngine;
 import com.maning.imagebrowserlibrary.MNImageBrowser;
@@ -26,6 +26,7 @@ import com.maning.mnimagebrowser.dialog.ListFragmentDialog;
 import com.maning.mnimagebrowser.engine.GlideImageEngine;
 import com.maning.mnimagebrowser.engine.PicassoImageEngine;
 import com.maning.mnimagebrowser.utils.BitmapUtils;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         sourceImageList = new ArrayList<>();
+        sourceImageList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523527461022&di=cf56170de9cd14bd24299af8597ee88d&imgtype=0&src=http%3A%2F%2Fpic13.nipic.com%2F20110414%2F7056815_094945110000_2.jpg");
+        sourceImageList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523527636870&di=756de67da481b197037dc5bfbe4bf1a6&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F012bc0585250e8a801219c77cf3db4.jpg");
         sourceImageList.add("http://7xi8d6.com1.z0.glb.clouddn.com/2017-05-12-18380140_455327614813449_854681840315793408_n.jpg");
         sourceImageList.add("http://7xi8d6.com1.z0.glb.clouddn.com/2017-05-11-18380166_305443499890139_8426655762360565760_n.jpg");
         sourceImageList.add("http://7xi8d6.com1.z0.glb.clouddn.com/2017-05-10-18382517_1955528334668679_3605707761767153664_n.jpg");
@@ -109,7 +112,21 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-            Picasso.with(context).load(sourceImageList.get(position)).placeholder(R.drawable.default_placeholder).into(viewHolder.imageView);
+            Picasso.with(context)
+                    .load(sourceImageList.get(position))
+                    .placeholder(R.drawable.default_placeholder)
+                    .error(R.mipmap.ic_launcher)
+                    .into(viewHolder.imageView, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Log.i("----","onSuccess:"+position);
+                        }
+
+                        @Override
+                        public void onError() {
+                            Log.i("----","onError:"+position);
+                        }
+                    });
 
             viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
