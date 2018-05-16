@@ -10,10 +10,8 @@
 
         <activity
             android:name="com.maning.imagebrowserlibrary.MNImageBrowserActivity"
-            android:theme="@style/ImageBrowserTheme"
-            android:launchMode="singleTop"
-            />
-
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/ImageBrowserTheme" />
 
     </application>
 

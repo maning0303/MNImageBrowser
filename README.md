@@ -51,8 +51,10 @@
              .setCurrentPosition(position)
              //必须-图片加载用户自己去选择
              .setImageEngine(new XXXImageEngine())
-             //必须-图片集合
+             //必须（setImageList和setImageUrl二选一，会覆盖）-图片集合
              .setImageList(sourceImageList)
+             //必须（setImageList和setImageUrl二选一，会覆盖）-设置单张图片
+             .setImageUrl("xxx")
              //非必须-图片切换动画
              .setTransformType(transformType)
              //非必须-指示器样式（默认文本样式：两种模式）

@@ -30,6 +30,13 @@ public class MNImageBrowser {
         return new MNImageBrowser(context);
     }
 
+    public MNImageBrowser setImageUrl(String imageUrl) {
+        ArrayList<String> imageList = new ArrayList<>();
+        imageList.add(imageUrl);
+        imageBrowserConfig.setImageList(imageList);
+        return this;
+    }
+
     public MNImageBrowser setImageList(ArrayList<String> imageList) {
         imageBrowserConfig.setImageList(imageList);
         return this;

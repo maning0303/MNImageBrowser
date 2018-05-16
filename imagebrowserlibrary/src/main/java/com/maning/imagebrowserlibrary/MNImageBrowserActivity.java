@@ -1,6 +1,8 @@
 package com.maning.imagebrowserlibrary;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -39,6 +41,7 @@ import java.util.ArrayList;
  */
 public class MNImageBrowserActivity extends AppCompatActivity {
 
+    private static final String TAG = "MNImageBrowserActivity";
     private Context context;
 
     private MNGestureView mnGestureView;
@@ -87,6 +90,16 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // 虚拟导航栏透明
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if(newConfig.orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT){
+            //切换到竖屏
+        }else{
+            //切换到横屏
         }
     }
 
