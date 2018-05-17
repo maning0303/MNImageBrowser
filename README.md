@@ -59,6 +59,8 @@
              .setTransformType(transformType)
              //非必须-指示器样式（默认文本样式：两种模式）
              .setIndicatorType(indicatorType)
+             //非必须-屏幕方向：横屏，竖屏，Both（默认：横竖屏都支持）
+             .setScreenOrientationType(ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default)
              //非必须-图片单击监听
              .setOnClickListener(new OnClickListener() {
                  @Override
@@ -112,12 +114,12 @@
 ```
 
 
-## TransformType 提供7种效果：
+## TransformType 切换效果提供7种效果：
 ``` java
 
     ImageBrowserConfig：
 
-    //枚举类型
+    //枚举类型：切换动画类型
     public enum TransformType {
         Transform_Default,
         Transform_DepthPage,
@@ -130,15 +132,33 @@
 
 ```
 
-## IndicatorType 提供2种效果：
+## IndicatorType 指示器提供2种效果：
 ``` java
 
     ImageBrowserConfig：
 
-    //枚举类型
+    //枚举类型：指示器类型
     public enum IndicatorType {
         Indicator_Circle,
         Indicator_Number
+    }
+
+```
+
+
+## ScreenOrientationType 屏幕方向3种效果：
+``` java
+
+    ImageBrowserConfig：
+
+    //枚举类型：屏幕方向
+    public enum ScreenOrientationType {
+        //默认：横竖屏全部支持
+        Screenorientation_Default,
+        //竖屏
+        ScreenOrientation_Portrait,
+        //横屏
+        Screenorientation_Landscape,
     }
 
 ```
@@ -155,6 +175,11 @@
 ## 详情见Demo
 
 ## 版本记录：
+##### 版本 V1.1.1:
+    1.支持单张图片，不需要传入集合
+    2.支持设置屏幕方向设置：横屏，竖屏，都支持
+    
+    
 ##### 版本 V1.1.0:
     1.调用方式更加方便
     2.图片加载方式外部实现

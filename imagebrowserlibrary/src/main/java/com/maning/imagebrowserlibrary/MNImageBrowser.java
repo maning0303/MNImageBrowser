@@ -71,6 +71,10 @@ public class MNImageBrowser {
         imageBrowserConfig.setIndicatorType(indicatorType);
         return this;
     }
+    public MNImageBrowser setScreenOrientationType(ImageBrowserConfig.ScreenOrientationType screenOrientationType) {
+        imageBrowserConfig.setScreenOrientationType(screenOrientationType);
+        return this;
+    }
 
     public void show(View view) {
         //判断是不是空

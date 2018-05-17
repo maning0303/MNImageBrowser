@@ -67,6 +67,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     //相关配置信息
     public static ImageBrowserConfig imageBrowserConfig;
     private MyAdapter imageBrowserAdapter;
+    private ImageBrowserConfig.ScreenOrientationType screenOrientationType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,16 +94,6 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        if(newConfig.orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT){
-            //切换到竖屏
-        }else{
-            //切换到横屏
-        }
-    }
-
     private void initViews() {
         viewPagerBrowser = (MNViewPager) findViewById(R.id.viewPagerBrowser);
         mnGestureView = (MNGestureView) findViewById(R.id.mnGestureView);
@@ -122,6 +113,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         onClickListener = imageBrowserConfig.getOnClickListener();
         onLongClickListener = imageBrowserConfig.getOnLongClickListener();
         indicatorType = imageBrowserConfig.getIndicatorType();
+        screenOrientationType = imageBrowserConfig.getScreenOrientationType();
 
         if (imageUrlList.size() <= 1) {
             rl_indicator.setVisibility(View.GONE);
@@ -134,6 +126,18 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                 circleIndicator.setVisibility(View.VISIBLE);
             }
         }
+
+        if(screenOrientationType == ImageBrowserConfig.ScreenOrientationType.ScreenOrientation_Portrait){
+            //设置横竖屏
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }else if(screenOrientationType == ImageBrowserConfig.ScreenOrientationType.Screenorientation_Landscape){
+            //设置横横屏
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }else{
+            //设置默认:由设备的物理方向传感器决定
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        }
+
     }
 
     private void initViewPager() {

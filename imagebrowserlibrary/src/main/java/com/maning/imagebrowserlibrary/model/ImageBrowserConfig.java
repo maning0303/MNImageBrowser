@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class ImageBrowserConfig {
 
-    //枚举类型
+    //枚举类型：切换动画类型
     public enum TransformType {
         Transform_Default,
         Transform_DepthPage,
@@ -29,20 +29,46 @@ public class ImageBrowserConfig {
         Transform_ZoomOut,
     }
 
-    //枚举类型
+    //枚举类型：指示器类型
     public enum IndicatorType {
         Indicator_Circle,
-        Indicator_Number
+        Indicator_Number,
+    }
+
+    //枚举类型：屏幕方向
+    public enum ScreenOrientationType {
+        //默认：横竖屏全部支持
+        Screenorientation_Default,
+        //竖屏
+        ScreenOrientation_Portrait,
+        //横屏
+        Screenorientation_Landscape,
     }
 
     //当前位置
     private int position;
+    //切换效果
     private TransformType transformType = TransformType.Transform_Default;
+    //指示器类型
     private IndicatorType indicatorType = IndicatorType.Indicator_Number;
+    //图片源
     private ArrayList<String> imageList;
+    //图片加载引擎
     private ImageEngine imageEngine;
+    //单击监听
     private OnClickListener onClickListener;
+    //长按监听
     private OnLongClickListener onLongClickListener;
+    //设置屏幕的方向
+    private ScreenOrientationType screenOrientationType = ScreenOrientationType.Screenorientation_Default;
+
+    public ScreenOrientationType getScreenOrientationType() {
+        return screenOrientationType;
+    }
+
+    public void setScreenOrientationType(ScreenOrientationType screenOrientationType) {
+        this.screenOrientationType = screenOrientationType;
+    }
 
     public IndicatorType getIndicatorType() {
         return indicatorType;

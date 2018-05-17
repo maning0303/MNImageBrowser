@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                             .setCurrentPosition(position)
                             .setImageEngine(imageEngine)
                             .setImageList(sourceImageList)
+                            .setScreenOrientationType(ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default)
                             .setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(FragmentActivity activity, ImageView view, int position, String url) {
