@@ -45,6 +45,7 @@
 
     public ImageBrowserConfig.TransformType transformType = ImageBrowserConfig.TransformType.Transform_Default;
     public ImageBrowserConfig.IndicatorType indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Number;
+    public ImageBrowserConfig.ScreenOrientationType screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default;
 
     MNImageBrowser.with(context)
              //必须-当前位置
@@ -60,7 +61,7 @@
              //非必须-指示器样式（默认文本样式：两种模式）
              .setIndicatorType(indicatorType)
              //非必须-屏幕方向：横屏，竖屏，Both（默认：横竖屏都支持）
-             .setScreenOrientationType(ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default)
+             .setScreenOrientationType(screenOrientationType)
              //非必须-图片单击监听
              .setOnClickListener(new OnClickListener() {
                  @Override

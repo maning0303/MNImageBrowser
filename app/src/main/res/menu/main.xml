@@ -46,5 +46,17 @@
         android:id="@+id/menu_11"
         android:orderInCategory="1"
         android:title="PicassoImageEngine" />
+    <item
+        android:id="@+id/menu_12"
+        android:orderInCategory="1"
+        android:title="Screenorientation_Default" />
+    <item
+        android:id="@+id/menu_13"
+        android:orderInCategory="1"
+        android:title="ScreenOrientation_Portrait" />
+    <item
+        android:id="@+id/menu_14"
+        android:orderInCategory="1"
+        android:title="Screenorientation_Landscape" />
 
 </menu>

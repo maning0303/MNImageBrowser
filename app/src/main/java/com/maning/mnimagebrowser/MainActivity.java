@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     public ImageBrowserConfig.TransformType transformType = ImageBrowserConfig.TransformType.Transform_Default;
     public ImageBrowserConfig.IndicatorType indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Number;
+    public ImageBrowserConfig.ScreenOrientationType screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default;
     private ImageEngine imageEngine = new GlideImageEngine();
 
     @Override
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                             .setCurrentPosition(position)
                             .setImageEngine(imageEngine)
                             .setImageList(sourceImageList)
-                            .setScreenOrientationType(ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default)
+                            .setScreenOrientationType(screenOrientationType)
                             .setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(FragmentActivity activity, ImageView view, int position, String url) {
@@ -241,6 +242,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_11:
                 imageEngine = new PicassoImageEngine();
+                break;
+            case R.id.menu_12:
+                screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default;
+                break;
+            case R.id.menu_13:
+                screenOrientationType = ImageBrowserConfig.ScreenOrientationType.ScreenOrientation_Portrait;
+                break;
+            case R.id.menu_14:
+                screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Landscape;
                 break;
         }
         return super.onOptionsItemSelected(item);
