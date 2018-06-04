@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
+import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
 import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
 import com.maning.imagebrowserlibrary.transforms.DefaultTransformer;
 import com.maning.imagebrowserlibrary.transforms.DepthPageTransformer;
@@ -33,6 +34,7 @@ import com.maning.imagebrowserlibrary.view.CircleIndicator;
 import com.maning.imagebrowserlibrary.view.MNGestureView;
 import com.maning.imagebrowserlibrary.view.MNViewPager;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 
@@ -40,6 +42,8 @@ import java.util.ArrayList;
  * 图片浏览的页面
  */
 public class MNImageBrowserActivity extends AppCompatActivity {
+    //用来保存当前Activity
+    private static WeakReference<MNImageBrowserActivity> sActivityRef;
 
     private static final String TAG = "MNImageBrowserActivity";
     private Context context;
@@ -64,6 +68,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     //监听
     public OnLongClickListener onLongClickListener;
     public OnClickListener onClickListener;
+    public OnPageChangeListener onPageChangeListener;
     //相关配置信息
     public static ImageBrowserConfig imageBrowserConfig;
     private MyAdapter imageBrowserAdapter;
@@ -74,6 +79,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setWindowFullScreen();
         setContentView(R.layout.activity_mnimage_browser);
+        sActivityRef = new WeakReference<>(this);
         context = this;
 
         initViews();
@@ -114,6 +120,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         onLongClickListener = imageBrowserConfig.getOnLongClickListener();
         indicatorType = imageBrowserConfig.getIndicatorType();
         screenOrientationType = imageBrowserConfig.getScreenOrientationType();
+        onPageChangeListener = imageBrowserConfig.getOnPageChangeListener();
 
         if (imageUrlList.size() <= 1) {
             rl_indicator.setVisibility(View.GONE);
@@ -127,13 +134,13 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             }
         }
 
-        if(screenOrientationType == ImageBrowserConfig.ScreenOrientationType.ScreenOrientation_Portrait){
+        if (screenOrientationType == ImageBrowserConfig.ScreenOrientationType.ScreenOrientation_Portrait) {
             //设置横竖屏
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }else if(screenOrientationType == ImageBrowserConfig.ScreenOrientationType.Screenorientation_Landscape){
+        } else if (screenOrientationType == ImageBrowserConfig.ScreenOrientationType.Screenorientation_Landscape) {
             //设置横横屏
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }else{
+        } else {
             //设置默认:由设备的物理方向传感器决定
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         }
@@ -155,6 +162,9 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 numberIndicator.setText(String.valueOf((position + 1) + "/" + imageUrlList.size()));
+                if (onPageChangeListener != null) {
+                    onPageChangeListener.onPageSelected(position);
+                }
             }
 
             @Override
@@ -313,6 +323,21 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             container.addView(inflate);
             return inflate;
         }
+    }
+
+    /**
+     * 关闭当前Activity
+     */
+    public static void finishActivity() {
+        if (sActivityRef != null && sActivityRef.get() != null) {
+            sActivityRef.get().finish();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sActivityRef = null;
     }
 
 }

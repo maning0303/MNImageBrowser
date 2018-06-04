@@ -20,6 +20,7 @@ import com.maning.imagebrowserlibrary.ImageEngine;
 import com.maning.imagebrowserlibrary.MNImageBrowser;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
+import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
 import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
 import com.maning.mndialoglibrary.MStatusDialog;
 import com.maning.mnimagebrowser.dialog.ListFragmentDialog;
@@ -37,6 +38,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
     protected GridView gvImages;
 
     private ArrayList<String> sourceImageList;
@@ -120,12 +122,12 @@ public class MainActivity extends AppCompatActivity {
                     .into(viewHolder.imageView, new Callback() {
                         @Override
                         public void onSuccess() {
-                            Log.i("----","onSuccess:"+position);
+                            Log.i("----", "onSuccess:" + position);
                         }
 
                         @Override
                         public void onError() {
-                            Log.i("----","onError:"+position);
+                            Log.i("----", "onError:" + position);
                         }
                     });
 
@@ -148,6 +150,12 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onLongClick(final FragmentActivity activity, final ImageView imageView, int position, String url) {
                                     showListDialog(activity, imageView);
+                                }
+                            })
+                            .setOnPageChangeListener(new OnPageChangeListener() {
+                                @Override
+                                public void onPageSelected(int position) {
+                                    Log.i(TAG, "onPageSelected:" + position);
                                 }
                             })
                             .show(viewHolder.imageView);
@@ -181,17 +189,17 @@ public class MainActivity extends AppCompatActivity {
                                     String path = Environment.getExternalStorageDirectory() + "/test.png";
                                     boolean flag = BitmapUtils.saveBitmap(bitmap, path);
                                     imageView.setDrawingCacheEnabled(false);
-                                    if(flag){
-                                        new MStatusDialog(activity).show("保存成功",activity.getResources().getDrawable(R.drawable.icon_save_success));
-                                    }else{
-                                        new MStatusDialog(activity).show("保存失败",activity.getResources().getDrawable(R.drawable.icon_save_fail));
+                                    if (flag) {
+                                        new MStatusDialog(activity).show("保存成功", activity.getResources().getDrawable(R.drawable.icon_save_success));
+                                    } else {
+                                        new MStatusDialog(activity).show("保存失败", activity.getResources().getDrawable(R.drawable.icon_save_fail));
                                     }
                                 }
                             })
                             .onDenied(new Action() {
                                 @Override
                                 public void onAction(List<String> permissions) {
-                                    new MStatusDialog(activity).show("权限获取失败",activity.getResources().getDrawable(R.drawable.icon_save_fail));
+                                    new MStatusDialog(activity).show("权限获取失败", activity.getResources().getDrawable(R.drawable.icon_save_fail));
                                 }
                             })
                             .start();

@@ -4,6 +4,7 @@ import com.maning.imagebrowserlibrary.ImageEngine;
 import com.maning.imagebrowserlibrary.MNImageBrowserActivity;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
+import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
 
 import java.util.ArrayList;
 
@@ -59,6 +60,8 @@ public class ImageBrowserConfig {
     private OnClickListener onClickListener;
     //长按监听
     private OnLongClickListener onLongClickListener;
+    //页面切换监听
+    private OnPageChangeListener onPageChangeListener;
     //设置屏幕的方向
     private ScreenOrientationType screenOrientationType = ScreenOrientationType.Screenorientation_Default;
 
@@ -68,6 +71,14 @@ public class ImageBrowserConfig {
 
     public void setScreenOrientationType(ScreenOrientationType screenOrientationType) {
         this.screenOrientationType = screenOrientationType;
+    }
+
+    public OnPageChangeListener getOnPageChangeListener() {
+        return onPageChangeListener;
+    }
+
+    public void setOnPageChangeListener(OnPageChangeListener onPageChangeListener) {
+        this.onPageChangeListener = onPageChangeListener;
     }
 
     public IndicatorType getIndicatorType() {

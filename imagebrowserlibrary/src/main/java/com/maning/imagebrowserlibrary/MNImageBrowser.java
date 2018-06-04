@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
+import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
 import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
 
 import java.util.ArrayList;
@@ -67,10 +68,16 @@ public class MNImageBrowser {
         return this;
     }
 
+    public MNImageBrowser setOnPageChangeListener(OnPageChangeListener onPageChangeListener) {
+        imageBrowserConfig.setOnPageChangeListener(onPageChangeListener);
+        return this;
+    }
+
     public MNImageBrowser setIndicatorType(ImageBrowserConfig.IndicatorType indicatorType) {
         imageBrowserConfig.setIndicatorType(indicatorType);
         return this;
     }
+
     public MNImageBrowser setScreenOrientationType(ImageBrowserConfig.ScreenOrientationType screenOrientationType) {
         imageBrowserConfig.setScreenOrientationType(screenOrientationType);
         return this;
@@ -81,10 +88,10 @@ public class MNImageBrowser {
         if (imageBrowserConfig.getImageList() == null || imageBrowserConfig.getImageList().size() <= 0) {
             return;
         }
-        if(imageBrowserConfig.getImageEngine() == null){
+        if (imageBrowserConfig.getImageEngine() == null) {
             return;
         }
-        if(imageBrowserConfig.getIndicatorType() == null){
+        if (imageBrowserConfig.getIndicatorType() == null) {
             imageBrowserConfig.setIndicatorType(ImageBrowserConfig.IndicatorType.Indicator_Number);
         }
         MNImageBrowserActivity.imageBrowserConfig = imageBrowserConfig;
