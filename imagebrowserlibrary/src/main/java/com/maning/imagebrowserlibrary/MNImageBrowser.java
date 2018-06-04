@@ -78,6 +78,11 @@ public class MNImageBrowser {
         return this;
     }
 
+    public MNImageBrowser setIndicatorHide(boolean indicatorHide) {
+        imageBrowserConfig.setIndicatorHide(indicatorHide);
+        return this;
+    }
+
     public MNImageBrowser setScreenOrientationType(ImageBrowserConfig.ScreenOrientationType screenOrientationType) {
         imageBrowserConfig.setScreenOrientationType(screenOrientationType);
         return this;

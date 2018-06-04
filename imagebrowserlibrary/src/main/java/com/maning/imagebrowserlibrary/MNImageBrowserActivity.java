@@ -126,12 +126,19 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             rl_indicator.setVisibility(View.GONE);
         } else {
             rl_indicator.setVisibility(View.VISIBLE);
-            if (indicatorType == ImageBrowserConfig.IndicatorType.Indicator_Number) {
-                numberIndicator.setVisibility(View.VISIBLE);
-                numberIndicator.setText(String.valueOf((currentPosition + 1) + "/" + imageUrlList.size()));
-            } else {
-                circleIndicator.setVisibility(View.VISIBLE);
-            }
+        }
+
+        if (imageBrowserConfig.isIndicatorHide()) {
+            rl_indicator.setVisibility(View.GONE);
+        } else {
+            rl_indicator.setVisibility(View.VISIBLE);
+        }
+
+        if (indicatorType == ImageBrowserConfig.IndicatorType.Indicator_Number) {
+            numberIndicator.setVisibility(View.VISIBLE);
+            numberIndicator.setText(String.valueOf((currentPosition + 1) + "/" + imageUrlList.size()));
+        } else {
+            circleIndicator.setVisibility(View.VISIBLE);
         }
 
         if (screenOrientationType == ImageBrowserConfig.ScreenOrientationType.ScreenOrientation_Portrait) {

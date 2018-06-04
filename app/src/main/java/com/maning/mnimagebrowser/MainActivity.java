@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     MNImageBrowser.with(context)
                             .setTransformType(transformType)
                             .setIndicatorType(indicatorType)
+                            .setIndicatorHide(false)
                             .setCurrentPosition(position)
                             .setImageEngine(imageEngine)
                             .setImageList(sourceImageList)

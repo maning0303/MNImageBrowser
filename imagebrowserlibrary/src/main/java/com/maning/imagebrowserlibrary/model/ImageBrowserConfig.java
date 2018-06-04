@@ -64,6 +64,16 @@ public class ImageBrowserConfig {
     private OnPageChangeListener onPageChangeListener;
     //设置屏幕的方向
     private ScreenOrientationType screenOrientationType = ScreenOrientationType.Screenorientation_Default;
+    //是否隐藏指示器
+    private boolean indicatorHide = false;
+
+    public boolean isIndicatorHide() {
+        return indicatorHide;
+    }
+
+    public void setIndicatorHide(boolean indicatorHide) {
+        this.indicatorHide = indicatorHide;
+    }
 
     public ScreenOrientationType getScreenOrientationType() {
         return screenOrientationType;
