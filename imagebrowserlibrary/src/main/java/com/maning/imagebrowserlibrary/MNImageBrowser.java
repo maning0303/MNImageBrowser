@@ -111,4 +111,11 @@ public class MNImageBrowser {
         }
     }
 
+    /**
+     * 手动关闭图片浏览器
+     */
+    public static void finishImageBrowser() {
+        MNImageBrowserActivity.finishActivity();
+    }
+
 }
