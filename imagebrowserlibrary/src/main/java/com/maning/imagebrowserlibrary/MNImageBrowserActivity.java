@@ -132,19 +132,18 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             rl_indicator.setVisibility(View.GONE);
         } else {
             rl_indicator.setVisibility(View.VISIBLE);
-        }
 
-        if (imageBrowserConfig.isIndicatorHide()) {
-            rl_indicator.setVisibility(View.GONE);
-        } else {
-            rl_indicator.setVisibility(View.VISIBLE);
-        }
-
-        if (indicatorType == ImageBrowserConfig.IndicatorType.Indicator_Number) {
-            numberIndicator.setVisibility(View.VISIBLE);
-            numberIndicator.setText(String.valueOf((currentPosition + 1) + "/" + imageUrlList.size()));
-        } else {
-            circleIndicator.setVisibility(View.VISIBLE);
+            if (imageBrowserConfig.isIndicatorHide()) {
+                rl_indicator.setVisibility(View.GONE);
+            } else {
+                rl_indicator.setVisibility(View.VISIBLE);
+            }
+            if (indicatorType == ImageBrowserConfig.IndicatorType.Indicator_Number) {
+                numberIndicator.setVisibility(View.VISIBLE);
+                numberIndicator.setText(String.valueOf((currentPosition + 1) + "/" + imageUrlList.size()));
+            } else {
+                circleIndicator.setVisibility(View.VISIBLE);
+            }
         }
 
         //自定义View
@@ -230,15 +229,16 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
             @Override
             public void overSwipe() {
-                if (imageUrlList.size() > 1) {
-                    rl_indicator.setVisibility(View.VISIBLE);
-                } else {
+                if (imageUrlList.size() <= 1) {
                     rl_indicator.setVisibility(View.GONE);
-                }
-                if (!imageBrowserConfig.isIndicatorHide()) {
-                    rl_indicator.setVisibility(View.VISIBLE);
                 } else {
-                    rl_indicator.setVisibility(View.GONE);
+                    rl_indicator.setVisibility(View.VISIBLE);
+
+                    if (!imageBrowserConfig.isIndicatorHide()) {
+                        rl_indicator.setVisibility(View.VISIBLE);
+                    } else {
+                        rl_indicator.setVisibility(View.GONE);
+                    }
                 }
                 //自定义View
                 View customShadeView = imageBrowserConfig.getCustomShadeView();
@@ -248,6 +248,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                 } else {
                     ll_custom_view.setVisibility(View.GONE);
                 }
+                
                 rl_black_bg.setAlpha(1);
             }
         });
