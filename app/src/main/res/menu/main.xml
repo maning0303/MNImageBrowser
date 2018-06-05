@@ -58,5 +58,13 @@
         android:id="@+id/menu_14"
         android:orderInCategory="1"
         android:title="Screenorientation_Landscape" />
+    <item
+        android:id="@+id/menu_15"
+        android:orderInCategory="1"
+        android:title="自定义遮盖层" />
+    <item
+        android:id="@+id/menu_16"
+        android:orderInCategory="1"
+        android:title="默认遮盖层" />
 
 </menu>

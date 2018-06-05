@@ -3,8 +3,10 @@ package com.maning.imagebrowserlibrary;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -54,6 +57,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     private RelativeLayout rl_indicator;
     private TextView numberIndicator;
     private CircleIndicator circleIndicator;
+    private LinearLayout ll_custom_view;
 
     //图片地址
     private ArrayList<String> imageUrlList;
@@ -107,8 +111,10 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         rl_indicator = (RelativeLayout) findViewById(R.id.rl_indicator);
         circleIndicator = (CircleIndicator) findViewById(R.id.circleIndicator);
         numberIndicator = (TextView) findViewById(R.id.numberIndicator);
+        ll_custom_view = (LinearLayout) findViewById(R.id.ll_custom_view);
         circleIndicator.setVisibility(View.GONE);
         numberIndicator.setVisibility(View.GONE);
+        ll_custom_view.setVisibility(View.GONE);
     }
 
     private void initData() {
@@ -141,6 +147,14 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             circleIndicator.setVisibility(View.VISIBLE);
         }
 
+        //自定义View
+        View customShadeView = imageBrowserConfig.getCustomShadeView();
+        if (customShadeView != null) {
+            ll_custom_view.setVisibility(View.VISIBLE);
+            ll_custom_view.addView(customShadeView);
+            rl_indicator.setVisibility(View.GONE);
+        }
+
         if (screenOrientationType == ImageBrowserConfig.ScreenOrientationType.ScreenOrientation_Portrait) {
             //设置横竖屏
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -168,7 +182,8 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                numberIndicator.setText(String.valueOf((position + 1) + "/" + imageUrlList.size()));
+                currentPosition = position;
+                numberIndicator.setText(String.valueOf((currentPosition + 1) + "/" + imageUrlList.size()));
                 if (onPageChangeListener != null) {
                     onPageChangeListener.onPageSelected(position);
                 }
@@ -201,6 +216,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             @Override
             public void onSwiping(float deltaY) {
                 rl_indicator.setVisibility(View.GONE);
+                ll_custom_view.setVisibility(View.GONE);
 
                 float mAlpha = 1 - deltaY / 500;
                 if (mAlpha < 0.3) {
@@ -216,6 +232,21 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             public void overSwipe() {
                 if (imageUrlList.size() > 1) {
                     rl_indicator.setVisibility(View.VISIBLE);
+                } else {
+                    rl_indicator.setVisibility(View.GONE);
+                }
+                if (!imageBrowserConfig.isIndicatorHide()) {
+                    rl_indicator.setVisibility(View.VISIBLE);
+                } else {
+                    rl_indicator.setVisibility(View.GONE);
+                }
+                //自定义View
+                View customShadeView = imageBrowserConfig.getCustomShadeView();
+                if (customShadeView != null) {
+                    ll_custom_view.setVisibility(View.VISIBLE);
+                    rl_indicator.setVisibility(View.GONE);
+                } else {
+                    ll_custom_view.setVisibility(View.GONE);
                 }
                 rl_black_bg.setAlpha(1);
             }
@@ -243,6 +274,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     }
 
     private void finishBrowser() {
+        ll_custom_view.setVisibility(View.GONE);
         rl_indicator.setVisibility(View.GONE);
         rl_black_bg.setAlpha(0);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -332,19 +364,79 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sActivityRef = null;
+        imageBrowserConfig = null;
+    }
+
+    /**
+     * 获取当前Activity实例
+     */
+    public static FragmentActivity getCurrentActivity() {
+        if (sActivityRef != null && sActivityRef.get() != null) {
+            return sActivityRef.get();
+        } else {
+            return null;
+        }
+    }
+
     /**
      * 关闭当前Activity
      */
     public static void finishActivity() {
         if (sActivityRef != null && sActivityRef.get() != null) {
-            sActivityRef.get().finish();
+            sActivityRef.get().finishBrowser();
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        sActivityRef = null;
+    /**
+     * 获取ViewPager
+     *
+     * @return
+     */
+    public static ViewPager getViewPager() {
+        if (sActivityRef != null && sActivityRef.get() != null) {
+            return sActivityRef.get().viewPagerBrowser;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 获取当前位置
+     *
+     * @return
+     */
+    public static int getCurrentPosition() {
+        if (sActivityRef != null && sActivityRef.get() != null) {
+            return sActivityRef.get().currentPosition;
+        } else {
+            return -1;
+        }
+    }
+
+    /**
+     * 获取当前ImageView
+     *
+     * @return
+     */
+    public static ImageView getCurrentImageView() {
+        if (sActivityRef != null && sActivityRef.get() != null) {
+            MyAdapter imageBrowserAdapter = sActivityRef.get().imageBrowserAdapter;
+            if (imageBrowserAdapter == null) {
+                return null;
+            }
+            View view = imageBrowserAdapter.getPrimaryItem();
+            if (view == null) {
+                return null;
+            }
+            PhotoView imageView = (PhotoView) view.findViewById(R.id.imageView);
+            return imageView;
+        } else {
+            return null;
+        }
     }
 
 }

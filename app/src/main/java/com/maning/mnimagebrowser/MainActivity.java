@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.maning.imagebrowserlibrary.ImageEngine;
 import com.maning.imagebrowserlibrary.MNImageBrowser;
@@ -23,6 +24,7 @@ import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
 import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
 import com.maning.mndialoglibrary.MStatusDialog;
+import com.maning.mndialoglibrary.MToast;
 import com.maning.mnimagebrowser.dialog.ListFragmentDialog;
 import com.maning.mnimagebrowser.engine.GlideImageEngine;
 import com.maning.mnimagebrowser.engine.PicassoImageEngine;
@@ -49,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
     public ImageBrowserConfig.IndicatorType indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Number;
     public ImageBrowserConfig.ScreenOrientationType screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default;
     private ImageEngine imageEngine = new GlideImageEngine();
+
+    //显示自定义遮盖层
+    private boolean showCustomShadeView = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,10 +139,52 @@ public class MainActivity extends AppCompatActivity {
             viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //获取一个自定义遮盖层View
+                    View customView = LayoutInflater.from(context).inflate(R.layout.layout_custom_view, null);
+                    ImageView ic_close = (ImageView) customView.findViewById(R.id.iv_close);
+                    ImageView iv_more = (ImageView) customView.findViewById(R.id.iv_more);
+                    ImageView iv_comment = (ImageView) customView.findViewById(R.id.iv_comment);
+                    ImageView iv_zan = (ImageView) customView.findViewById(R.id.iv_zan);
+                    final TextView tv_number_indicator = (TextView) customView.findViewById(R.id.tv_number_indicator);
+                    ic_close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //关闭图片浏览
+                            MNImageBrowser.finishImageBrowser();
+                        }
+                    });
+                    iv_zan.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            MToast.makeTextShort(context, "点赞");
+                        }
+                    });
+                    iv_more.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            FragmentActivity currentActivity = MNImageBrowser.getCurrentActivity();
+                            ImageView currentImageView = MNImageBrowser.getCurrentImageView();
+                            if (currentImageView != null && currentActivity != null) {
+                                showListDialog(currentActivity, currentImageView);
+                            }
+                        }
+                    });
+                    iv_comment.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            MToast.makeTextShort(context, "评论");
+                        }
+                    });
+                    tv_number_indicator.setText((position + 1) + "/" + sourceImageList.size());
+
+
                     MNImageBrowser.with(context)
                             .setTransformType(transformType)
                             .setIndicatorType(indicatorType)
+                            //设置隐藏指示器
                             .setIndicatorHide(false)
+                            //设置自定义遮盖层，定制自己想要的效果，当设置遮盖层后，原本的指示器会被隐藏
+                            .setCustomShadeView(showCustomShadeView ? customView : null)
                             .setCurrentPosition(position)
                             .setImageEngine(imageEngine)
                             .setImageList(sourceImageList)
@@ -145,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
                             .setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(FragmentActivity activity, ImageView view, int position, String url) {
+
                                 }
                             })
                             .setOnLongClickListener(new OnLongClickListener() {
@@ -157,6 +205,9 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onPageSelected(int position) {
                                     Log.i(TAG, "onPageSelected:" + position);
+                                    if (tv_number_indicator != null) {
+                                        tv_number_indicator.setText((position + 1) + "/" + sourceImageList.size());
+                                    }
                                 }
                             })
                             .show(viewHolder.imageView);
@@ -260,6 +311,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_14:
                 screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Landscape;
+                break;
+            case R.id.menu_15:
+                showCustomShadeView = true;
+                break;
+            case R.id.menu_16:
+                showCustomShadeView = false;
                 break;
         }
         return super.onOptionsItemSelected(item);

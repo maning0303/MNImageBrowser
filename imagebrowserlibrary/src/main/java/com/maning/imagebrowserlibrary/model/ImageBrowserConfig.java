@@ -1,5 +1,7 @@
 package com.maning.imagebrowserlibrary.model;
 
+import android.view.View;
+
 import com.maning.imagebrowserlibrary.ImageEngine;
 import com.maning.imagebrowserlibrary.MNImageBrowserActivity;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
@@ -66,6 +68,16 @@ public class ImageBrowserConfig {
     private ScreenOrientationType screenOrientationType = ScreenOrientationType.Screenorientation_Default;
     //是否隐藏指示器
     private boolean indicatorHide = false;
+    //自定义View
+    private View customShadeView;
+
+    public View getCustomShadeView() {
+        return customShadeView;
+    }
+
+    public void setCustomShadeView(View customView) {
+        this.customShadeView = customView;
+    }
 
     public boolean isIndicatorHide() {
         return indicatorHide;

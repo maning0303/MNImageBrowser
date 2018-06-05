@@ -59,4 +59,15 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_custom_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000"
+        android:orientation="vertical">
+
+        <!--这里动态添加相关自定义View-->
+
+    </LinearLayout>
+
 </RelativeLayout>

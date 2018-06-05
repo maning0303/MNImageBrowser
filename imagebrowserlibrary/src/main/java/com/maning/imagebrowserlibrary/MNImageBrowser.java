@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
@@ -83,6 +86,11 @@ public class MNImageBrowser {
         return this;
     }
 
+    public MNImageBrowser setCustomShadeView(View customView) {
+        imageBrowserConfig.setCustomShadeView(customView);
+        return this;
+    }
+
     public MNImageBrowser setScreenOrientationType(ImageBrowserConfig.ScreenOrientationType screenOrientationType) {
         imageBrowserConfig.setScreenOrientationType(screenOrientationType);
         return this;
@@ -117,10 +125,38 @@ public class MNImageBrowser {
     }
 
     /**
+     * 获取当前Activity实例
+     */
+    public static FragmentActivity getCurrentActivity() {
+        return MNImageBrowserActivity.getCurrentActivity();
+    }
+
+    /**
      * 手动关闭图片浏览器
      */
     public static void finishImageBrowser() {
         MNImageBrowserActivity.finishActivity();
+    }
+
+    /**
+     * 获取当前ImageView
+     */
+    public static ImageView getCurrentImageView() {
+        return MNImageBrowserActivity.getCurrentImageView();
+    }
+
+    /**
+     * 获取当前位置
+     */
+    public static int getCurrentPosition() {
+        return MNImageBrowserActivity.getCurrentPosition();
+    }
+
+    /**
+     * 获取ViewPager
+     */
+    public static ViewPager getViewPager() {
+        return MNImageBrowserActivity.getViewPager();
     }
 
 }
