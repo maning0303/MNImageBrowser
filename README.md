@@ -12,6 +12,9 @@
 ![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser004.png)
 ![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser003.png)
 
+##### 自定义任意的遮罩层:
+![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser005.png)
+
 ## 如何添加
 
 ### 方式一:Gradle添加：
@@ -29,7 +32,7 @@
    #### 2.在app目录下的build.gradle中添加依赖
    ``` gradle
    	dependencies {
-   	     compile 'com.github.maning0303:MNImageBrowser:V1.1.2'
+   	     compile 'com.github.maning0303:MNImageBrowser:V1.1.3'
    	}
    ```
 
@@ -60,6 +63,10 @@
              .setTransformType(transformType)
              //非必须-指示器样式（默认文本样式：两种模式）
              .setIndicatorType(indicatorType)
+             //设置隐藏指示器
+             .setIndicatorHide(false)
+             //设置自定义遮盖层，定制自己想要的效果，当设置遮盖层后，原本的指示器会被隐藏
+             .setCustomShadeView(customShadeView)
              //非必须-屏幕方向：横屏，竖屏，Both（默认：横竖屏都支持）
              .setScreenOrientationType(screenOrientationType)
              //非必须-图片单击监听
@@ -76,8 +83,42 @@
                     //长按监听
                  }
              })
+             //非必须-图片滑动切换监听
+             .setOnPageChangeListener(new OnPageChangeListener() {
+                 @Override
+                 public void onPageSelected(int position) {
+                    //图片滑动切换监听
+                 }
+             }
              //打开
              .show(viewHolder.imageView);
+             
+             
+     //----MNImageBrowser提供其他方法----
+     /**
+      * 获取当前Activity实例
+      */
+     MNImageBrowser.getCurrentActivity();
+      
+     /**
+      * 手动关闭图片浏览器
+      */
+     MNImageBrowser.finishImageBrowser();
+     
+     /**
+      * 获取当前ImageView
+      */
+     MNImageBrowser.getCurrentImageView();
+     
+     /**
+      * 获取当前位置
+      */
+     MNImageBrowser.getCurrentPosition();
+     
+     /**
+      * 获取ViewPager
+      */
+     MNImageBrowser.getViewPager();
     
 ```
 
@@ -176,6 +217,13 @@
 ## 详情见Demo
 
 ## 版本记录：
+##### 版本 V1.1.3:
+    1.设置隐藏指示器
+    2.监图片滑动切换监听
+    3.自定义任意遮罩层
+    4.公开新方法：获取当前ImageView，获取ViewPager，获取Position，获取当前Activity实例，手动关闭图片浏览器
+    
+    
 ##### 版本 V1.1.2:
     1.支持单张图片，不需要传入集合
     2.支持设置屏幕方向设置：横屏，竖屏，都支持
