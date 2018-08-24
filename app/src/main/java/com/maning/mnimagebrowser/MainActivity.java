@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                             //设置自定义遮盖层，定制自己想要的效果，当设置遮盖层后，原本的指示器会被隐藏
                             .setCustomShadeView(showCustomShadeView ? customView : null)
                             //自定义ProgressView，不设置默认默认没有
-                            .setCustomProgressViewLayoutID(R.layout.layout_custom_progress_view)
+                            .setCustomProgressViewLayoutID(showCustomProgressView ? R.layout.layout_custom_progress_view : 0)
                             //当前位置
                             .setCurrentPosition(position)
                             //图片引擎
@@ -331,6 +331,14 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_16:
                 showCustomShadeView = false;
+                break;
+            case R.id.menu_17:
+                showCustomProgressView = false;
+                break;
+            case R.id.menu_18:
+                showCustomProgressView = true;
+                break;
+            default:
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -67,4 +67,14 @@
         android:orderInCategory="1"
         android:title="默认遮盖层" />
 
+    <item
+        android:id="@+id/menu_17"
+        android:orderInCategory="1"
+        android:title="不显示ProgressView" />
+
+    <item
+        android:id="@+id/menu_18"
+        android:orderInCategory="1"
+        android:title="显示ProgressView" />
+
 </menu>
