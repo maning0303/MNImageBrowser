@@ -1,5 +1,6 @@
 package com.maning.imagebrowserlibrary.model;
 
+import android.support.annotation.LayoutRes;
 import android.view.View;
 
 import com.maning.imagebrowserlibrary.ImageEngine;
@@ -70,6 +71,16 @@ public class ImageBrowserConfig {
     private boolean indicatorHide = false;
     //自定义View
     private View customShadeView;
+    //自定义ProgressView
+    private int customProgressViewLayoutID;
+
+    public int getCustomProgressViewLayoutID() {
+        return customProgressViewLayoutID;
+    }
+
+    public void setCustomProgressViewLayoutID(@LayoutRes int customProgressViewLayoutID) {
+        this.customProgressViewLayoutID = customProgressViewLayoutID;
+    }
 
     public View getCustomShadeView() {
         return customShadeView;

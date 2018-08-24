@@ -77,6 +77,9 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     public static ImageBrowserConfig imageBrowserConfig;
     private MyAdapter imageBrowserAdapter;
     private ImageBrowserConfig.ScreenOrientationType screenOrientationType;
+    //图片加载进度View的布局ID
+    private int progressViewLayoutId = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +157,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             rl_indicator.setVisibility(View.GONE);
         }
 
+        //横竖屏梳理
         if (screenOrientationType == ImageBrowserConfig.ScreenOrientationType.ScreenOrientation_Portrait) {
             //设置横竖屏
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -165,6 +169,8 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         }
 
+        //自定义ProgressView
+        progressViewLayoutId = imageBrowserConfig.getCustomProgressViewLayoutID();
     }
 
     private void initViewPager() {
@@ -248,7 +254,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                 } else {
                     ll_custom_view.setVisibility(View.GONE);
                 }
-                
+
                 rl_black_bg.setAlpha(1);
             }
         });
@@ -328,9 +334,9 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             View inflate = layoutInflater.inflate(R.layout.mn_image_browser_item_show_image, container, false);
             final PhotoView imageView = (PhotoView) inflate.findViewById(R.id.imageView);
             final RelativeLayout rl_browser_root = (RelativeLayout) inflate.findViewById(R.id.rl_browser_root);
+            final RelativeLayout progress_view = (RelativeLayout) inflate.findViewById(R.id.progress_view);
+
             final String url = imageUrlList.get(position);
-            //图片加载
-            imageEngine.loadImage(context, url, imageView);
 
             rl_browser_root.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -359,6 +365,23 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                     return false;
                 }
             });
+
+            //ProgressView
+            if (progressViewLayoutId != 0) {
+                View customProgressView = layoutInflater.inflate(progressViewLayoutId, null);
+                if (customProgressView != null) {
+                    progress_view.removeAllViews();
+                    progress_view.addView(customProgressView);
+                    progress_view.setVisibility(View.VISIBLE);
+                } else {
+                    progress_view.setVisibility(View.GONE);
+                }
+            } else {
+                progress_view.setVisibility(View.GONE);
+            }
+
+            //图片加载
+            imageEngine.loadImage(context, url, imageView, progress_view);
 
             container.addView(inflate);
             return inflate;

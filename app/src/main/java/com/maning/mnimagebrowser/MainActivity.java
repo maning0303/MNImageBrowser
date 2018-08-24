@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
     //显示自定义遮盖层
     private boolean showCustomShadeView = false;
+    //显示ProgressView
+    private boolean showCustomProgressView = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +187,8 @@ public class MainActivity extends AppCompatActivity {
                             .setIndicatorHide(false)
                             //设置自定义遮盖层，定制自己想要的效果，当设置遮盖层后，原本的指示器会被隐藏
                             .setCustomShadeView(showCustomShadeView ? customView : null)
+                            //自定义ProgressView
+                            .setCustomProgressViewLayoutID(R.layout.layout_custom_progress_view)
                             .setCurrentPosition(position)
                             .setImageEngine(imageEngine)
                             .setImageList(sourceImageList)

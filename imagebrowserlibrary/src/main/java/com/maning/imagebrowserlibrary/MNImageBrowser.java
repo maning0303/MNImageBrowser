@@ -3,6 +3,7 @@ package com.maning.imagebrowserlibrary;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.LayoutRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentActivity;
@@ -88,6 +89,11 @@ public class MNImageBrowser {
 
     public MNImageBrowser setCustomShadeView(View customView) {
         imageBrowserConfig.setCustomShadeView(customView);
+        return this;
+    }
+
+    public MNImageBrowser setCustomProgressViewLayoutID(@LayoutRes int customViewID) {
+        imageBrowserConfig.setCustomProgressViewLayoutID(customViewID);
         return this;
     }
 
