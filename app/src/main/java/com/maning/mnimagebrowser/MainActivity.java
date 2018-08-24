@@ -181,30 +181,39 @@ public class MainActivity extends AppCompatActivity {
 
 
                     MNImageBrowser.with(context)
+                            //页面切换效果
                             .setTransformType(transformType)
+                            //指示器效果
                             .setIndicatorType(indicatorType)
                             //设置隐藏指示器
                             .setIndicatorHide(false)
                             //设置自定义遮盖层，定制自己想要的效果，当设置遮盖层后，原本的指示器会被隐藏
                             .setCustomShadeView(showCustomShadeView ? customView : null)
-                            //自定义ProgressView
+                            //自定义ProgressView，不设置默认默认没有
                             .setCustomProgressViewLayoutID(R.layout.layout_custom_progress_view)
+                            //当前位置
                             .setCurrentPosition(position)
+                            //图片引擎
                             .setImageEngine(imageEngine)
+                            //图片集合
                             .setImageList(sourceImageList)
+                            //方向设置
                             .setScreenOrientationType(screenOrientationType)
+                            //点击监听
                             .setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(FragmentActivity activity, ImageView view, int position, String url) {
 
                                 }
                             })
+                            //长按监听
                             .setOnLongClickListener(new OnLongClickListener() {
                                 @Override
                                 public void onLongClick(final FragmentActivity activity, final ImageView imageView, int position, String url) {
                                     showListDialog(activity, imageView);
                                 }
                             })
+                            //页面切换监听
                             .setOnPageChangeListener(new OnPageChangeListener() {
                                 @Override
                                 public void onPageSelected(int position) {
@@ -214,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 }
                             })
+                            //显示：传入当前View
                             .show(viewHolder.imageView);
                 }
             });
