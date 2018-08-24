@@ -1,13 +1,10 @@
 package com.maning.imagebrowserlibrary.listeners;
 
 /**
- * <pre>
- *     author : maning
- *     e-mail : xxx@xx
- *     time   : 2018/06/04
- *     desc   : 滑动监听
- *     version: 1.0
- * </pre>
+ * author : maning
+ * time   : 2018/06/04
+ * desc   : 滑动监听
+ * version: 1.0
  */
 public interface OnPageChangeListener {
 

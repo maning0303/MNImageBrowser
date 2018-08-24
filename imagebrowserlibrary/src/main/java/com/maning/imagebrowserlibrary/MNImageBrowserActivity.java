@@ -48,7 +48,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     //用来保存当前Activity
     private static WeakReference<MNImageBrowserActivity> sActivityRef;
 
-    private static final String TAG = "MNImageBrowserActivity";
+    private static final String TAG = MNImageBrowserActivity.class.getSimpleName();
     private Context context;
 
     private MNGestureView mnGestureView;
@@ -478,6 +478,9 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                 //更新当前位置
                 if (sActivityRef.get().currentPosition >= sActivityRef.get().imageUrlList.size() && sActivityRef.get().currentPosition >= 1) {
                     sActivityRef.get().currentPosition--;
+                }
+                if (sActivityRef.get().currentPosition >= sActivityRef.get().imageUrlList.size()) {
+                    sActivityRef.get().currentPosition = sActivityRef.get().imageUrlList.size() - 1;
                 }
                 sActivityRef.get().initViewPager();
                 sActivityRef.get().imageBrowserAdapter.notifyDataSetChanged();

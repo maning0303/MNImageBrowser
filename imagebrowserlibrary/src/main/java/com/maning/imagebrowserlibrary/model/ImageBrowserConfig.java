@@ -12,13 +12,10 @@ import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
 import java.util.ArrayList;
 
 /**
- * <pre>
- *     author : maning
- *     e-mail : xxx@xx
- *     time   : 2018/04/10
- *     desc   : 相关配置信息
- *     version: 1.0
- * </pre>
+ * author : maning
+ * time   : 2018/04/10
+ * desc   : 相关配置信息
+ * version: 1.0
  */
 public class ImageBrowserConfig {
 

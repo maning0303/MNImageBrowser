@@ -5,13 +5,10 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.ImageView;
 
 /**
- * <pre>
- *     author : maning
- *     e-mail : xxx@xx
- *     time   : 2018/04/10
- *     desc   :
- *     version: 1.0
- * </pre>
+ * author : maning
+ * time   : 2018/04/10
+ * desc   : 长按监听
+ * version: 1.0
  */
 public interface OnLongClickListener {
 

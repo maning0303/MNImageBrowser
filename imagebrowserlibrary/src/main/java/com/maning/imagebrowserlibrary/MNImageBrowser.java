@@ -19,7 +19,8 @@ import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
 import java.util.ArrayList;
 
 /**
- * Created by maning on 2017/5/25.
+ * @author : maning
+ * @desc : 启动管理
  */
 public class MNImageBrowser {
 

@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                     iv_zan.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            MToast.makeTextShort(context, "点赞");
+                            MToast.makeTextShort(context, "点赞" + MNImageBrowser.getCurrentPosition());
                         }
                     });
                     iv_more.setOnClickListener(new View.OnClickListener() {
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                     iv_comment.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            MToast.makeTextShort(context, "评论");
+                            MToast.makeTextShort(context, "评论" + MNImageBrowser.getCurrentPosition());
                         }
                     });
                     iv_delete.setOnClickListener(new View.OnClickListener() {
@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
                                 public void onPageSelected(int position) {
                                     Log.i(TAG, "onPageSelected:" + position);
                                     if (tv_number_indicator != null) {
-                                        tv_number_indicator.setText((position + 1) + "/" + sourceImageList.size());
+                                        tv_number_indicator.setText((position + 1) + "/" + MNImageBrowser.getImageList().size());
                                     }
                                 }
                             })
