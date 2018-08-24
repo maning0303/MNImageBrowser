@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     ImageView iv_more = (ImageView) customView.findViewById(R.id.iv_more);
                     ImageView iv_comment = (ImageView) customView.findViewById(R.id.iv_comment);
                     ImageView iv_zan = (ImageView) customView.findViewById(R.id.iv_zan);
+                    ImageView iv_delete = (ImageView) customView.findViewById(R.id.iv_delete);
                     final TextView tv_number_indicator = (TextView) customView.findViewById(R.id.tv_number_indicator);
                     ic_close.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -175,6 +176,15 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             MToast.makeTextShort(context, "评论");
+                        }
+                    });
+                    iv_delete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //删除当前位置的图片
+                            MNImageBrowser.removeCurrentImage();
+                            //刷新指示器
+                            tv_number_indicator.setText((MNImageBrowser.getCurrentPosition() + 1) + "/" + MNImageBrowser.getImageList().size());
                         }
                     });
                     tv_number_indicator.setText((position + 1) + "/" + sourceImageList.size());

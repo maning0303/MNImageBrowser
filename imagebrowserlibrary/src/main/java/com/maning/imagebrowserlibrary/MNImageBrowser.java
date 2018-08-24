@@ -43,7 +43,9 @@ public class MNImageBrowser {
     }
 
     public MNImageBrowser setImageList(ArrayList<String> imageList) {
-        imageBrowserConfig.setImageList(imageList);
+        ArrayList<String> newImageList = new ArrayList<>();
+        newImageList.addAll(imageList);
+        imageBrowserConfig.setImageList(newImageList);
         return this;
     }
 
@@ -163,6 +165,29 @@ public class MNImageBrowser {
      */
     public static ViewPager getViewPager() {
         return MNImageBrowserActivity.getViewPager();
+    }
+
+    /**
+     * 删除图片
+     *
+     * @param position
+     */
+    public static void removeImage(int position) {
+        MNImageBrowserActivity.removeImage(position);
+    }
+
+    /**
+     * 删除图片
+     */
+    public static void removeCurrentImage() {
+        MNImageBrowserActivity.removeCurrentImage();
+    }
+
+    /**
+     * 获取图片集合
+     */
+    public static ArrayList<String> getImageList() {
+        return MNImageBrowserActivity.getImageList();
     }
 
 }

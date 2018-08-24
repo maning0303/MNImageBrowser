@@ -61,6 +61,14 @@
             android:paddingRight="20dp">
 
             <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/icon_delete"
+                android:gravity="center" />
+
+            <ImageView
                 android:id="@+id/iv_comment"
                 android:layout_width="24dp"
                 android:layout_height="24dp"

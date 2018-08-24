@@ -118,6 +118,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         circleIndicator.setVisibility(View.GONE);
         numberIndicator.setVisibility(View.GONE);
         ll_custom_view.setVisibility(View.GONE);
+
     }
 
     private void initData() {
@@ -153,6 +154,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         View customShadeView = imageBrowserConfig.getCustomShadeView();
         if (customShadeView != null) {
             ll_custom_view.setVisibility(View.VISIBLE);
+            ll_custom_view.removeAllViews();
             ll_custom_view.addView(customShadeView);
             rl_indicator.setVisibility(View.GONE);
         }
@@ -461,6 +463,47 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         } else {
             return null;
         }
+    }
+
+    /**
+     * 删除一张图片
+     *
+     * @param position
+     * @return
+     */
+    public static void removeImage(int position) {
+        if (sActivityRef != null && sActivityRef.get() != null) {
+            if (sActivityRef.get().imageUrlList.size() > 1) {
+                sActivityRef.get().imageUrlList.remove(position);
+                //更新当前位置
+                if (sActivityRef.get().currentPosition >= sActivityRef.get().imageUrlList.size() && sActivityRef.get().currentPosition >= 1) {
+                    sActivityRef.get().currentPosition--;
+                }
+                sActivityRef.get().initViewPager();
+                sActivityRef.get().imageBrowserAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    /**
+     * 删除一张图片
+     *
+     * @return
+     */
+    public static void removeCurrentImage() {
+        removeImage(getCurrentPosition());
+    }
+
+    /**
+     * 图片资源列表
+     *
+     * @return
+     */
+    public static ArrayList<String> getImageList() {
+        if (sActivityRef != null && sActivityRef.get() != null) {
+            return sActivityRef.get().imageUrlList;
+        }
+        return new ArrayList<>();
     }
 
 }
