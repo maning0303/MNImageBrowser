@@ -26,7 +26,7 @@ public class GlideImageEngine implements ImageEngine {
                 .load(url)
                 .asBitmap()
                 .fitCenter()
-//                .placeholder(R.drawable.default_placeholder)
+                .placeholder(R.drawable.default_placeholder)
                 .error(R.mipmap.ic_launcher)
                 .listener(new RequestListener<String, Bitmap>() {
                     @Override

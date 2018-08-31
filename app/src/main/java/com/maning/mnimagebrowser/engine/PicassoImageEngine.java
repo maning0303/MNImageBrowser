@@ -23,7 +23,7 @@ public class PicassoImageEngine implements ImageEngine {
     @Override
     public void loadImage(Context context, String url, ImageView imageView, final View progressView) {
         Picasso.with(context).load(url)
-//                .placeholder(R.drawable.default_placeholder)
+                .placeholder(R.drawable.default_placeholder)
                 .error(R.mipmap.ic_launcher)
                 .into(imageView, new Callback() {
                     @Override

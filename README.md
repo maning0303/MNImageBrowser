@@ -32,7 +32,7 @@
    #### 2.在app目录下的build.gradle中添加依赖
    ``` gradle
    	dependencies {
-   	     compile 'com.github.maning0303:MNImageBrowser:V1.1.3'
+   	     compile 'com.github.maning0303:MNImageBrowser:V1.1.5'
    	}
    ```
 
@@ -43,7 +43,7 @@
 
 ```
 
-## 代码使用:
+## 代码使用(详情见Demo):
 ``` java
 
     public ImageBrowserConfig.TransformType transformType = ImageBrowserConfig.TransformType.Transform_Default;
@@ -67,6 +67,8 @@
              .setIndicatorHide(false)
              //设置自定义遮盖层，定制自己想要的效果，当设置遮盖层后，原本的指示器会被隐藏
              .setCustomShadeView(customShadeView)
+             //自定义ProgressView，不设置默认默认没有
+             .setCustomProgressViewLayoutID(R.layout.layout_custom_progress_view)
              //非必须-屏幕方向：横屏，竖屏，Both（默认：横竖屏都支持）
              .setScreenOrientationType(screenOrientationType)
              //非必须-图片单击监听
@@ -119,6 +121,23 @@
       * 获取ViewPager
       */
      MNImageBrowser.getViewPager();
+     
+     /**
+      * 删除图片
+      *
+      * @param position
+      */
+     MNImageBrowser.removeImage(int position) {
+     
+     /**
+      * 删除图片
+      */
+     MNImageBrowser.removeCurrentImage() {
+    
+     /**
+      * 获取图片集合
+      */
+     MNImageBrowser.getImageList() {
     
 ```
 
@@ -126,28 +145,82 @@
 ## 图片加载需要实现ImageEngine：
 ``` java
 
+    /**
+     * author : maning
+     * time   : 2018/04/10
+     * desc   : 图片引擎--需要实现
+     * version: 1.0
+     */
+    public interface ImageEngine {
+    
+        /**
+         * 加载图片方法
+         *
+         * @param context      上下文
+         * @param url          图片地址
+         * @param imageView    ImageView
+         * @param progressView 进度View
+         */
+        void loadImage(Context context, String url, ImageView imageView, View progressView);
+    
+    }
+
     //Picasso
     public class PicassoImageEngine implements ImageEngine {
         @Override
-        public void loadImage(Context context, String url, ImageView imageView) {
-            Picasso.with(context).load(url).into(imageView);
-        }
-    
+            public void loadImage(Context context, String url, ImageView imageView, final View progressView) {
+                Picasso.with(context).load(url)
+                        .placeholder(R.drawable.default_placeholder)
+                        .error(R.mipmap.ic_launcher)
+                        .into(imageView, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                //隐藏进度View,必须设置setCustomProgressViewLayoutID
+                                progressView.setVisibility(View.GONE);
+                            }
+        
+                            @Override
+                            public void onError() {
+                                //隐藏进度View,必须设置setCustomProgressViewLayoutID
+                                progressView.setVisibility(View.GONE);
+                            }
+                        });
+            }
     }
     
     //Glide
     public class GlideImageEngine implements ImageEngine {
         @Override
-        public void loadImage(Context context, String url, ImageView imageView) {
-            Glide.with(context).load(url).into(imageView);
+        public void loadImage(Context context, String url, ImageView imageView, final View progressView) {
+            Glide.with(context)
+                    .load(url)
+                    .asBitmap()
+                    .fitCenter()
+                    .placeholder(R.drawable.default_placeholder)
+                    .error(R.mipmap.ic_launcher)
+                    .listener(new RequestListener<String, Bitmap>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                            //隐藏进度View,必须设置setCustomProgressViewLayoutID
+                            progressView.setVisibility(View.GONE);
+                            return false;
+                        }
+        
+                        @Override
+                        public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            //隐藏进度View,必须设置setCustomProgressViewLayoutID
+                            progressView.setVisibility(View.GONE);
+                            return false;
+                        }
+                    })
+                    .into(imageView);
         }
-    
     }
     
     //其它
     public class XXXImageEngine implements ImageEngine {
         @Override
-        public void loadImage(Context context, String url, ImageView imageView) {
+        public void loadImage(Context context, String url, ImageView imageView,View progressView) {
             //加载图片实现
         }
         
