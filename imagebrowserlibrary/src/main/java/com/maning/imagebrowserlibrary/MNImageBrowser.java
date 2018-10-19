@@ -105,6 +105,11 @@ public class MNImageBrowser {
         return this;
     }
 
+    public MNImageBrowser setFullScreenMode(boolean fullScreenMode) {
+        imageBrowserConfig.setFullScreenMode(fullScreenMode);
+        return this;
+    }
+
     public void show(View view) {
         //判断是不是空
         if (imageBrowserConfig.getImageList() == null || imageBrowserConfig.getImageList().size() <= 0) {

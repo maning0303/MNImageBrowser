@@ -3,6 +3,7 @@ package com.maning.imagebrowserlibrary;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import com.maning.imagebrowserlibrary.transforms.RotateUpTransformer;
 import com.maning.imagebrowserlibrary.transforms.ZoomInTransformer;
 import com.maning.imagebrowserlibrary.transforms.ZoomOutSlideTransformer;
 import com.maning.imagebrowserlibrary.transforms.ZoomOutTransformer;
+import com.maning.imagebrowserlibrary.utils.StatusBarUtil;
 import com.maning.imagebrowserlibrary.view.CircleIndicator;
 import com.maning.imagebrowserlibrary.view.MNGestureView;
 import com.maning.imagebrowserlibrary.view.MNViewPager;
@@ -100,7 +102,13 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     private void setWindowFullScreen() {
         //设置全屏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (imageBrowserConfig.isFullScreenMode()) {
+            //设置全屏
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else {
+            //设置状态栏颜色
+            StatusBarUtil.setColor(this, Color.BLACK);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // 虚拟导航栏透明
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -233,6 +241,9 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                     mAlpha = 1;
                 }
                 rl_black_bg.setAlpha(mAlpha);
+                if (!imageBrowserConfig.isFullScreenMode()) {
+                    StatusBarUtil.setTranslucent(MNImageBrowserActivity.this, (int) (mAlpha * 255));
+                }
             }
 
             @Override
@@ -283,10 +294,10 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     }
 
     private void finishBrowser() {
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ll_custom_view.setVisibility(View.GONE);
         rl_indicator.setVisibility(View.GONE);
         rl_black_bg.setAlpha(0);
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         finish();
         this.overridePendingTransition(0, R.anim.browser_exit_anim);
     }

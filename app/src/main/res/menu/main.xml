@@ -76,5 +76,13 @@
         android:id="@+id/menu_18"
         android:orderInCategory="1"
         android:title="显示ProgressView" />
+    <item
+        android:id="@+id/menu_19"
+        android:orderInCategory="1"
+        android:title="全屏模式（默认）" />
+    <item
+        android:id="@+id/menu_20"
+        android:orderInCategory="1"
+        android:title="非全屏模式" />
 
 </menu>
