@@ -30,6 +30,6 @@ dependencies {
 
     compile project(':imagebrowserlibrary')
     //测试gradle
-//    compile 'com.github.maning0303:MNImageBrowser:V1.1.7'
+//    compile 'com.github.maning0303:MNImageBrowser:V1.1.8'
 }
 
