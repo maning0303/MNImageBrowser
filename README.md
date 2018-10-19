@@ -32,14 +32,14 @@
    #### 2.在app目录下的build.gradle中添加依赖
    ``` gradle
    	dependencies {
-   	     compile 'com.github.maning0303:MNImageBrowser:V1.1.5'
+   	     implementation 'com.github.maning0303:MNImageBrowser:V1.1.6'
    	}
    ```
 
 ### 方式二:(方便自定义修改)下载源码使用Module添加：imagebrowserlibrary
 
 ``` gradle
-	compile project(':imagebrowserlibrary')
+	implementation project(':imagebrowserlibrary')
 
 ```
 
@@ -92,6 +92,8 @@
                     //图片滑动切换监听
                  }
              }
+             //全屏模式：默认全屏模式
+             .setFullScreenMode(isFulScreenMode)
              //打开
              .show(viewHolder.imageView);
              
@@ -283,13 +285,17 @@
 ``` gradle
 
     //图片手势缩放
-    compile 'com.github.chrisbanes:PhotoView:2.1.3'
+    implementation 'com.github.chrisbanes:PhotoView:2.1.3'
 
 ```
 
 ## 详情见Demo
 
 ## 版本记录：
+##### 版本 V1.1.6:
+    1.新增全屏模式和非全屏模式
+    2.minSdkVersion == 15
+    
 ##### 版本 V1.1.5:
     1.添加动态设置自定义ProgressView，可以显示进度
     2.动态删除某一张图片，实现浏览过程中删除图片操作
