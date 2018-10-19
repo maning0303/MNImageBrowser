@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 25
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.maning.mnimagebrowser"
-        minSdkVersion 15
-        targetSdkVersion 26
+        minSdkVersion 14
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
 
@@ -19,16 +19,17 @@ android {
     }
 }
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:support-v4:26.1.0'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation 'com.github.bumptech.glide:glide:3.6.1'
-    implementation 'com.github.maning0303:MNProgressHUD:V1.1.0'
-    implementation 'com.yanzhenjie:permission:2.0.0-rc4'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
 
-    implementation project(':imagebrowserlibrary')
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile 'com.github.maning0303:MNProgressHUD:V1.1.0'
+    compile 'com.yanzhenjie:permission:2.0.0-rc4'
+
+    compile project(':imagebrowserlibrary')
     //测试gradle
-//    implementation 'com.github.maning0303:MNImageBrowser:V1.1.6'
+//    compile 'com.github.maning0303:MNImageBrowser:V1.1.7'
 }
 

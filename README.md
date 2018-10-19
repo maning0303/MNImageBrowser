@@ -32,7 +32,7 @@
    #### 2.在app目录下的build.gradle中添加依赖
    ``` gradle
    	dependencies {
-   	     implementation 'com.github.maning0303:MNImageBrowser:V1.1.6'
+   	     implementation 'com.github.maning0303:MNImageBrowser:V1.1.8'
    	}
    ```
 
@@ -285,16 +285,16 @@
 ``` gradle
 
     //图片手势缩放
-    implementation 'com.github.chrisbanes:PhotoView:2.1.3'
+    api 'com.github.chrisbanes:PhotoView:2.1.3'
 
 ```
 
 ## 详情见Demo
 
 ## 版本记录：
-##### 版本 V1.1.6:
+##### 版本 V1.1.8:
     1.新增全屏模式和非全屏模式
-    2.minSdkVersion == 15
+    2.minSdkVersion == 14
     
 ##### 版本 V1.1.5:
     1.添加动态设置自定义ProgressView，可以显示进度
