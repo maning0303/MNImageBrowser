@@ -70,8 +70,8 @@ public class ImageBrowserConfig {
     private View customShadeView;
     //自定义ProgressView
     private int customProgressViewLayoutID;
-    //全部模式：默认true
-    private boolean isFullScreenMode = true;
+    //全部模式：默认false
+    private boolean isFullScreenMode = false;
 
     public boolean isFullScreenMode() {
         return isFullScreenMode;

@@ -40,6 +40,7 @@ import com.maning.imagebrowserlibrary.view.MNGestureView;
 import com.maning.imagebrowserlibrary.view.MNViewPager;
 
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 
@@ -100,18 +101,22 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     }
 
     private void setWindowFullScreen() {
-        //设置全屏
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        if (imageBrowserConfig.isFullScreenMode()) {
+        try {
             //设置全屏
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        } else {
-            //设置状态栏颜色
-            StatusBarUtil.setColor(this, Color.BLACK);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            // 虚拟导航栏透明
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            if (imageBrowserConfig.isFullScreenMode()) {
+                Window window = getWindow();
+                window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            } else {
+                //设置状态栏颜色
+                StatusBarUtil.setColor(this, Color.BLACK);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                // 虚拟导航栏透明
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            }
+        } catch (Exception e) {
+
         }
     }
 

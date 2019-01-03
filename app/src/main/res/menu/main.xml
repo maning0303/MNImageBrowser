@@ -79,10 +79,10 @@
     <item
         android:id="@+id/menu_19"
         android:orderInCategory="1"
-        android:title="全屏模式（默认）" />
+        android:title="全屏模式" />
     <item
         android:id="@+id/menu_20"
         android:orderInCategory="1"
-        android:title="非全屏模式" />
+        android:title="非全屏模式（默认）" />
 
 </menu>

@@ -2,12 +2,16 @@ package com.maning.mnimagebrowser.engine;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.maning.imagebrowserlibrary.ImageEngine;
 import com.maning.mnimagebrowser.R;
@@ -23,20 +27,18 @@ public class GlideImageEngine implements ImageEngine {
     @Override
     public void loadImage(Context context, String url, ImageView imageView, final View progressView) {
         Glide.with(context)
-                .load(url)
                 .asBitmap()
-                .fitCenter()
-                .placeholder(R.drawable.default_placeholder)
-                .error(R.mipmap.ic_launcher)
-                .listener(new RequestListener<String, Bitmap>() {
+                .load(url)
+                .apply(new RequestOptions().fitCenter().error(R.mipmap.ic_launcher).placeholder(R.drawable.default_placeholder))
+                .listener(new RequestListener<Bitmap>() {
                     @Override
-                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
                         progressView.setVisibility(View.GONE);
                         return false;
                     }
 
                     @Override
-                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
                         progressView.setVisibility(View.GONE);
                         return false;
                     }

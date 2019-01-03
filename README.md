@@ -92,7 +92,7 @@
                     //图片滑动切换监听
                  }
              }
-             //全屏模式：默认全屏模式
+             //全屏模式：默认非全屏模式
              .setFullScreenMode(isFulScreenMode)
              //打开
              .show(viewHolder.imageView);

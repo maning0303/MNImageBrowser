@@ -2,23 +2,23 @@ package com.maning.mnimagebrowser;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.maning.imagebrowserlibrary.ImageEngine;
 import com.maning.imagebrowserlibrary.MNImageBrowser;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
@@ -32,8 +32,6 @@ import com.maning.mnimagebrowser.engine.GlideImageEngine;
 import com.maning.mnimagebrowser.engine.PicassoImageEngine;
 import com.maning.mnimagebrowser.utils.BitmapUtils;
 import com.maning.mnimagebrowser.utils.DatasUtils;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     //显示ProgressView
     private boolean showCustomProgressView = false;
     //是不是全屏模式
-    private boolean isFulScreenMode = true;
+    private boolean isFulScreenMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,22 +102,11 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-
-            Picasso.with(context)
+            Glide.with(context)
+                    .asBitmap()
                     .load(sourceImageList.get(position))
-                    .placeholder(R.drawable.default_placeholder)
-                    .error(R.mipmap.ic_launcher)
-                    .into(viewHolder.imageView, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            Log.i("----", "onSuccess:" + position);
-                        }
-
-                        @Override
-                        public void onError() {
-                            Log.i("----", "onError:" + position);
-                        }
-                    });
+                    .apply(new RequestOptions().fitCenter().error(R.mipmap.ic_launcher).placeholder(R.drawable.default_placeholder))
+                    .into(viewHolder.imageView);
 
             viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -238,11 +225,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(int position) {
                 if (position == 1) {
                     //检查权限
-                    AndPermission.with(activity)
+                    AndPermission
+                            .with(context)
+                            .runtime()
                             .permission(Permission.WRITE_EXTERNAL_STORAGE)
-                            .onGranted(new Action() {
+                            .onGranted(new Action<List<String>>() {
                                 @Override
-                                public void onAction(List<String> permissions) {
+                                public void onAction(List<String> data) {
                                     //保存图片
                                     imageView.buildDrawingCache(true);
                                     imageView.buildDrawingCache();
@@ -257,9 +246,9 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 }
                             })
-                            .onDenied(new Action() {
+                            .onDenied(new Action<List<String>>() {
                                 @Override
-                                public void onAction(List<String> permissions) {
+                                public void onAction(List<String> data) {
                                     new MStatusDialog(activity).show("权限获取失败", activity.getResources().getDrawable(R.drawable.icon_save_fail));
                                 }
                             })
