@@ -2,16 +2,13 @@ package com.maning.imagebrowserlibrary;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +37,6 @@ import com.maning.imagebrowserlibrary.view.MNGestureView;
 import com.maning.imagebrowserlibrary.view.MNViewPager;
 
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 
@@ -104,16 +100,17 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         try {
             //设置全屏
             requestWindowFeature(Window.FEATURE_NO_TITLE);
+            Window window = getWindow();
             if (imageBrowserConfig.isFullScreenMode()) {
-                Window window = getWindow();
                 window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             } else {
                 //设置状态栏颜色
                 StatusBarUtil.setColor(this, Color.BLACK);
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // 虚拟导航键
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // 虚拟导航栏透明
-                getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                window.setNavigationBarColor(Color.parseColor("#FF000000"));
             }
         } catch (Exception e) {
 
@@ -131,7 +128,6 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         circleIndicator.setVisibility(View.GONE);
         numberIndicator.setVisibility(View.GONE);
         ll_custom_view.setVisibility(View.GONE);
-
     }
 
     private void initData() {
@@ -246,9 +242,9 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                     mAlpha = 1;
                 }
                 rl_black_bg.setAlpha(mAlpha);
-                if (!imageBrowserConfig.isFullScreenMode()) {
-                    StatusBarUtil.setTranslucent(MNImageBrowserActivity.this, (int) (mAlpha * 255));
-                }
+//                if (!imageBrowserConfig.isFullScreenMode()) {
+//                    StatusBarUtil.setTranslucent(MNImageBrowserActivity.this, (int) (mAlpha * 255));
+//                }
             }
 
             @Override
