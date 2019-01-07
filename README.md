@@ -94,6 +94,10 @@
              }
              //全屏模式：默认非全屏模式
              .setFullScreenMode(isFulScreenMode)
+             //打开动画
+             .setActivityOpenAnime(R.anim.activity_anmie_in)
+             //关闭动画
+             .setActivityExitAnime(R.anim.activity_anmie_out)
              //打开
              .show(viewHolder.imageView);
              
@@ -292,6 +296,11 @@
 ## 详情见Demo
 
 ## 版本记录：
+##### 版本 V1.1.9:
+    1.默认修改为非全屏模式
+    2.优化导航栏
+    3.添加设置打开和关闭动画
+    
 ##### 版本 V1.1.8:
     1.新增全屏模式和非全屏模式
     2.minSdkVersion == 14

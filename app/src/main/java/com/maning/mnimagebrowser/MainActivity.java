@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     public ImageBrowserConfig.IndicatorType indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Number;
     public ImageBrowserConfig.ScreenOrientationType screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default;
     private ImageEngine imageEngine = new GlideImageEngine();
+    private int openAnim = R.anim.mn_browser_enter_anim;
+    private int exitAnim = R.anim.mn_browser_exit_anim;
 
     //显示自定义遮盖层
     private boolean showCustomShadeView = false;
@@ -64,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         context = this;
 
@@ -207,6 +208,11 @@ public class MainActivity extends AppCompatActivity {
                             })
                             //全屏模式
                             .setFullScreenMode(isFulScreenMode)
+                            //打开动画
+                            .setActivityOpenAnime(openAnim)
+                            //关闭动画
+                            .setActivityExitAnime(exitAnim)
+                            //关闭动画
                             //显示：传入当前View
                             .show(viewHolder.imageView);
                 }
@@ -329,6 +335,14 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_20:
                 isFulScreenMode = false;
+                break;
+            case R.id.menu_21:
+                openAnim = R.anim.activity_anmie_in;
+                exitAnim = R.anim.activity_anmie_out;
+                break;
+            case R.id.menu_22:
+                openAnim = R.anim.mn_browser_enter_anim;
+                exitAnim = R.anim.mn_browser_exit_anim;
                 break;
             default:
                 break;

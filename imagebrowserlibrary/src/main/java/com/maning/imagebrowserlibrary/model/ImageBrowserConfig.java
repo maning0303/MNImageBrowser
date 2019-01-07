@@ -1,10 +1,12 @@
 package com.maning.imagebrowserlibrary.model;
 
+import android.support.annotation.AnimRes;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 
 import com.maning.imagebrowserlibrary.ImageEngine;
 import com.maning.imagebrowserlibrary.MNImageBrowserActivity;
+import com.maning.imagebrowserlibrary.R;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
@@ -72,6 +74,28 @@ public class ImageBrowserConfig {
     private int customProgressViewLayoutID;
     //全部模式：默认false
     private boolean isFullScreenMode = false;
+    //打开动画
+    @AnimRes
+    private int activityOpenAnime = R.anim.mn_browser_enter_anim;
+    //关闭动画
+    @AnimRes
+    private int activityExitAnime = R.anim.mn_browser_exit_anim;
+
+    public int getActivityOpenAnime() {
+        return activityOpenAnime;
+    }
+
+    public void setActivityOpenAnime(@AnimRes int activityOpenAnime) {
+        this.activityOpenAnime = activityOpenAnime;
+    }
+
+    public int getActivityExitAnime() {
+        return activityExitAnime;
+    }
+
+    public void setActivityExitAnime(@AnimRes int activityExitAnime) {
+        this.activityExitAnime = activityExitAnime;
+    }
 
     public boolean isFullScreenMode() {
         return isFullScreenMode;

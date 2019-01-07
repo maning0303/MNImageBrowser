@@ -3,6 +3,7 @@ package com.maning.imagebrowserlibrary;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.AnimRes;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -110,6 +111,17 @@ public class MNImageBrowser {
         return this;
     }
 
+
+    public MNImageBrowser setActivityOpenAnime(@AnimRes int activityOpenAnime) {
+        imageBrowserConfig.setActivityOpenAnime(activityOpenAnime);
+        return this;
+    }
+
+    public MNImageBrowser setActivityExitAnime(@AnimRes int activityExitAnime) {
+        imageBrowserConfig.setActivityExitAnime(activityExitAnime);
+        return this;
+    }
+
     public void show(View view) {
         //判断是不是空
         if (imageBrowserConfig.getImageList() == null || imageBrowserConfig.getImageList().size() <= 0) {
@@ -126,16 +138,22 @@ public class MNImageBrowser {
         startBrowserAvtivity(context, view, intent);
     }
 
-    private static void startBrowserAvtivity(Context context, View view, Intent intent) {
-        //android V4包的类,用于两个activity转场时的缩放效果实现
-        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(view, view.getWidth() / 2, view.getHeight() / 2, 0, 0);
-        try {
-            ActivityCompat.startActivity(context, intent, optionsCompat.toBundle());
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+    private void startBrowserAvtivity(Context context, View view, Intent intent) {
+        if (imageBrowserConfig.getActivityOpenAnime() != R.anim.mn_browser_enter_anim) {
             context.startActivity(intent);
-            ((Activity) context).overridePendingTransition(R.anim.browser_enter_anim, 0);
+            ((Activity) context).overridePendingTransition(imageBrowserConfig.getActivityOpenAnime(), 0);
+        } else {
+            //android V4包的类,用于两个activity转场时的缩放效果实现
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(view, view.getWidth() / 2, view.getHeight() / 2, 0, 0);
+            try {
+                ActivityCompat.startActivity(context, intent, optionsCompat.toBundle());
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+                context.startActivity(intent);
+                ((Activity) context).overridePendingTransition(R.anim.mn_browser_enter_anim, 0);
+            }
         }
+
     }
 
     /**

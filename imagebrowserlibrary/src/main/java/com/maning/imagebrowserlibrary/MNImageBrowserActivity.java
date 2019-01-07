@@ -242,9 +242,6 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                     mAlpha = 1;
                 }
                 rl_black_bg.setAlpha(mAlpha);
-//                if (!imageBrowserConfig.isFullScreenMode()) {
-//                    StatusBarUtil.setTranslucent(MNImageBrowserActivity.this, (int) (mAlpha * 255));
-//                }
             }
 
             @Override
@@ -298,9 +295,8 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ll_custom_view.setVisibility(View.GONE);
         rl_indicator.setVisibility(View.GONE);
-        rl_black_bg.setAlpha(0);
         finish();
-        this.overridePendingTransition(0, R.anim.browser_exit_anim);
+        this.overridePendingTransition(0, imageBrowserConfig.getActivityExitAnime());
     }
 
     @Override

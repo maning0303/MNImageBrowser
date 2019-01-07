@@ -85,4 +85,13 @@
         android:orderInCategory="1"
         android:title="非全屏模式（默认）" />
 
+    <item
+        android:id="@+id/menu_21"
+        android:orderInCategory="1"
+        android:title="自定义打开关闭动画" />
+    <item
+        android:id="@+id/menu_22"
+        android:orderInCategory="1"
+        android:title="恢复默认打开关闭动画" />
+
 </menu>
