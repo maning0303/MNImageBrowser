@@ -32,7 +32,7 @@
    #### 2.在app目录下的build.gradle中添加依赖
    ``` gradle
    	dependencies {
-   	     implementation 'com.github.maning0303:MNImageBrowser:V1.1.8'
+   	     implementation 'com.github.maning0303:MNImageBrowser:V1.1.9'
    	}
    ```
 
@@ -289,9 +289,16 @@
 ``` gradle
 
     //图片手势缩放
-    api 'com.github.chrisbanes:PhotoView:2.1.3'
+    api 'com.github.chrisbanes:PhotoView:2.1.4'
 
 ```
+
+## 感谢:
+[PhotoView](https://github.com/chrisbanes/PhotoView)
+
+[StatusBarUtil](https://github.com/laobie/StatusBarUtil)
+
+[感谢所有开源的人]
 
 ## 详情见Demo
 
