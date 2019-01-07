@@ -103,10 +103,9 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             Window window = getWindow();
             if (imageBrowserConfig.isFullScreenMode()) {
                 window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            } else {
-                //设置状态栏颜色
-                StatusBarUtil.setColor(this, Color.BLACK);
             }
+            //设置状态栏颜色
+            StatusBarUtil.setColor(this, Color.BLACK);
             // 虚拟导航键
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // 虚拟导航栏透明
