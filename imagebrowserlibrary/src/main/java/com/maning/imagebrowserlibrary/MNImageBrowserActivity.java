@@ -293,14 +293,18 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     }
 
     private void finishBrowser() {
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        ll_custom_view.setVisibility(View.GONE);
-        rl_indicator.setVisibility(View.GONE);
-        finish();
-        this.overridePendingTransition(0, imageBrowserConfig.getActivityExitAnime());
-        //销毁相关数据
-        sActivityRef = null;
-        imageBrowserConfig = null;
+        try {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            ll_custom_view.setVisibility(View.GONE);
+            rl_indicator.setVisibility(View.GONE);
+            finish();
+            this.overridePendingTransition(0, imageBrowserConfig.getActivityExitAnime());
+            //销毁相关数据
+            sActivityRef = null;
+            imageBrowserConfig = null;
+        } catch (Exception e) {
+            finish();
+        }
     }
 
     @Override
