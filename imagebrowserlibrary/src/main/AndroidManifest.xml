@@ -24,6 +24,7 @@
         <activity
             android:name="com.maning.imagebrowserlibrary.MNImageBrowserActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
             android:screenOrientation="sensor"
             android:theme="@style/ImageBrowserTheme" />
 

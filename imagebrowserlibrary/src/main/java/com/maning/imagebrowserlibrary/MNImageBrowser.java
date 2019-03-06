@@ -16,6 +16,7 @@ import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
 import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
+import com.maning.imagebrowserlibrary.utils.FastClickUtils;
 
 import java.util.ArrayList;
 
@@ -123,6 +124,12 @@ public class MNImageBrowser {
     }
 
     public void show(View view) {
+        if (FastClickUtils.isFastClick()) {
+            return;
+        }
+        if (imageBrowserConfig == null) {
+            imageBrowserConfig = new ImageBrowserConfig();
+        }
         //判断是不是空
         if (imageBrowserConfig.getImageList() == null || imageBrowserConfig.getImageList().size() <= 0) {
             return;

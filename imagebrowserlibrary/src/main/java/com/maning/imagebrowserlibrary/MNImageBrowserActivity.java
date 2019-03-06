@@ -46,8 +46,9 @@ import java.util.ArrayList;
 public class MNImageBrowserActivity extends AppCompatActivity {
     //用来保存当前Activity
     private static WeakReference<MNImageBrowserActivity> sActivityRef;
+    //相关配置信息
+    public static ImageBrowserConfig imageBrowserConfig;
 
-    private static final String TAG = MNImageBrowserActivity.class.getSimpleName();
     private Context context;
 
     private MNGestureView mnGestureView;
@@ -72,8 +73,6 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     public OnLongClickListener onLongClickListener;
     public OnClickListener onClickListener;
     public OnPageChangeListener onPageChangeListener;
-    //相关配置信息
-    public static ImageBrowserConfig imageBrowserConfig;
     private MyAdapter imageBrowserAdapter;
     private ImageBrowserConfig.ScreenOrientationType screenOrientationType;
     //图片加载进度View的布局ID
@@ -97,22 +96,25 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     }
 
     private void setWindowFullScreen() {
+        if (imageBrowserConfig == null) {
+            imageBrowserConfig = new ImageBrowserConfig();
+        }
         try {
             //设置全屏
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             Window window = getWindow();
-            if (imageBrowserConfig.isFullScreenMode()) {
+            if (window != null && imageBrowserConfig != null && imageBrowserConfig.isFullScreenMode()) {
                 window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             }
-            //设置状态栏颜色
-            StatusBarUtil.setColor(this, Color.BLACK);
             // 虚拟导航键
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (window != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // 虚拟导航栏透明
                 window.setNavigationBarColor(Color.parseColor("#FF000000"));
             }
+            //设置状态栏颜色
+            StatusBarUtil.setColor(this, Color.BLACK);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -296,6 +298,9 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         rl_indicator.setVisibility(View.GONE);
         finish();
         this.overridePendingTransition(0, imageBrowserConfig.getActivityExitAnime());
+        //销毁相关数据
+        sActivityRef = null;
+        imageBrowserConfig = null;
     }
 
     @Override
@@ -395,13 +400,6 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             container.addView(inflate);
             return inflate;
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        sActivityRef = null;
-        imageBrowserConfig = null;
     }
 
     /**
