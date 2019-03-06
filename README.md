@@ -32,7 +32,7 @@
    #### 2.在app目录下的build.gradle中添加依赖
    ``` gradle
    	dependencies {
-   	     implementation 'com.github.maning0303:MNImageBrowser:V1.1.9'
+   	     implementation 'com.github.maning0303:MNImageBrowser:V1.2.0'
    	}
    ```
 
