@@ -32,7 +32,7 @@
    #### 2.在app目录下的build.gradle中添加依赖
    ``` gradle
    	dependencies {
-   	     implementation 'com.github.maning0303:MNImageBrowser:V1.2.0'
+   	     implementation 'com.github.maning0303:MNImageBrowser:V1.1.9'
    	}
    ```
 
@@ -305,7 +305,7 @@
 ## 版本记录：
 ##### 版本 V1.2.0:
     1.修复已知Bug,防止关闭出现空指针异常和多次连续启动出现的异常
-    2.优化代码
+    2.优化代码，默认消失动画修改
 
 ##### 版本 V1.1.9:
     1.默认修改为非全屏模式
