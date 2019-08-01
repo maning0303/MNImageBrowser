@@ -141,7 +141,10 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         indicatorType = imageBrowserConfig.getIndicatorType();
         screenOrientationType = imageBrowserConfig.getScreenOrientationType();
         onPageChangeListener = imageBrowserConfig.getOnPageChangeListener();
-
+        if (imageUrlList == null) {
+            imageUrlList = new ArrayList<>();
+            imageUrlList.add("");
+        }
         if (imageUrlList.size() <= 1) {
             rl_indicator.setVisibility(View.GONE);
         } else {
@@ -154,7 +157,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             }
             if (indicatorType == ImageBrowserConfig.IndicatorType.Indicator_Number) {
                 numberIndicator.setVisibility(View.VISIBLE);
-                numberIndicator.setText(String.valueOf((currentPosition + 1) + "/" + imageUrlList.size()));
+                numberIndicator.setText((currentPosition + 1) + "/" + imageUrlList.size());
             } else {
                 circleIndicator.setVisibility(View.VISIBLE);
             }
@@ -200,7 +203,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 currentPosition = position;
-                numberIndicator.setText(String.valueOf((currentPosition + 1) + "/" + imageUrlList.size()));
+                numberIndicator.setText((currentPosition + 1) + "/" + imageUrlList.size());
                 if (onPageChangeListener != null) {
                     onPageChangeListener.onPageSelected(position);
                 }

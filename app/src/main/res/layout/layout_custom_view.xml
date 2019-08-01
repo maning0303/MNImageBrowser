@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00000000"
     tools:background="#000000">
 
     <RelativeLayout
@@ -42,10 +43,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingBottom="6dp"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             android:paddingTop="6dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="6dp"
             android:text=""
             android:textColor="#FFFFFF"
             android:textSize="16sp"
