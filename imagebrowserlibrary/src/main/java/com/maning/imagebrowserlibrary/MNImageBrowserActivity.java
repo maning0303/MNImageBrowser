@@ -2,6 +2,7 @@ package com.maning.imagebrowserlibrary;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
@@ -83,26 +84,22 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //设置全屏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_mnimage_browser);
         sActivityRef = new WeakReference<>(this);
         context = this;
-        if (imageBrowserConfig == null) {
-            imageBrowserConfig = new ImageBrowserConfig();
-        }
-        //状态栏样式
-        ImmersionBar.with(this).navigationBarColor(R.color.mn_ib_black).init();
-
+        getImageBrowserConfig();
+        initBar();
         initViews();
-
         initData();
-
         initViewPager();
+    }
 
+    private void initBar() {
+        ImmersionBar.with(this).navigationBarColor(R.color.mn_ib_black).init();
         //判断是否全屏模式，隐藏状态栏
-        if (imageBrowserConfig != null && imageBrowserConfig.isFullScreenMode()) {
-            ImmersionBar.with(MNImageBrowserActivity.this).hideBar(BarHide.FLAG_HIDE_BAR).init();
+        if (getImageBrowserConfig().isFullScreenMode()) {
+            ImmersionBar.with(MNImageBrowserActivity.this).hideBar(BarHide.FLAG_HIDE_STATUS_BAR).init();
         }
     }
 
@@ -120,16 +117,24 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         ll_custom_view.setVisibility(View.GONE);
     }
 
+    private ImageBrowserConfig getImageBrowserConfig() {
+        if (imageBrowserConfig == null) {
+            imageBrowserConfig = new ImageBrowserConfig();
+            finishActivity();
+        }
+        return imageBrowserConfig;
+    }
+
     private void initData() {
-        imageUrlList = imageBrowserConfig.getImageList();
-        currentPosition = imageBrowserConfig.getPosition();
-        transformType = imageBrowserConfig.getTransformType();
-        imageEngine = imageBrowserConfig.getImageEngine();
-        onClickListener = imageBrowserConfig.getOnClickListener();
-        onLongClickListener = imageBrowserConfig.getOnLongClickListener();
-        indicatorType = imageBrowserConfig.getIndicatorType();
-        screenOrientationType = imageBrowserConfig.getScreenOrientationType();
-        onPageChangeListener = imageBrowserConfig.getOnPageChangeListener();
+        imageUrlList = getImageBrowserConfig().getImageList();
+        currentPosition = getImageBrowserConfig().getPosition();
+        transformType = getImageBrowserConfig().getTransformType();
+        imageEngine = getImageBrowserConfig().getImageEngine();
+        onClickListener = getImageBrowserConfig().getOnClickListener();
+        onLongClickListener = getImageBrowserConfig().getOnLongClickListener();
+        indicatorType = getImageBrowserConfig().getIndicatorType();
+        screenOrientationType = getImageBrowserConfig().getScreenOrientationType();
+        onPageChangeListener = getImageBrowserConfig().getOnPageChangeListener();
         if (imageUrlList == null) {
             imageUrlList = new ArrayList<>();
             imageUrlList.add("");
@@ -139,7 +144,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         } else {
             rl_indicator.setVisibility(View.VISIBLE);
 
-            if (imageBrowserConfig.isIndicatorHide()) {
+            if (getImageBrowserConfig().isIndicatorHide()) {
                 rl_indicator.setVisibility(View.GONE);
             } else {
                 rl_indicator.setVisibility(View.VISIBLE);
@@ -153,7 +158,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         }
 
         //自定义View
-        View customShadeView = imageBrowserConfig.getCustomShadeView();
+        View customShadeView = getImageBrowserConfig().getCustomShadeView();
         if (customShadeView != null) {
             ll_custom_view.setVisibility(View.VISIBLE);
             ll_custom_view.removeAllViews();
@@ -174,7 +179,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         }
 
         //自定义ProgressView
-        progressViewLayoutId = imageBrowserConfig.getCustomProgressViewLayoutID();
+        progressViewLayoutId = getImageBrowserConfig().getCustomProgressViewLayoutID();
     }
 
     private void initViewPager() {
@@ -207,6 +212,14 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         mnGestureView.setOnGestureListener(new MNGestureView.OnCanSwipeListener() {
             @Override
             public boolean canSwipe() {
+                //8.0去掉下拉缩小效果,8.0背景透明的Activity不能设置方向
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
+                    return false;
+                }
+                //是否开启手势下拉效果
+                if (!getImageBrowserConfig().isOpenPullDownGestureEffect()) {
+                    return false;
+                }
                 View view = imageBrowserAdapter.getPrimaryItem();
                 PhotoView imageView = (PhotoView) view.findViewById(R.id.imageView);
                 if (imageView.getScale() != 1.0) {
@@ -244,14 +257,14 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                 } else {
                     rl_indicator.setVisibility(View.VISIBLE);
 
-                    if (!imageBrowserConfig.isIndicatorHide()) {
+                    if (!getImageBrowserConfig().isIndicatorHide()) {
                         rl_indicator.setVisibility(View.VISIBLE);
                     } else {
                         rl_indicator.setVisibility(View.GONE);
                     }
                 }
                 //自定义View
-                View customShadeView = imageBrowserConfig.getCustomShadeView();
+                View customShadeView = getImageBrowserConfig().getCustomShadeView();
                 if (customShadeView != null) {
                     ll_custom_view.setVisibility(View.VISIBLE);
                     rl_indicator.setVisibility(View.GONE);
@@ -290,7 +303,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             ll_custom_view.setVisibility(View.GONE);
             rl_indicator.setVisibility(View.GONE);
             finish();
-            this.overridePendingTransition(0, imageBrowserConfig.getActivityExitAnime());
+            this.overridePendingTransition(0, getImageBrowserConfig().getActivityExitAnime());
             //销毁相关数据
             sActivityRef = null;
             imageBrowserConfig = null;

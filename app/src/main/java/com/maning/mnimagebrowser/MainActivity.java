@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean showCustomProgressView = false;
     //是不是全屏模式
     private boolean isFulScreenMode = false;
+    //下拉缩小效果：默认开启true
+    private boolean isOpenPullDownGestureEffect = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,7 +215,8 @@ public class MainActivity extends AppCompatActivity {
                             .setActivityOpenAnime(openAnim)
                             //关闭动画
                             .setActivityExitAnime(exitAnim)
-                            //关闭动画
+                            //手势下拉缩小效果
+                            .setOpenPullDownGestureEffect(isOpenPullDownGestureEffect)
                             //显示：传入当前View
                             .show(viewHolder.imageView);
                 }
@@ -344,6 +347,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_22:
                 openAnim = R.anim.mn_browser_enter_anim;
                 exitAnim = R.anim.mn_browser_exit_anim;
+                break;
+            case R.id.menu_23:
+                isOpenPullDownGestureEffect = true;
+                break;
+            case R.id.menu_24:
+                isOpenPullDownGestureEffect = false;
                 break;
             default:
                 break;

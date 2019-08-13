@@ -74,12 +74,22 @@ public class ImageBrowserConfig {
     private int customProgressViewLayoutID;
     //全部模式：默认false
     private boolean isFullScreenMode = false;
+    //下拉缩小效果：默认开启true
+    private boolean isOpenPullDownGestureEffect = true;
     //打开动画
     @AnimRes
     private int activityOpenAnime = R.anim.mn_browser_enter_anim;
     //关闭动画
     @AnimRes
     private int activityExitAnime = R.anim.mn_browser_exit_anim;
+
+    public boolean isOpenPullDownGestureEffect() {
+        return isOpenPullDownGestureEffect;
+    }
+
+    public void setOpenPullDownGestureEffect(boolean openPullDownGestureEffect) {
+        isOpenPullDownGestureEffect = openPullDownGestureEffect;
+    }
 
     public int getActivityOpenAnime() {
         return activityOpenAnime;

@@ -83,7 +83,16 @@
     <item
         android:id="@+id/menu_20"
         android:orderInCategory="1"
-        android:title="非全屏模式（默认）" />
+        android:title="非全屏模式(默认)" />
+
+    <item
+        android:id="@+id/menu_23"
+        android:orderInCategory="1"
+        android:title="开启手势下拉缩小效果(默认)" />
+    <item
+        android:id="@+id/menu_24"
+        android:orderInCategory="1"
+        android:title="关闭手势下拉缩小效果" />
 
     <item
         android:id="@+id/menu_21"

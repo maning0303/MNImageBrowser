@@ -112,6 +112,10 @@ public class MNImageBrowser {
         return this;
     }
 
+    public MNImageBrowser setOpenPullDownGestureEffect(boolean openPullDownGestureEffect) {
+        imageBrowserConfig.setOpenPullDownGestureEffect(openPullDownGestureEffect);
+        return this;
+    }
 
     public MNImageBrowser setActivityOpenAnime(@AnimRes int activityOpenAnime) {
         imageBrowserConfig.setActivityOpenAnime(activityOpenAnime);
