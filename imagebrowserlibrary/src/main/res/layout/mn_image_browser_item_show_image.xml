@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#00000000">
 
-    <com.github.chrisbanes.photoview.PhotoView
+    <com.maning.imagebrowserlibrary.view.photoview.PhotoView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

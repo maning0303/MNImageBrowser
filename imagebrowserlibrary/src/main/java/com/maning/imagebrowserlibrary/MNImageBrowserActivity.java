@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.github.chrisbanes.photoview.PhotoView;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
@@ -36,6 +35,7 @@ import com.maning.imagebrowserlibrary.utils.immersionbar.ImmersionBar;
 import com.maning.imagebrowserlibrary.view.CircleIndicator;
 import com.maning.imagebrowserlibrary.view.MNGestureView;
 import com.maning.imagebrowserlibrary.view.MNViewPager;
+import com.maning.imagebrowserlibrary.view.photoview.PhotoView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

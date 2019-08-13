@@ -32,7 +32,7 @@
    #### 2.在app目录下的build.gradle中添加依赖
    ``` gradle
    	dependencies {
-   	     implementation 'com.github.maning0303:MNImageBrowser:V1.2.0'
+   	     implementation 'com.github.maning0303:MNImageBrowser:V1.2.1'
    	}
    ```
 
@@ -94,6 +94,8 @@
              }
              //全屏模式：默认非全屏模式
              .setFullScreenMode(isFulScreenMode)
+             //手势下拉缩小效果是否开启
+             .setOpenPullDownGestureEffect(isOpenPullDownGestureEffect)
              //打开动画
              .setActivityOpenAnime(R.anim.activity_anmie_in)
              //关闭动画
@@ -296,13 +298,18 @@
 ## 感谢:
 [PhotoView](https://github.com/chrisbanes/PhotoView)
 
-[StatusBarUtil](https://github.com/laobie/StatusBarUtil)
+[ImmersionBar](https://github.com/gyf-dev/ImmersionBar)
 
 [感谢所有开源的人]
 
 ## 详情见Demo
 
 ## 版本记录：
+##### 版本 V1.2.1:
+    1.修复8.0 fullscreen opaque activities can request orientation 错误（解决方案：主题设置8.0去掉下拉缩小效果，其他版本正常使用）
+    2.添加 下拉缩小效果 开关，可手动选择
+    3.代码优化
+
 ##### 版本 V1.2.0:
     1.修复已知Bug,防止关闭出现空指针异常和多次连续启动出现的异常
     2.优化代码，默认消失动画修改
