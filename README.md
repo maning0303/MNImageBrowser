@@ -286,15 +286,6 @@
 
 ```
 
-
-## 内部依赖库:
-``` gradle
-
-    //图片手势缩放
-    api 'com.github.chrisbanes:PhotoView:2.1.4'
-
-```
-
 ## 感谢:
 [PhotoView](https://github.com/chrisbanes/PhotoView)
 
@@ -333,13 +324,11 @@
     2.监图片滑动切换监听
     3.自定义任意遮罩层
     4.公开新方法：获取当前ImageView，获取ViewPager，获取Position，获取当前Activity实例，手动关闭图片浏览器
-    
-    
+
 ##### 版本 V1.1.2:
     1.支持单张图片，不需要传入集合
     2.支持设置屏幕方向设置：横屏，竖屏，都支持
-    
-    
+
 ##### 版本 V1.1.0:
     1.调用方式更加方便
     2.图片加载方式外部实现
