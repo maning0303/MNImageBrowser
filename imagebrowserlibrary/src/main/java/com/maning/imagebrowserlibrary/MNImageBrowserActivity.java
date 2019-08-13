@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
@@ -120,7 +121,6 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     private ImageBrowserConfig getImageBrowserConfig() {
         if (imageBrowserConfig == null) {
             imageBrowserConfig = new ImageBrowserConfig();
-            finishActivity();
         }
         return imageBrowserConfig;
     }
@@ -137,8 +137,11 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         onPageChangeListener = getImageBrowserConfig().getOnPageChangeListener();
         if (imageUrlList == null) {
             imageUrlList = new ArrayList<>();
-            imageUrlList.add("");
+            //直接关闭
+            finishActivity();
+            return;
         }
+
         if (imageUrlList.size() <= 1) {
             rl_indicator.setVisibility(View.GONE);
         } else {
