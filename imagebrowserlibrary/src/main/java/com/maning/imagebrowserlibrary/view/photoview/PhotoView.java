@@ -24,14 +24,14 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 
-import com.github.chrisbanes.photoview.OnMatrixChangedListener;
-import com.github.chrisbanes.photoview.OnOutsidePhotoTapListener;
-import com.github.chrisbanes.photoview.OnPhotoTapListener;
-import com.github.chrisbanes.photoview.OnScaleChangedListener;
-import com.github.chrisbanes.photoview.OnSingleFlingListener;
-import com.github.chrisbanes.photoview.OnViewDragListener;
-import com.github.chrisbanes.photoview.OnViewTapListener;
-import com.github.chrisbanes.photoview.PhotoViewAttacher;
+import com.maning.imagebrowserlibrary.view.photoview.OnMatrixChangedListener;
+import com.maning.imagebrowserlibrary.view.photoview.OnOutsidePhotoTapListener;
+import com.maning.imagebrowserlibrary.view.photoview.OnPhotoTapListener;
+import com.maning.imagebrowserlibrary.view.photoview.OnScaleChangedListener;
+import com.maning.imagebrowserlibrary.view.photoview.OnSingleFlingListener;
+import com.maning.imagebrowserlibrary.view.photoview.OnViewDragListener;
+import com.maning.imagebrowserlibrary.view.photoview.OnViewTapListener;
+import com.maning.imagebrowserlibrary.view.photoview.PhotoViewAttacher;
 
 /**
  * A zoomable ImageView. See {@link PhotoViewAttacher} for most of the details on how the zooming
