@@ -2,8 +2,6 @@ package com.maning.imagebrowserlibrary;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
@@ -14,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -31,7 +30,8 @@ import com.maning.imagebrowserlibrary.transforms.RotateUpTransformer;
 import com.maning.imagebrowserlibrary.transforms.ZoomInTransformer;
 import com.maning.imagebrowserlibrary.transforms.ZoomOutSlideTransformer;
 import com.maning.imagebrowserlibrary.transforms.ZoomOutTransformer;
-import com.maning.imagebrowserlibrary.utils.StatusBarUtil;
+import com.maning.imagebrowserlibrary.utils.immersionbar.BarHide;
+import com.maning.imagebrowserlibrary.utils.immersionbar.ImmersionBar;
 import com.maning.imagebrowserlibrary.view.CircleIndicator;
 import com.maning.imagebrowserlibrary.view.MNGestureView;
 import com.maning.imagebrowserlibrary.view.MNViewPager;
@@ -58,6 +58,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     private TextView numberIndicator;
     private CircleIndicator circleIndicator;
     private LinearLayout ll_custom_view;
+    private FrameLayout fl_out;
 
     //图片地址
     private ArrayList<String> imageUrlList;
@@ -82,10 +83,16 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setWindowFullScreen();
+        //设置全屏
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_mnimage_browser);
         sActivityRef = new WeakReference<>(this);
         context = this;
+        if (imageBrowserConfig == null) {
+            imageBrowserConfig = new ImageBrowserConfig();
+        }
+        //状态栏样式
+        ImmersionBar.with(this).navigationBarColor(R.color.mn_ib_black).init();
 
         initViews();
 
@@ -93,28 +100,9 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
         initViewPager();
 
-    }
-
-    private void setWindowFullScreen() {
-        if (imageBrowserConfig == null) {
-            imageBrowserConfig = new ImageBrowserConfig();
-        }
-        try {
-            //设置全屏
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            Window window = getWindow();
-            if (window != null && imageBrowserConfig != null && imageBrowserConfig.isFullScreenMode()) {
-                window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            }
-            // 虚拟导航键
-            if (window != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                // 虚拟导航栏透明
-                window.setNavigationBarColor(Color.parseColor("#FF000000"));
-            }
-            //设置状态栏颜色
-            StatusBarUtil.setColor(this, Color.BLACK);
-        } catch (Exception e) {
-            e.printStackTrace();
+        //判断是否全屏模式，隐藏状态栏
+        if (imageBrowserConfig != null && imageBrowserConfig.isFullScreenMode()) {
+            ImmersionBar.with(MNImageBrowserActivity.this).hideBar(BarHide.FLAG_HIDE_BAR).init();
         }
     }
 
@@ -126,6 +114,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         circleIndicator = (CircleIndicator) findViewById(R.id.circleIndicator);
         numberIndicator = (TextView) findViewById(R.id.numberIndicator);
         ll_custom_view = (LinearLayout) findViewById(R.id.ll_custom_view);
+        fl_out = (FrameLayout) findViewById(R.id.fl_out);
         circleIndicator.setVisibility(View.GONE);
         numberIndicator.setVisibility(View.GONE);
         ll_custom_view.setVisibility(View.GONE);

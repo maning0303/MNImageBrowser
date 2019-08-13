@@ -4,70 +4,81 @@
     android:id="@+id/browser_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00000000"
-    android:fitsSystemWindows="true">
+    android:background="#00000000">
+
+    <FrameLayout
+        android:id="@+id/fl_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
-        android:id="@+id/rl_black_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#000000" />
-
-    <com.maning.imagebrowserlibrary.view.MNGestureView
-        android:id="@+id/mnGestureView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.maning.imagebrowserlibrary.view.MNViewPager
-            android:id="@+id/viewPagerBrowser"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
-    </com.maning.imagebrowserlibrary.view.MNGestureView>
-
-
-    <RelativeLayout
-        android:id="@+id/rl_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="20dp">
-
-
-        <com.maning.imagebrowserlibrary.view.CircleIndicator
-            android:id="@+id/circleIndicator"
+        <RelativeLayout
+            android:id="@+id/rl_black_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true" />
+            android:background="#000000" />
 
-        <TextView
-            android:id="@+id/numberIndicator"
-            android:layout_width="wrap_content"
+        <com.maning.imagebrowserlibrary.view.MNGestureView
+            android:id="@+id/mnGestureView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.maning.imagebrowserlibrary.view.MNViewPager
+                android:id="@+id/viewPagerBrowser"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.maning.imagebrowserlibrary.view.MNGestureView>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp">
+
+
+            <com.maning.imagebrowserlibrary.view.CircleIndicator
+                android:id="@+id/circleIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:id="@+id/numberIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingTop="6dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="6dp"
+                android:text=""
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:visibility="visible"
+                tools:text="1/10" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_custom_view"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:paddingBottom="6dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="6dp"
-            android:text=""
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:visibility="visible"
-            tools:text="1/10" />
+            android:background="#00000000"
+            android:orientation="vertical">
 
+            <!--这里动态添加相关自定义View-->
+
+        </LinearLayout>
 
     </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_custom_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#00000000"
-        android:orientation="vertical">
-
-        <!--这里动态添加相关自定义View-->
-
-    </LinearLayout>
 
 </RelativeLayout>
