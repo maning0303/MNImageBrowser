@@ -35,7 +35,10 @@
 
      //android support library
      dependencies {
-         implementation 'com.github.maning0303:MNImageBrowser:V1.2.3'
+         //v4,v7包
+         implementation 'com.android.support:appcompat-v7:28.0.0'
+         implementation 'com.android.support:support-v4:28.0.0'
+         implementation 'com.github.maning0303:MNImageBrowser:V1.2.4'
      }
 
      //android x 适配
