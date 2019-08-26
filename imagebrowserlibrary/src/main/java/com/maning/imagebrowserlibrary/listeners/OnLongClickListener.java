@@ -1,8 +1,8 @@
 package com.maning.imagebrowserlibrary.listeners;
 
-import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.widget.ImageView;
+
+import androidx.fragment.app.FragmentActivity;
 
 /**
  * author : maning

@@ -44,8 +44,9 @@ public class OSUtils {
             } catch (NumberFormatException e) {
                 return false;
             }
-        } else
+        } else {
             return false;
+        }
     }
 
     /**

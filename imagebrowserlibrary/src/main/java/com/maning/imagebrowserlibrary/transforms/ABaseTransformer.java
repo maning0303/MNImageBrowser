@@ -16,10 +16,11 @@
 
 package com.maning.imagebrowserlibrary.transforms;
 
-import android.support.v4.view.ViewPager.PageTransformer;
 import android.view.View;
 
-public abstract class ABaseTransformer implements PageTransformer {
+import androidx.viewpager.widget.ViewPager;
+
+public abstract class ABaseTransformer implements ViewPager.PageTransformer {
 
 	/**
 	 * Called each {@link #transformPage(View, float)}.
@@ -117,8 +118,7 @@ public abstract class ABaseTransformer implements PageTransformer {
 	}
 
 	/**
-	 * Same as {@link Math#min(double, double)} without double casting, zero closest to infinity handling, or NaN support.
-	 * 
+	 *
 	 * @param val
 	 * @param min
 	 * @return

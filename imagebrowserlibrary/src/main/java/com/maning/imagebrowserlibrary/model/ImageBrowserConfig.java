@@ -1,11 +1,11 @@
 package com.maning.imagebrowserlibrary.model;
 
-import android.support.annotation.AnimRes;
-import android.support.annotation.LayoutRes;
 import android.view.View;
 
+import androidx.annotation.AnimRes;
+import androidx.annotation.LayoutRes;
+
 import com.maning.imagebrowserlibrary.ImageEngine;
-import com.maning.imagebrowserlibrary.MNImageBrowserActivity;
 import com.maning.imagebrowserlibrary.R;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
