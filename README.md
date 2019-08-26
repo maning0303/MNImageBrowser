@@ -18,25 +18,36 @@
 ## 如何添加
 
 ### 方式一:Gradle添加：
-   #### 1.在Project的build.gradle中添加仓库地址
+#### 1.在Project的build.gradle中添加仓库地址
+``` gradle
+	allprojects {
+		repositories {
+			...
+			maven { url "https://jitpack.io" }
+		}
+	}
+```
 
-   ``` gradle
-   	allprojects {
-   		repositories {
-   			...
-   			maven { url "https://jitpack.io" }
-   		}
-   	}
+### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.2.3X)
+
+#### 2.在app目录下的build.gradle中添加依赖
+``` gradle
+
+     //android support library
+     dependencies {
+         implementation 'com.github.maning0303:MNImageBrowser:V1.2.3'
+     }
+
+     //android x 适配
+     dependencies {
+         implementation 'androidx.appcompat:appcompat:1.0.0'
+         implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+         implementation 'com.github.maning0303:MNImageBrowser:V1.2.3X'
+     }
    ```
 
-   #### 2.在app目录下的build.gradle中添加依赖
-   ``` gradle
-   	dependencies {
-   	     implementation 'com.github.maning0303:MNImageBrowser:V1.2.3'
-   	}
-   ```
-
-### 方式二:(方便自定义修改)下载源码使用Module添加：imagebrowserlibrary
+### 方式二:(方便自定义修改)
+#### 下载源码使用Module添加：imagebrowserlibrary(需要 android x 适配，切换到androidx分支。)
 
 ``` gradle
 	implementation project(':imagebrowserlibrary')
