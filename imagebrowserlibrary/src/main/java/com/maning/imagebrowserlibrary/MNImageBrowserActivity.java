@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,21 +85,32 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mnimage_browser);
-        sActivityRef = new WeakReference<>(this);
-        context = this;
-        getImageBrowserConfig();
-        initBar();
-        initViews();
-        initData();
-        initViewPager();
+        try {
+            setContentView(R.layout.activity_mnimage_browser);
+            sActivityRef = new WeakReference<>(this);
+            context = this;
+            getImageBrowserConfig();
+            initBar();
+            initViews();
+            initData();
+            initViewPager();
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e(">>MNImageBrowser>>", "MNImageBrowserActivity-onCreate异常：" + e.toString());
+            finishBrowser();
+        }
     }
 
     private void initBar() {
-        ImmersionBar.with(this).navigationBarColor(R.color.mn_ib_black).init();
-        //判断是否全屏模式，隐藏状态栏
-        if (getImageBrowserConfig().isFullScreenMode()) {
-            ImmersionBar.with(MNImageBrowserActivity.this).hideBar(BarHide.FLAG_HIDE_STATUS_BAR).init();
+        try {
+            ImmersionBar.with(this).navigationBarColor(R.color.mn_ib_black).init();
+            //判断是否全屏模式，隐藏状态栏
+            if (getImageBrowserConfig().isFullScreenMode()) {
+                ImmersionBar.with(MNImageBrowserActivity.this).hideBar(BarHide.FLAG_HIDE_STATUS_BAR).init();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e(">>MNImageBrowser>>", "MNImageBrowserActivity-initBar异常：" + e.toString());
         }
     }
 
