@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly 'androidx.appcompat:appcompat:1.0.0'
+//    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compileOnly 'androidx.appcompat:appcompat:1.1.0'
     compileOnly 'androidx.legacy:legacy-support-v4:1.0.0'
 }

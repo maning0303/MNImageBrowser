@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,15 +86,20 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_mnimage_browser);
-        sActivityRef = new WeakReference<>(this);
-        context = this;
-        getImageBrowserConfig();
-        initBar();
-        initViews();
-        initData();
-        initViewPager();
+        try {
+            setContentView(R.layout.activity_mnimage_browser);
+            sActivityRef = new WeakReference<>(this);
+            context = this;
+            getImageBrowserConfig();
+            initBar();
+            initViews();
+            initData();
+            initViewPager();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(">>MNImageBrowser>>", "MNImageBrowserActivity异常：" + e.toString());
+            finishBrowser();
+        }
     }
 
     private void initBar() {
