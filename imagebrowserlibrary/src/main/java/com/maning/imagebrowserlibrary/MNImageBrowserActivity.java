@@ -97,16 +97,21 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             initViewPager();
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(">>MNImageBrowser>>", "MNImageBrowserActivity异常：" + e.toString());
+            Log.e(">>MNImageBrowser>>", "MNImageBrowserActivity-onCreate异常：" + e.toString());
             finishBrowser();
         }
     }
 
     private void initBar() {
-        ImmersionBar.with(this).navigationBarColor(R.color.mn_ib_black).init();
-        //判断是否全屏模式，隐藏状态栏
-        if (getImageBrowserConfig().isFullScreenMode()) {
-            ImmersionBar.with(MNImageBrowserActivity.this).hideBar(BarHide.FLAG_HIDE_STATUS_BAR).init();
+        try {
+            ImmersionBar.with(this).navigationBarColor(R.color.mn_ib_black).init();
+            //判断是否全屏模式，隐藏状态栏
+            if (getImageBrowserConfig().isFullScreenMode()) {
+                ImmersionBar.with(MNImageBrowserActivity.this).hideBar(BarHide.FLAG_HIDE_STATUS_BAR).init();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e(">>MNImageBrowser>>", "MNImageBrowserActivity-initBar异常：" + e.toString());
         }
     }
 
