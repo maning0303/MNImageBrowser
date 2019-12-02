@@ -21,9 +21,10 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation project(':imagebrowserlibrary')
+
     //测试gradle
-//    implementation 'com.github.maning0303:MNImageBrowser:V1.2.3X'
+//    implementation 'com.github.maning0303:MNImageBrowser:V1.2.5X'
+    implementation project(':imagebrowserlibrary')
 
 
     implementation 'com.squareup.picasso:picasso:2.71828'
