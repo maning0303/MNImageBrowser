@@ -31,7 +31,7 @@
 	}
 ```
 
-### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.2.3X)
+### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.2.5X)
 
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
@@ -41,14 +41,14 @@
          //v4,v7包
          implementation 'com.android.support:appcompat-v7:28.0.0'
          implementation 'com.android.support:support-v4:28.0.0'
-         implementation 'com.github.maning0303:MNImageBrowser:V1.2.4'
+         implementation 'com.github.maning0303:MNImageBrowser:V1.2.5'
      }
 
      //android x 适配
      dependencies {
          implementation 'androidx.appcompat:appcompat:1.0.0'
          implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-         implementation 'com.github.maning0303:MNImageBrowser:V1.2.3X'
+         implementation 'com.github.maning0303:MNImageBrowser:V1.2.5X'
      }
    ```
 
@@ -313,6 +313,10 @@
 ## 详情见Demo
 
 ## 版本记录：
+##### 版本 V1.2.5:
+    1.优化requestFeature() must be called before adding content，去除requestWindowFeature(Window.FEATURE_NO_TITLE);
+    2.优化代码，防止未知崩溃
+
 ##### 版本 V1.2.3:
     1.修复8.0 fullscreen opaque activities can request orientation 错误（解决方案：主题设置8.0去掉下拉缩小效果，其他版本正常使用）
     2.添加 下拉缩小效果 开关，可手动选择
@@ -322,38 +326,6 @@
 ##### 版本 V1.2.0:
     1.修复已知Bug,防止关闭出现空指针异常和多次连续启动出现的异常
     2.优化代码，默认消失动画修改
-
-##### 版本 V1.1.9:
-    1.默认修改为非全屏模式
-    2.优化导航栏
-    3.添加设置打开和关闭动画
-    
-##### 版本 V1.1.8:
-    1.新增全屏模式和非全屏模式
-    2.minSdkVersion == 14
-    
-##### 版本 V1.1.5:
-    1.添加动态设置自定义ProgressView，可以显示进度
-    2.动态删除某一张图片，实现浏览过程中删除图片操作
-    3.提供获取ViewPager等方便方法（查看README）
-
-##### 版本 V1.1.3:
-    1.设置隐藏指示器
-    2.监图片滑动切换监听
-    3.自定义任意遮罩层
-    4.公开新方法：获取当前ImageView，获取ViewPager，获取Position，获取当前Activity实例，手动关闭图片浏览器
-
-##### 版本 V1.1.2:
-    1.支持单张图片，不需要传入集合
-    2.支持设置屏幕方向设置：横屏，竖屏，都支持
-
-##### 版本 V1.1.0:
-    1.调用方式更加方便
-    2.图片加载方式外部实现
-    3.修复大图下拉和手势关闭冲突问题
-    4.单个图片不显示数量指示器
-    5.数量指示器两种模式（数字和圆点）
-    6.添加单击和长按监听
 
 ## 推荐:
 Name | Describe |
