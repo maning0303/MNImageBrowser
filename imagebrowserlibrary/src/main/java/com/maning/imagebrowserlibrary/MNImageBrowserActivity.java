@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -12,8 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,6 +52,7 @@ import java.util.ArrayList;
  * 图片浏览的页面
  */
 public class MNImageBrowserActivity extends AppCompatActivity {
+    private Handler UIHandler = new Handler(Looper.getMainLooper());
     //用来保存当前Activity
     private static WeakReference<MNImageBrowserActivity> sActivityRef;
     //相关配置信息
@@ -94,7 +101,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             initViews();
             initData();
             initViewPager();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             Log.e(">>MNImageBrowser>>", "MNImageBrowserActivity-onCreate异常：" + e.toString());
             finishBrowser();
@@ -108,7 +115,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             if (getImageBrowserConfig().isFullScreenMode()) {
                 ImmersionBar.with(MNImageBrowserActivity.this).hideBar(BarHide.FLAG_HIDE_STATUS_BAR).init();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             Log.e(">>MNImageBrowser>>", "MNImageBrowserActivity-initBar异常：" + e.toString());
         }
@@ -152,31 +159,31 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             return;
         }
 
-        if (imageUrlList.size() <= 1) {
-            rl_indicator.setVisibility(View.GONE);
-        } else {
-            rl_indicator.setVisibility(View.VISIBLE);
-
-            if (getImageBrowserConfig().isIndicatorHide()) {
-                rl_indicator.setVisibility(View.GONE);
-            } else {
-                rl_indicator.setVisibility(View.VISIBLE);
-            }
-            if (indicatorType == ImageBrowserConfig.IndicatorType.Indicator_Number) {
-                numberIndicator.setVisibility(View.VISIBLE);
-                numberIndicator.setText((currentPosition + 1) + "/" + imageUrlList.size());
-            } else {
-                circleIndicator.setVisibility(View.VISIBLE);
-            }
-        }
-
         //自定义View
         View customShadeView = getImageBrowserConfig().getCustomShadeView();
         if (customShadeView != null) {
-            ll_custom_view.setVisibility(View.VISIBLE);
             ll_custom_view.removeAllViews();
+            ll_custom_view.setVisibility(View.VISIBLE);
             ll_custom_view.addView(customShadeView);
             rl_indicator.setVisibility(View.GONE);
+        } else {
+            if (imageUrlList.size() <= 1) {
+                rl_indicator.setVisibility(View.GONE);
+            } else {
+                rl_indicator.setVisibility(View.VISIBLE);
+
+                if (getImageBrowserConfig().isIndicatorHide()) {
+                    rl_indicator.setVisibility(View.GONE);
+                } else {
+                    rl_indicator.setVisibility(View.VISIBLE);
+                }
+                if (indicatorType == ImageBrowserConfig.IndicatorType.Indicator_Number) {
+                    numberIndicator.setVisibility(View.VISIBLE);
+                    numberIndicator.setText((currentPosition + 1) + "/" + imageUrlList.size());
+                } else {
+                    circleIndicator.setVisibility(View.VISIBLE);
+                }
+            }
         }
 
         //横竖屏梳理
@@ -193,7 +200,34 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
         //自定义ProgressView
         progressViewLayoutId = getImageBrowserConfig().getCustomProgressViewLayoutID();
+
+
+        //动画处理
+        rl_black_bg.setAlpha(1.0f);
+        if (R.anim.mn_browser_enter_anim == getImageBrowserConfig().getActivityOpenAnime()) {
+            rl_black_bg.setAlpha(0.0f);
+            UIHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    rl_black_bg.animate().alpha(1).setDuration(300);
+                }
+            }, 200);
+        }
     }
+
+    private void scheduleStartPostponedTransition(final View sharedElement) {
+        sharedElement.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+                    @Override
+                    public boolean onPreDraw() {
+                        // 启动动画
+                        sharedElement.getViewTreeObserver().removeOnPreDrawListener(this);
+                        ActivityCompat.startPostponedEnterTransition(MNImageBrowserActivity.this);
+                        return true;
+                    }
+                });
+    }
+
 
     private void initViewPager() {
         imageBrowserAdapter = new MyAdapter();
@@ -311,10 +345,52 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     }
 
     private void finishBrowser() {
+        //8.0去掉下拉缩小效果,8.0背景透明的Activity不能设置方向
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
+            finishBrowser8();
+            return;
+        }
         try {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            ll_custom_view.removeAllViews();
             ll_custom_view.setVisibility(View.GONE);
             rl_indicator.setVisibility(View.GONE);
+            rl_black_bg.animate().alpha(0).setDuration(200);
+
+            Animation exitAnimation = AnimationUtils.loadAnimation(this, getImageBrowserConfig().getActivityExitAnime());
+            exitAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    finish();
+                    overridePendingTransition(0, 0);
+                    //销毁相关数据
+                    sActivityRef = null;
+                    imageBrowserConfig = null;
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            mnGestureView.startAnimation(exitAnimation);
+
+        } catch (Exception e) {
+            finish();
+        }
+    }
+
+    private void finishBrowser8() {
+        try {
+            ll_custom_view.removeAllViews();
+            ll_custom_view.setVisibility(View.GONE);
+            rl_indicator.setVisibility(View.GONE);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             finish();
             this.overridePendingTransition(0, getImageBrowserConfig().getActivityExitAnime());
             //销毁相关数据
@@ -324,6 +400,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             finish();
         }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -373,6 +450,10 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             final RelativeLayout progress_view = (RelativeLayout) inflate.findViewById(R.id.progress_view);
 
             final String url = imageUrlList.get(position);
+
+            if (currentPosition == position) {
+                scheduleStartPostponedTransition(imageView);
+            }
 
             rl_browser_root.setOnClickListener(new View.OnClickListener() {
                 @Override
