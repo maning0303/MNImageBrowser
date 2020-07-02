@@ -75,27 +75,27 @@ public class CircleIndicator extends LinearLayout {
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MNImageBrowserCircleIndicator);
         mIndicatorWidth =
-                typedArray.getDimensionPixelSize(R.styleable.MNImageBrowserCircleIndicator_ci_width, -1);
+                typedArray.getDimensionPixelSize(R.styleable.MNImageBrowserCircleIndicator_mn_ibci_width, -1);
         mIndicatorHeight =
-                typedArray.getDimensionPixelSize(R.styleable.MNImageBrowserCircleIndicator_ci_height, -1);
+                typedArray.getDimensionPixelSize(R.styleable.MNImageBrowserCircleIndicator_mn_ibci_height, -1);
         mIndicatorMargin =
-                typedArray.getDimensionPixelSize(R.styleable.MNImageBrowserCircleIndicator_ci_margin, -1);
+                typedArray.getDimensionPixelSize(R.styleable.MNImageBrowserCircleIndicator_mn_ibci_margin, -1);
 
-        mAnimatorResId = typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_ci_animator,
+        mAnimatorResId = typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_mn_ibci_animator,
                 R.animator.browser_scale_with_alpha);
         mAnimatorReverseResId =
-                typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_ci_animator_reverse, 0);
+                typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_mn_ibci_animator_reverse, 0);
         mIndicatorBackgroundResId =
-                typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_ci_drawable,
+                typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_mn_ibci_drawable,
                         R.drawable.mn_browser_white_radius);
         mIndicatorUnselectedBackgroundResId =
-                typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_ci_drawable_unselected,
+                typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_mn_ibci_drawable_unselected,
                         mIndicatorBackgroundResId);
 
-        int orientation = typedArray.getInt(R.styleable.MNImageBrowserCircleIndicator_ci_orientation, -1);
+        int orientation = typedArray.getInt(R.styleable.MNImageBrowserCircleIndicator_mn_ibci_orientation, -1);
         setOrientation(orientation == VERTICAL ? VERTICAL : HORIZONTAL);
 
-        int gravity = typedArray.getInt(R.styleable.MNImageBrowserCircleIndicator_ci_gravity, -1);
+        int gravity = typedArray.getInt(R.styleable.MNImageBrowserCircleIndicator_mn_ibci_gravity, -1);
         setGravity(gravity >= 0 ? gravity : Gravity.CENTER);
 
         typedArray.recycle();
