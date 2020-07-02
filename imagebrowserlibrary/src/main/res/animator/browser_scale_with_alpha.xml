@@ -12,11 +12,11 @@
         android:propertyName="scaleX"
         android:valueType="floatType"
         android:valueFrom="1.0"
-        android:valueTo="1.8"/>
+        android:valueTo="1.6"/>
 
     <objectAnimator
         android:propertyName="scaleY"
         android:valueType="floatType"
         android:valueFrom="1.0"
-        android:valueTo="1.8"/>
+        android:valueTo="1.6"/>
 </set>
