@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
@@ -191,15 +192,20 @@ public class MainActivity extends AppCompatActivity {
                             //点击监听
                             .setOnClickListener(new OnClickListener() {
                                 @Override
-                                public void onClick(FragmentActivity activity, ImageView view, int position, String url) {
-
+                                public void onClick(FragmentActivity activity, View view, int position, String url) {
+                                    //TODO:注意，这里的View可能是ImageView,也可能是自定义setCustomImageViewLayout的View
                                 }
                             })
                             //长按监听
                             .setOnLongClickListener(new OnLongClickListener() {
                                 @Override
-                                public void onLongClick(final FragmentActivity activity, final ImageView imageView, int position, String url) {
-                                    showListDialog(activity, imageView);
+                                public void onLongClick(final FragmentActivity activity, final View imageView, int position, String url) {
+                                    //TODO:注意，这里的View可能是ImageView,也可能是自定义setCustomImageViewLayout的View
+                                    if(imageView instanceof ImageView){
+                                        showListDialog(activity, (ImageView) imageView);
+                                    }else{
+                                        MToast.makeTextShort(context,"自定义setCustomImageViewLayout的View,自己实现长按功能");
+                                    }
                                 }
                             })
                             //页面切换监听

@@ -316,6 +316,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     private void finishBrowser() {
         try {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            rl_black_bg.setAlpha(0);
             ll_custom_view.setVisibility(View.GONE);
             rl_indicator.setVisibility(View.GONE);
             finish();
@@ -384,6 +385,12 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                     finishBrowser();
                 }
             });
+            custom_image_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finishBrowser();
+                }
+            });
 
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -395,12 +402,32 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                     finishBrowser();
                 }
             });
+            custom_image_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //单击事件
+                    if (onClickListener != null) {
+                        onClickListener.onClick(MNImageBrowserActivity.this, custom_image_view, position, url);
+                    }
+                    finishBrowser();
+                }
+            });
 
             imageView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
                     if (onLongClickListener != null) {
                         onLongClickListener.onLongClick(MNImageBrowserActivity.this, imageView, position, url);
+                    }
+                    return false;
+                }
+            });
+
+            custom_image_view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if (onLongClickListener != null) {
+                        onLongClickListener.onLongClick(MNImageBrowserActivity.this, custom_image_view, position, url);
                     }
                     return false;
                 }
