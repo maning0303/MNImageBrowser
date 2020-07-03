@@ -2,9 +2,6 @@
 一个图片浏览框架,类似微信图片浏览,手势向下滑动关闭,图片加载引擎自定义,支持长按,单击监听,切换监听,自定义任意的遮罩层，实现各种效果,支持横竖屏切换,简单方便。
 [![](https://jitpack.io/v/maning0303/MNImageBrowser.svg)](https://jitpack.io/#maning0303/MNImageBrowser)
 
-## 注意
-8.0系统关闭了下拉缩小特效，8.0 fullscreen opaque activities can request orientation，其它系统版本正常
-
 ## 截图
 
 #### gif比较慢:
@@ -31,7 +28,7 @@
 	}
 ```
 
-### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.2.5X)
+### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.3.0X)
 
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
@@ -46,9 +43,9 @@
 
      //android x 适配
      dependencies {
-         implementation 'androidx.appcompat:appcompat:1.0.0'
+         implementation 'androidx.appcompat:appcompat:1.1.0'
          implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-         implementation 'com.github.maning0303:MNImageBrowser:V1.2.5X'
+         implementation 'com.github.maning0303:MNImageBrowser:V1.3.0X'
      }
    ```
 
@@ -117,53 +114,55 @@
              .setActivityOpenAnime(R.anim.activity_anmie_in)
              //关闭动画
              .setActivityExitAnime(R.anim.activity_anmie_out)
+             //自定义显示View，默认使用PhotoView，可以自定义View实现Fresco等加载
+             .setCustomImageViewLayoutID(showCustomImageView ? R.layout.layout_custom_image_view_fresco : 0)
              //打开
              .show(viewHolder.imageView);
-             
-             
+
+
      //----MNImageBrowser提供其他方法----
      /**
       * 获取当前Activity实例
       */
      MNImageBrowser.getCurrentActivity();
-      
+
      /**
       * 手动关闭图片浏览器
       */
      MNImageBrowser.finishImageBrowser();
-     
+
      /**
       * 获取当前ImageView
       */
      MNImageBrowser.getCurrentImageView();
-     
+
      /**
       * 获取当前位置
       */
      MNImageBrowser.getCurrentPosition();
-     
+
      /**
       * 获取ViewPager
       */
      MNImageBrowser.getViewPager();
-     
+
      /**
       * 删除图片
       *
       * @param position
       */
      MNImageBrowser.removeImage(int position) {
-     
+
      /**
       * 删除图片
       */
      MNImageBrowser.removeCurrentImage() {
-    
+
      /**
       * 获取图片集合
       */
      MNImageBrowser.getImageList() {
-    
+
 ```
 
 
@@ -177,23 +176,24 @@
      * version: 1.0
      */
     public interface ImageEngine {
-    
+
         /**
          * 加载图片方法
          *
-         * @param context      上下文
-         * @param url          图片地址
-         * @param imageView    ImageView
-         * @param progressView 进度View
+         * @param context         上下文
+         * @param url             图片地址
+         * @param imageView       ImageView
+         * @param progressView    进度View
+         * @param customImageView 自定义加载图片，替换PhotoView
          */
-        void loadImage(Context context, String url, ImageView imageView, View progressView);
-    
+        void loadImage(Context context, String url, ImageView imageView, View progressView, View customImageView);
+
     }
 
     //Picasso
     public class PicassoImageEngine implements ImageEngine {
         @Override
-            public void loadImage(Context context, String url, ImageView imageView, final View progressView) {
+            public void loadImage(Context context, String url, ImageView imageView, final View progressView, View customImageView) {
                 Picasso.with(context).load(url)
                         .placeholder(R.drawable.default_placeholder)
                         .error(R.mipmap.ic_launcher)
@@ -203,7 +203,7 @@
                                 //隐藏进度View,必须设置setCustomProgressViewLayoutID
                                 progressView.setVisibility(View.GONE);
                             }
-        
+
                             @Override
                             public void onError() {
                                 //隐藏进度View,必须设置setCustomProgressViewLayoutID
@@ -212,11 +212,11 @@
                         });
             }
     }
-    
+
     //Glide
     public class GlideImageEngine implements ImageEngine {
         @Override
-        public void loadImage(Context context, String url, ImageView imageView, final View progressView) {
+        public void loadImage(Context context, String url, ImageView imageView, final View progressView, View customImageView) {
             Glide.with(context)
                     .load(url)
                     .asBitmap()
@@ -230,7 +230,7 @@
                             progressView.setVisibility(View.GONE);
                             return false;
                         }
-        
+
                         @Override
                         public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
                             //隐藏进度View,必须设置setCustomProgressViewLayoutID
@@ -241,14 +241,29 @@
                     .into(imageView);
         }
     }
-    
+
+    //Fresco，必须配合setCustomImageViewLayoutID()方法来
+    public class FrescoImageEngine implements ImageEngine {
+
+        @Override
+        public void loadImage(Context context, String url, ImageView imageView, final View progressView, View customImageView) {
+            imageView.setVisibility(View.GONE);
+            //用自己定义的View去加载图片
+            if (customImageView != null) {
+                SimpleDraweeView draweeView = (SimpleDraweeView) customImageView.findViewById(R.id.fresco_image_view);
+                if (draweeView != null) {
+                    //加载图片处理xxx
+                }
+            }
+        }
+
     //其它
     public class XXXImageEngine implements ImageEngine {
         @Override
-        public void loadImage(Context context, String url, ImageView imageView,View progressView) {
+        public void loadImage(Context context, String url, ImageView imageView,View progressView, View customImageView) {
             //加载图片实现
         }
-        
+
      }
 
 ```
@@ -313,6 +328,10 @@
 ## 详情见Demo
 
 ## 版本记录：
+##### 版本 V1.3.0:
+    1.优化自定义控件自定义属性命名问题
+    2.添加新功能，支持自定义显示图片View,可以实现Fresco加载，加载大图单独使用View等功能）
+
 ##### 版本 V1.2.5:
     1.优化requestFeature() must be called before adding content，去除requestWindowFeature(Window.FEATURE_NO_TITLE);
     2.优化代码，防止未知崩溃
@@ -322,10 +341,6 @@
     2.添加 下拉缩小效果 开关，可手动选择
     3.PhotoView 引入源码，防止和应用冲突
     4.优化代码，防止数据异常
-
-##### 版本 V1.2.0:
-    1.修复已知Bug,防止关闭出现空指针异常和多次连续启动出现的异常
-    2.优化代码，默认消失动画修改
 
 ## 推荐:
 Name | Describe |
