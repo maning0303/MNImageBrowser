@@ -1,5 +1,5 @@
 # MNImageBrowser
-一个图片浏览框架,类似微信图片浏览,手势向下滑动关闭,图片加载引擎自定义,支持长按,单击监听,切换监听,自定义任意的遮罩层，实现各种效果,支持横竖屏切换,简单方便。
+一个图片浏览框架,支持AndroidX,支持Fresco,类似微信图片浏览,手势向下滑动关闭,图片加载引擎自定义,支持长按,单击监听,切换监听,自定义任意的遮罩层，实现各种效果,支持横竖屏切换,简单方便。
 [![](https://jitpack.io/v/maning0303/MNImageBrowser.svg)](https://jitpack.io/#maning0303/MNImageBrowser)
 
 ## 截图
@@ -28,7 +28,7 @@
 	}
 ```
 
-### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.3.0X)
+### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.3.1X)
 
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
@@ -38,14 +38,14 @@
          //v4,v7包
          implementation 'com.android.support:appcompat-v7:28.0.0'
          implementation 'com.android.support:support-v4:28.0.0'
-         implementation 'com.github.maning0303:MNImageBrowser:V1.2.5'
+         implementation 'com.github.maning0303:MNImageBrowser:V1.3.0'
      }
 
      //android x 适配
      dependencies {
          implementation 'androidx.appcompat:appcompat:1.1.0'
          implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-         implementation 'com.github.maning0303:MNImageBrowser:V1.3.0X'
+         implementation 'com.github.maning0303:MNImageBrowser:V1.3.1X'
      }
    ```
 
@@ -328,7 +328,7 @@
 ## 详情见Demo
 
 ## 版本记录：
-##### 版本 V1.2.6:
+##### 版本 V1.3.1:
     1.优化自定义控件自定义属性命名问题
     2.添加新功能，支持自定义显示图片View,可以实现Fresco加载，加载大图单独使用View等功能）
 
