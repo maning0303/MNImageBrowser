@@ -36,7 +36,7 @@ public class FrescoImageEngine implements ImageEngine {
         if (customImageView != null) {
             SimpleDraweeView draweeView = (SimpleDraweeView) customImageView.findViewById(R.id.fresco_image_view);
             if (draweeView != null) {
-                setControllerListener(draweeView, url, getScreenWidth(context));
+                setControllerListener(draweeView, url, getScreenWidth(context),progressView);
             }
         }
     }
@@ -47,7 +47,7 @@ public class FrescoImageEngine implements ImageEngine {
      * * @param imagePath  Uri
      * * @param imageWidth width
      */
-    public static void setControllerListener(final SimpleDraweeView simpleDraweeView, String imagePath, final int imageWidth) {
+    public static void setControllerListener(final SimpleDraweeView simpleDraweeView, String imagePath, final int imageWidth, final View progressView) {
         final ViewGroup.LayoutParams layoutParams = simpleDraweeView.getLayoutParams();
         layoutParams.width = imageWidth;
         layoutParams.height = 200;
@@ -64,6 +64,8 @@ public class FrescoImageEngine implements ImageEngine {
                 layoutParams.width = imageWidth;
                 layoutParams.height = (int) ((float) (imageWidth * height) / (float) width);
                 simpleDraweeView.setLayoutParams(layoutParams);
+
+                progressView.setVisibility(View.GONE);
             }
 
             @Override
@@ -73,6 +75,8 @@ public class FrescoImageEngine implements ImageEngine {
             @Override
             public void onFailure(String id, Throwable throwable) {
                 throwable.printStackTrace();
+
+                progressView.setVisibility(View.GONE);
             }
         };
         DraweeController controller = Fresco.newDraweeControllerBuilder().setControllerListener(controllerListener).setUri(Uri.parse(imagePath)).build();
