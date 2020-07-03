@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_browser_root"
+    android:id="@+id/mn_ib_rl_browser_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00000000">
 
     <com.maning.imagebrowserlibrary.view.photoview.PhotoView
-        android:id="@+id/imageView"
+        android:id="@+id/mn_ib_photoview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true" />
 
     <RelativeLayout
-        android:id="@+id/progress_view"
+        android:id="@+id/mn_ib_custom_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="#00000000"
+        android:gravity="center" />
+
+    <RelativeLayout
+        android:id="@+id/mn_ib_progress_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="#00000000" />
+        android:background="#00000000"
+        android:gravity="center" />
 
 </RelativeLayout>

@@ -72,6 +72,8 @@ public class ImageBrowserConfig {
     private View customShadeView;
     //自定义ProgressView
     private int customProgressViewLayoutID;
+    //自定义显示ImageView
+    private int customImageViewLayoutID;
     //全部模式：默认false
     private boolean isFullScreenMode = false;
     //下拉缩小效果：默认开启true
@@ -121,6 +123,14 @@ public class ImageBrowserConfig {
 
     public void setCustomProgressViewLayoutID(@LayoutRes int customProgressViewLayoutID) {
         this.customProgressViewLayoutID = customProgressViewLayoutID;
+    }
+
+    public int getCustomImageViewLayoutID() {
+        return customImageViewLayoutID;
+    }
+
+    public void setCustomImageViewLayoutID(int customImageViewLayoutID) {
+        this.customImageViewLayoutID = customImageViewLayoutID;
     }
 
     public View getCustomShadeView() {

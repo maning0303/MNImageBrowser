@@ -47,6 +47,10 @@
         android:orderInCategory="1"
         android:title="PicassoImageEngine" />
     <item
+        android:id="@+id/menu_25"
+        android:orderInCategory="1"
+        android:title="FrescoImageEngine" />
+    <item
         android:id="@+id/menu_12"
         android:orderInCategory="1"
         android:title="Screenorientation_Default" />

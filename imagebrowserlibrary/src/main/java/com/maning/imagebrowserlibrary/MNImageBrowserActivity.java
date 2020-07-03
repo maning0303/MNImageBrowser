@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -39,7 +38,7 @@ import com.maning.imagebrowserlibrary.view.MNGestureView;
 import com.maning.imagebrowserlibrary.view.MNViewPager;
 import com.maning.imagebrowserlibrary.view.photoview.PhotoView;
 
-import java.lang.ref.WeakReference;
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 
 
@@ -48,7 +47,7 @@ import java.util.ArrayList;
  */
 public class MNImageBrowserActivity extends AppCompatActivity {
     //用来保存当前Activity
-    private static WeakReference<MNImageBrowserActivity> sActivityRef;
+    private static SoftReference<MNImageBrowserActivity> sActivityRef;
     //相关配置信息
     public static ImageBrowserConfig imageBrowserConfig;
 
@@ -81,6 +80,8 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     private ImageBrowserConfig.ScreenOrientationType screenOrientationType;
     //图片加载进度View的布局ID
     private int progressViewLayoutId = 0;
+    //自定义图片显示的布局ID
+    private int customImageViewLayoutId = 0;
 
 
     @Override
@@ -88,7 +89,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         try {
             setContentView(R.layout.activity_mnimage_browser);
-            sActivityRef = new WeakReference<>(this);
+            sActivityRef = new SoftReference<>(this);
             context = this;
             getImageBrowserConfig();
             initBar();
@@ -194,6 +195,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
         //自定义ProgressView
         progressViewLayoutId = getImageBrowserConfig().getCustomProgressViewLayoutID();
+        customImageViewLayoutId = getImageBrowserConfig().getCustomImageViewLayoutID();
     }
 
     private void initViewPager() {
@@ -235,7 +237,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                     return false;
                 }
                 View view = imageBrowserAdapter.getPrimaryItem();
-                PhotoView imageView = (PhotoView) view.findViewById(R.id.imageView);
+                PhotoView imageView = (PhotoView) view.findViewById(R.id.mn_ib_photoview);
                 if (imageView.getScale() != 1.0) {
                     return false;
                 }
@@ -369,9 +371,10 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
             View inflate = layoutInflater.inflate(R.layout.mn_image_browser_item_show_image, container, false);
-            final PhotoView imageView = (PhotoView) inflate.findViewById(R.id.imageView);
-            final RelativeLayout rl_browser_root = (RelativeLayout) inflate.findViewById(R.id.rl_browser_root);
-            final RelativeLayout progress_view = (RelativeLayout) inflate.findViewById(R.id.progress_view);
+            final PhotoView imageView = (PhotoView) inflate.findViewById(R.id.mn_ib_photoview);
+            final RelativeLayout rl_browser_root = (RelativeLayout) inflate.findViewById(R.id.mn_ib_rl_browser_root);
+            final RelativeLayout custom_image_view = (RelativeLayout) inflate.findViewById(R.id.mn_ib_custom_image_view);
+            final RelativeLayout progress_view = (RelativeLayout) inflate.findViewById(R.id.mn_ib_progress_view);
 
             final String url = imageUrlList.get(position);
 
@@ -403,6 +406,20 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                 }
             });
 
+            //自定义ImageView显示
+            if (customImageViewLayoutId != 0) {
+                View customImageViewLayout = layoutInflater.inflate(customImageViewLayoutId, null);
+                if (customImageViewLayout != null) {
+                    custom_image_view.removeAllViews();
+                    custom_image_view.addView(customImageViewLayout);
+                    custom_image_view.setVisibility(View.VISIBLE);
+                } else {
+                    custom_image_view.setVisibility(View.GONE);
+                }
+            } else {
+                custom_image_view.setVisibility(View.GONE);
+            }
+
             //ProgressView
             if (progressViewLayoutId != 0) {
                 View customProgressView = layoutInflater.inflate(progressViewLayoutId, null);
@@ -418,7 +435,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             }
 
             //图片加载
-            imageEngine.loadImage(context, url, imageView, progress_view);
+            imageEngine.loadImage(context, url, imageView, progress_view, custom_image_view);
 
             container.addView(inflate);
             return inflate;
@@ -486,7 +503,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             if (view == null) {
                 return null;
             }
-            PhotoView imageView = (PhotoView) view.findViewById(R.id.imageView);
+            PhotoView imageView = (PhotoView) view.findViewById(R.id.mn_ib_photoview);
             return imageView;
         } else {
             return null;

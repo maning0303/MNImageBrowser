@@ -25,7 +25,7 @@ import com.maning.mnimagebrowser.R;
 public class GlideImageEngine implements ImageEngine {
 
     @Override
-    public void loadImage(Context context, String url, ImageView imageView, final View progressView) {
+    public void loadImage(Context context, String url, ImageView imageView, final View progressView,View customImageView) {
         Glide.with(context)
                 .asBitmap()
                 .load(url)

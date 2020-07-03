@@ -1,16 +1,15 @@
 package com.maning.mnimagebrowser.engine;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.maning.imagebrowserlibrary.ImageEngine;
 import com.maning.mnimagebrowser.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 /**
  * author : maning
@@ -21,7 +20,7 @@ import com.squareup.picasso.Target;
 public class PicassoImageEngine implements ImageEngine {
 
     @Override
-    public void loadImage(Context context, String url, ImageView imageView, final View progressView) {
+    public void loadImage(Context context, String url, ImageView imageView, final View progressView,View customImageView) {
         Picasso.get()
                 .load(url)
                 .placeholder(R.drawable.default_placeholder)

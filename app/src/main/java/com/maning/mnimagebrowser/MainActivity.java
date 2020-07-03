@@ -29,6 +29,7 @@ import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
 import com.maning.mndialoglibrary.MStatusDialog;
 import com.maning.mndialoglibrary.MToast;
 import com.maning.mnimagebrowser.dialog.ListFragmentDialog;
+import com.maning.mnimagebrowser.engine.FrescoImageEngine;
 import com.maning.mnimagebrowser.engine.GlideImageEngine;
 import com.maning.mnimagebrowser.engine.PicassoImageEngine;
 import com.maning.mnimagebrowser.utils.BitmapUtils;
@@ -217,6 +218,8 @@ public class MainActivity extends AppCompatActivity {
                             .setActivityExitAnime(exitAnim)
                             //手势下拉缩小效果
                             .setOpenPullDownGestureEffect(isOpenPullDownGestureEffect)
+                            //自定义显示View
+                            .setCustomImageViewLayoutID(R.layout.layout_custom_image_view_fresco)
                             //显示：传入当前View
                             .show(viewHolder.imageView);
                 }
@@ -312,6 +315,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_11:
                 imageEngine = new PicassoImageEngine();
+                break;
+            case R.id.menu_25:
+                imageEngine = new FrescoImageEngine();
                 break;
             case R.id.menu_12:
                 screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default;

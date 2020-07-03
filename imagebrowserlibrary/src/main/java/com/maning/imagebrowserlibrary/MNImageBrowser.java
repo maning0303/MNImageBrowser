@@ -104,6 +104,11 @@ public class MNImageBrowser {
         return this;
     }
 
+    public MNImageBrowser setCustomImageViewLayoutID(@LayoutRes int customImageViewID) {
+        imageBrowserConfig.setCustomImageViewLayoutID(customImageViewID);
+        return this;
+    }
+
     public MNImageBrowser setScreenOrientationType(ImageBrowserConfig.ScreenOrientationType screenOrientationType) {
         imageBrowserConfig.setScreenOrientationType(screenOrientationType);
         return this;
