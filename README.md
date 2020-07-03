@@ -114,6 +114,8 @@
              .setActivityOpenAnime(R.anim.activity_anmie_in)
              //关闭动画
              .setActivityExitAnime(R.anim.activity_anmie_out)
+             //自定义显示View，默认使用PhotoView，可以自定义View实现Fresco等加载
+             .setCustomImageViewLayoutID(showCustomImageView ? R.layout.layout_custom_image_view_fresco : 0)
              //打开
              .show(viewHolder.imageView);
              
@@ -178,19 +180,20 @@
         /**
          * 加载图片方法
          *
-         * @param context      上下文
-         * @param url          图片地址
-         * @param imageView    ImageView
-         * @param progressView 进度View
+         * @param context         上下文
+         * @param url             图片地址
+         * @param imageView       ImageView
+         * @param progressView    进度View
+         * @param customImageView 自定义加载图片，替换PhotoView
          */
-        void loadImage(Context context, String url, ImageView imageView, View progressView);
+        void loadImage(Context context, String url, ImageView imageView, View progressView, View customImageView);
     
     }
 
     //Picasso
     public class PicassoImageEngine implements ImageEngine {
         @Override
-            public void loadImage(Context context, String url, ImageView imageView, final View progressView) {
+            public void loadImage(Context context, String url, ImageView imageView, final View progressView, View customImageView) {
                 Picasso.with(context).load(url)
                         .placeholder(R.drawable.default_placeholder)
                         .error(R.mipmap.ic_launcher)
@@ -213,7 +216,7 @@
     //Glide
     public class GlideImageEngine implements ImageEngine {
         @Override
-        public void loadImage(Context context, String url, ImageView imageView, final View progressView) {
+        public void loadImage(Context context, String url, ImageView imageView, final View progressView, View customImageView) {
             Glide.with(context)
                     .load(url)
                     .asBitmap()
@@ -238,11 +241,26 @@
                     .into(imageView);
         }
     }
-    
+
+    //Fresco，必须配合setCustomImageViewLayoutID()方法来
+    public class FrescoImageEngine implements ImageEngine {
+
+        @Override
+        public void loadImage(Context context, String url, ImageView imageView, final View progressView, View customImageView) {
+            imageView.setVisibility(View.GONE);
+            //用自己定义的View去加载图片
+            if (customImageView != null) {
+                SimpleDraweeView draweeView = (SimpleDraweeView) customImageView.findViewById(R.id.fresco_image_view);
+                if (draweeView != null) {
+                    //加载图片处理xxx
+                }
+            }
+        }
+
     //其它
     public class XXXImageEngine implements ImageEngine {
         @Override
-        public void loadImage(Context context, String url, ImageView imageView,View progressView) {
+        public void loadImage(Context context, String url, ImageView imageView,View progressView, View customImageView) {
             //加载图片实现
         }
         
