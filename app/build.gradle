@@ -23,7 +23,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     //测试gradle
-    implementation 'com.github.maning0303:MNImageBrowser:V1.3.0X'
+    implementation 'com.github.maning0303:MNImageBrowser:V1.3.1X'
 //    implementation project(':imagebrowserlibrary')
 
 
