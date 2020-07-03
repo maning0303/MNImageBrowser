@@ -12,11 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -29,6 +29,7 @@ import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
 import com.maning.mndialoglibrary.MStatusDialog;
 import com.maning.mndialoglibrary.MToast;
 import com.maning.mnimagebrowser.dialog.ListFragmentDialog;
+import com.maning.mnimagebrowser.engine.FrescoImageEngine;
 import com.maning.mnimagebrowser.engine.GlideImageEngine;
 import com.maning.mnimagebrowser.engine.PicassoImageEngine;
 import com.maning.mnimagebrowser.utils.BitmapUtils;
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean showCustomShadeView = false;
     //显示ProgressView
     private boolean showCustomProgressView = false;
+    //显示自定义ProgressView
+    private boolean showCustomImageView = false;
     //是不是全屏模式
     private boolean isFulScreenMode = false;
     //下拉缩小效果：默认开启true
@@ -188,15 +191,20 @@ public class MainActivity extends AppCompatActivity {
                             //点击监听
                             .setOnClickListener(new OnClickListener() {
                                 @Override
-                                public void onClick(FragmentActivity activity, ImageView view, int position, String url) {
-
+                                public void onClick(FragmentActivity activity, View view, int position, String url) {
+                                    //TODO:注意，这里的View可能是ImageView,也可能是自定义setCustomImageViewLayout的View
                                 }
                             })
                             //长按监听
                             .setOnLongClickListener(new OnLongClickListener() {
                                 @Override
-                                public void onLongClick(final FragmentActivity activity, final ImageView imageView, int position, String url) {
-                                    showListDialog(activity, imageView);
+                                public void onLongClick(final FragmentActivity activity, final View imageView, int position, String url) {
+                                    //TODO:注意，这里的View可能是ImageView,也可能是自定义setCustomImageViewLayout的View
+                                    if(imageView instanceof ImageView){
+                                        showListDialog(activity, (ImageView) imageView);
+                                    }else{
+                                        MToast.makeTextShort(context,"自定义setCustomImageViewLayout的View,自己实现长按功能");
+                                    }
                                 }
                             })
                             //页面切换监听
@@ -217,6 +225,8 @@ public class MainActivity extends AppCompatActivity {
                             .setActivityExitAnime(exitAnim)
                             //手势下拉缩小效果
                             .setOpenPullDownGestureEffect(isOpenPullDownGestureEffect)
+                            //自定义显示View
+                            .setCustomImageViewLayoutID(showCustomImageView ? R.layout.layout_custom_image_view_fresco : 0)
                             //显示：传入当前View
                             .show(viewHolder.imageView);
                 }
@@ -309,9 +319,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_10:
                 imageEngine = new GlideImageEngine();
+                showCustomImageView = false;
                 break;
             case R.id.menu_11:
                 imageEngine = new PicassoImageEngine();
+                showCustomImageView = false;
+                break;
+            case R.id.menu_25:
+                imageEngine = new FrescoImageEngine();
+                showCustomImageView = true;
                 break;
             case R.id.menu_12:
                 screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default;

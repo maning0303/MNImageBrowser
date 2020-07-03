@@ -2,6 +2,7 @@ package com.maning.imagebrowserlibrary.listeners;
 
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
 import android.widget.ImageView;
 
 /**
@@ -12,6 +13,6 @@ import android.widget.ImageView;
  */
 public interface OnLongClickListener {
 
-    void onLongClick(FragmentActivity activity, ImageView view, int position, String url);
+    void onLongClick(FragmentActivity activity, View view, int position, String url);
 
 }

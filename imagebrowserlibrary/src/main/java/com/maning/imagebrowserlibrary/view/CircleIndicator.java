@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.os.Build;
 import android.support.annotation.AnimatorRes;
@@ -16,9 +15,8 @@ import android.view.View;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 
-import com.maning.imagebrowserlibrary.R;
 
-import static android.support.v4.view.ViewPager.OnPageChangeListener;
+import com.maning.imagebrowserlibrary.R;
 
 /**
  * 引用：https://github.com/ongakuer/CircleIndicator
@@ -64,41 +62,9 @@ public class CircleIndicator extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        handleTypedArray(context, attrs);
         checkIndicatorConfig(context);
-    }
-
-    private void handleTypedArray(Context context, AttributeSet attrs) {
-        if (attrs == null) {
-            return;
-        }
-
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MNImageBrowserCircleIndicator);
-        mIndicatorWidth =
-                typedArray.getDimensionPixelSize(R.styleable.MNImageBrowserCircleIndicator_ci_width, -1);
-        mIndicatorHeight =
-                typedArray.getDimensionPixelSize(R.styleable.MNImageBrowserCircleIndicator_ci_height, -1);
-        mIndicatorMargin =
-                typedArray.getDimensionPixelSize(R.styleable.MNImageBrowserCircleIndicator_ci_margin, -1);
-
-        mAnimatorResId = typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_ci_animator,
-                R.animator.browser_scale_with_alpha);
-        mAnimatorReverseResId =
-                typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_ci_animator_reverse, 0);
-        mIndicatorBackgroundResId =
-                typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_ci_drawable,
-                        R.drawable.mn_browser_white_radius);
-        mIndicatorUnselectedBackgroundResId =
-                typedArray.getResourceId(R.styleable.MNImageBrowserCircleIndicator_ci_drawable_unselected,
-                        mIndicatorBackgroundResId);
-
-        int orientation = typedArray.getInt(R.styleable.MNImageBrowserCircleIndicator_ci_orientation, -1);
-        setOrientation(orientation == VERTICAL ? VERTICAL : HORIZONTAL);
-
-        int gravity = typedArray.getInt(R.styleable.MNImageBrowserCircleIndicator_ci_gravity, -1);
-        setGravity(gravity >= 0 ? gravity : Gravity.CENTER);
-
-        typedArray.recycle();
+        setGravity(Gravity.CENTER);
+        setOrientation(HORIZONTAL);
     }
 
     /**
@@ -176,7 +142,7 @@ public class CircleIndicator extends LinearLayout {
         }
     }
 
-    private final OnPageChangeListener mInternalPageChangeListener = new OnPageChangeListener() {
+    private final ViewPager.OnPageChangeListener mInternalPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -247,7 +213,7 @@ public class CircleIndicator extends LinearLayout {
     /**
      * @deprecated User ViewPager addOnPageChangeListener
      */
-    @Deprecated public void setOnPageChangeListener(OnPageChangeListener onPageChangeListener) {
+    @Deprecated public void setOnPageChangeListener(ViewPager.OnPageChangeListener onPageChangeListener) {
         if (mViewpager == null) {
             throw new NullPointerException("can not find Viewpager , setViewPager first");
         }
