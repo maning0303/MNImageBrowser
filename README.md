@@ -28,7 +28,7 @@
 	}
 ```
 
-### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.2.5X)
+### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.3.0X)
 
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
@@ -45,7 +45,7 @@
      dependencies {
          implementation 'androidx.appcompat:appcompat:1.1.0'
          implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-         implementation 'com.github.maning0303:MNImageBrowser:V1.2.5X'
+         implementation 'com.github.maning0303:MNImageBrowser:V1.3.0X'
      }
    ```
 
