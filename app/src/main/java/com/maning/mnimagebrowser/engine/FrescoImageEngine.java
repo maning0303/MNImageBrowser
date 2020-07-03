@@ -49,10 +49,13 @@ public class FrescoImageEngine implements ImageEngine {
      */
     public static void setControllerListener(final SimpleDraweeView simpleDraweeView, String imagePath, final int imageWidth) {
         final ViewGroup.LayoutParams layoutParams = simpleDraweeView.getLayoutParams();
+        layoutParams.width = imageWidth;
+        layoutParams.height = 200;
+        simpleDraweeView.setLayoutParams(layoutParams);
+
         ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
             @Override
             public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable anim) {
-                Log.d("FrescoImageEngine", "onFinalImageSet");
                 if (imageInfo == null) {
                     return;
                 }
@@ -65,13 +68,11 @@ public class FrescoImageEngine implements ImageEngine {
 
             @Override
             public void onIntermediateImageSet(String id, @Nullable ImageInfo imageInfo) {
-                Log.d("FrescoImageEngine", "Intermediate image received");
             }
 
             @Override
             public void onFailure(String id, Throwable throwable) {
                 throwable.printStackTrace();
-                Log.d("FrescoImageEngine", "onFailure");
             }
         };
         DraweeController controller = Fresco.newDraweeControllerBuilder().setControllerListener(controllerListener).setUri(Uri.parse(imagePath)).build();

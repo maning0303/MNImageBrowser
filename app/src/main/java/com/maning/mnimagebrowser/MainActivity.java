@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean showCustomShadeView = false;
     //显示ProgressView
     private boolean showCustomProgressView = false;
+    //显示自定义ProgressView
+    private boolean showCustomImageView = false;
     //是不是全屏模式
     private boolean isFulScreenMode = false;
     //下拉缩小效果：默认开启true
@@ -219,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
                             //手势下拉缩小效果
                             .setOpenPullDownGestureEffect(isOpenPullDownGestureEffect)
                             //自定义显示View
-                            .setCustomImageViewLayoutID(R.layout.layout_custom_image_view_fresco)
+                            .setCustomImageViewLayoutID(showCustomImageView ? R.layout.layout_custom_image_view_fresco : 0)
                             //显示：传入当前View
                             .show(viewHolder.imageView);
                 }
@@ -312,12 +314,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_10:
                 imageEngine = new GlideImageEngine();
+                showCustomImageView = false;
                 break;
             case R.id.menu_11:
                 imageEngine = new PicassoImageEngine();
+                showCustomImageView = false;
                 break;
             case R.id.menu_25:
                 imageEngine = new FrescoImageEngine();
+                showCustomImageView = true;
                 break;
             case R.id.menu_12:
                 screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default;
