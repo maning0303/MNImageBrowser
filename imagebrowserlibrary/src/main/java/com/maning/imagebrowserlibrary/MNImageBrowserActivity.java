@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -105,10 +104,11 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
     private void initBar() {
         try {
-            ImmersionBar.with(this).navigationBarColor(R.color.mn_ib_black).init();
             //判断是否全屏模式，隐藏状态栏
             if (getImageBrowserConfig().isFullScreenMode()) {
-                ImmersionBar.with(MNImageBrowserActivity.this).hideBar(BarHide.FLAG_HIDE_STATUS_BAR).init();
+                ImmersionBar.with(this).statusBarColor(R.color.mn_ib_black).navigationBarColor(R.color.mn_ib_black).hideBar(BarHide.FLAG_HIDE_BAR).init();
+            }else{
+                ImmersionBar.with(this).statusBarColor(R.color.mn_ib_black).navigationBarColor(R.color.mn_ib_black).init();
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -315,7 +315,8 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
     private void finishBrowser() {
         try {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            //状态栏和导航栏恢复
+            ImmersionBar.with(this).statusBarColor(R.color.mn_ib_trans).navigationBarColor(R.color.mn_ib_trans).init();
             rl_black_bg.setAlpha(0);
             ll_custom_view.setVisibility(View.GONE);
             rl_indicator.setVisibility(View.GONE);
