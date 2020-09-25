@@ -105,10 +105,11 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
     private void initBar() {
         try {
-            ImmersionBar.with(this).navigationBarColor(R.color.mn_ib_black).init();
             //判断是否全屏模式，隐藏状态栏
             if (getImageBrowserConfig().isFullScreenMode()) {
-                ImmersionBar.with(MNImageBrowserActivity.this).hideBar(BarHide.FLAG_HIDE_STATUS_BAR).init();
+                ImmersionBar.with(this).statusBarColor(R.color.mn_ib_black).navigationBarColor(R.color.mn_ib_black).hideBar(BarHide.FLAG_HIDE_BAR).init();
+            }else{
+                ImmersionBar.with(this).statusBarColor(R.color.mn_ib_black).navigationBarColor(R.color.mn_ib_black).init();
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -315,17 +316,18 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
     private void finishBrowser() {
         try {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            ImmersionBar.with(this).statusBarColor(R.color.mn_ib_trans).navigationBarColor(R.color.mn_ib_trans).init();
             rl_black_bg.setAlpha(0);
             ll_custom_view.setVisibility(View.GONE);
             rl_indicator.setVisibility(View.GONE);
             finish();
             this.overridePendingTransition(0, getImageBrowserConfig().getActivityExitAnime());
+        } catch (Exception e) {
+            finish();
+        } finally {
             //销毁相关数据
             sActivityRef = null;
             imageBrowserConfig = null;
-        } catch (Exception e) {
-            finish();
         }
     }
 
