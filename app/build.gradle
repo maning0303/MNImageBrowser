@@ -24,8 +24,8 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
     //测试gradle
-//    implementation 'com.github.maning0303:MNImageBrowser:V1.3.0'
-    implementation project(':imagebrowserlibrary')
+    implementation 'com.github.maning0303:MNImageBrowser:V1.3.5-support'
+//    implementation project(':imagebrowserlibrary')
 
 
     /*图片加载*/
