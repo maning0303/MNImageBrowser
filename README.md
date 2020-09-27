@@ -28,29 +28,29 @@
 	}
 ```
 
-### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.3.1X)
+### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.3.5)
 
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 
-     //android support library
+     //android support library，后续不再支持support
      dependencies {
          //v4,v7包
          implementation 'com.android.support:appcompat-v7:28.0.0'
          implementation 'com.android.support:support-v4:28.0.0'
-         implementation 'com.github.maning0303:MNImageBrowser:V1.3.0'
+         implementation 'com.github.maning0303:MNImageBrowser:V1.3.5-support'
      }
 
      //android x 适配
      dependencies {
          implementation 'androidx.appcompat:appcompat:1.1.0'
          implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-         implementation 'com.github.maning0303:MNImageBrowser:V1.3.1X'
+         implementation 'com.github.maning0303:MNImageBrowser:V1.3.5'
      }
    ```
 
 ### 方式二:(方便自定义修改)
-#### 下载源码使用Module添加：imagebrowserlibrary(需要 android x 适配，切换到androidx分支。)
+#### 下载源码使用Module添加：imagebrowserlibrary(默认androidx,support,请切换到support分支)
 
 ``` gradle
 	implementation project(':imagebrowserlibrary')
@@ -106,6 +106,28 @@
                     //图片滑动切换监听
                  }
              }
+             //生命周期监听
+             .setOnActivityLifeListener(new OnActivityLifeListener() {
+                 @Override
+                 public void onCreate() {
+                     Log.i(TAG, "OnActivityLifeListener:onCreate");
+                 }
+
+                 @Override
+                 public void onResume() {
+                     Log.i(TAG, "OnActivityLifeListener:onResume");
+                 }
+
+                 @Override
+                 public void onPause() {
+                     Log.i(TAG, "OnActivityLifeListener:onPause");
+                 }
+
+                 @Override
+                 public void onDestory() {
+                     Log.i(TAG, "OnActivityLifeListener:onDestory");
+                 }
+             })
              //全屏模式：默认非全屏模式
              .setFullScreenMode(isFulScreenMode)
              //手势下拉缩小效果是否开启
@@ -328,6 +350,10 @@
 ## 详情见Demo
 
 ## 版本记录：
+##### 版本 V1.3.5:
+    1.优化底部导航栏颜色问题
+    2.新增生命周期回调监听
+
 ##### 版本 V1.3.0:
     1.优化自定义控件自定义属性命名问题
     2.添加新功能，支持自定义显示图片View,可以实现Fresco加载，加载大图单独使用View等功能）
