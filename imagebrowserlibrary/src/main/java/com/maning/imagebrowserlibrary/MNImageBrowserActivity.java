@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,8 +19,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnActivityLifeListener;
+import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
 import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
@@ -346,8 +345,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
     private void finishBrowser() {
         try {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-            ImmersionBar.with(this).statusBarColor(R.color.mn_ib_trans).navigationBarColor(R.color.mn_ib_trans).init();
+            ImmersionBar.with(this).transparentBar().init();
             rl_black_bg.setAlpha(0);
             ll_custom_view.setVisibility(View.GONE);
             rl_indicator.setVisibility(View.GONE);
