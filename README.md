@@ -28,12 +28,19 @@
 	}
 ```
 
-### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.3.2X)
+### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.3.5)
 
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 
-     //android support library
+     //android x 适配
+     dependencies {
+         implementation 'androidx.appcompat:appcompat:1.1.0'
+         implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+         implementation 'com.github.maning0303:MNImageBrowser:V1.3.5'
+     }
+
+     //android support (后期不再支持support升级)
      dependencies {
          //v4,v7包
          implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -41,16 +48,11 @@
          implementation 'com.github.maning0303:MNImageBrowser:V1.3.0'
      }
 
-     //android x 适配
-     dependencies {
-         implementation 'androidx.appcompat:appcompat:1.1.0'
-         implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-         implementation 'com.github.maning0303:MNImageBrowser:V1.3.1X'
-     }
+
    ```
 
 ### 方式二:(方便自定义修改)
-#### 下载源码使用Module添加：imagebrowserlibrary(需要 android x 适配，切换到androidx分支。)
+#### 下载源码使用Module添加：imagebrowserlibrary，默认androidx版本，support版本切换到support分支
 
 ``` gradle
 	implementation project(':imagebrowserlibrary')
