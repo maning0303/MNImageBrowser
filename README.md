@@ -28,8 +28,6 @@
 	}
 ```
 
-### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.3.5)
-
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
 
