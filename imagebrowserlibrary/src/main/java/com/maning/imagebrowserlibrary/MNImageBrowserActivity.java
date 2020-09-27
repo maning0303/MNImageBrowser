@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.maning.imagebrowserlibrary.listeners.OnActivityLifeListener;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
@@ -75,6 +76,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     public OnLongClickListener onLongClickListener;
     public OnClickListener onClickListener;
     public OnPageChangeListener onPageChangeListener;
+    public OnActivityLifeListener onActivityLifeListener;
     private MyAdapter imageBrowserAdapter;
     private ImageBrowserConfig.ScreenOrientationType screenOrientationType;
     //图片加载进度View的布局ID
@@ -99,6 +101,29 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             e.printStackTrace();
             Log.e(">>MNImageBrowser>>", "MNImageBrowserActivity-onCreate异常：" + e.toString());
             finishBrowser();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(onActivityLifeListener != null){
+            onActivityLifeListener.onResume();
+        }
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(onActivityLifeListener != null){
+            onActivityLifeListener.onPause();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(onActivityLifeListener != null){
+            onActivityLifeListener.onDestory();
         }
     }
 
@@ -147,6 +172,12 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         indicatorType = getImageBrowserConfig().getIndicatorType();
         screenOrientationType = getImageBrowserConfig().getScreenOrientationType();
         onPageChangeListener = getImageBrowserConfig().getOnPageChangeListener();
+        onActivityLifeListener = getImageBrowserConfig().getOnActivityLifeListener();
+
+        if(onActivityLifeListener != null){
+            onActivityLifeListener.onCreate();
+        }
+
         if (imageUrlList == null) {
             imageUrlList = new ArrayList<>();
             //直接关闭
@@ -315,18 +346,18 @@ public class MNImageBrowserActivity extends AppCompatActivity {
 
     private void finishBrowser() {
         try {
-            //状态栏和导航栏恢复
-            ImmersionBar.with(this).statusBarColor(R.color.mn_ib_trans).navigationBarColor(R.color.mn_ib_trans).init();
+            ImmersionBar.with(this).transparentBar().init();
             rl_black_bg.setAlpha(0);
             ll_custom_view.setVisibility(View.GONE);
             rl_indicator.setVisibility(View.GONE);
             finish();
             this.overridePendingTransition(0, getImageBrowserConfig().getActivityExitAnime());
+        } catch (Exception e) {
+            finish();
+        } finally {
             //销毁相关数据
             sActivityRef = null;
             imageBrowserConfig = null;
-        } catch (Exception e) {
-            finish();
         }
     }
 

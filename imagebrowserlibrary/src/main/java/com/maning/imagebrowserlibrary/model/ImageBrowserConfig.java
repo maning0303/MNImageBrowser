@@ -5,6 +5,7 @@ import android.support.annotation.LayoutRes;
 import android.view.View;
 import com.maning.imagebrowserlibrary.ImageEngine;
 import com.maning.imagebrowserlibrary.R;
+import com.maning.imagebrowserlibrary.listeners.OnActivityLifeListener;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
@@ -62,6 +63,8 @@ public class ImageBrowserConfig {
     private OnLongClickListener onLongClickListener;
     //页面切换监听
     private OnPageChangeListener onPageChangeListener;
+    //生命周期监听
+    private OnActivityLifeListener onActivityLifeListener;
     //设置屏幕的方向
     private ScreenOrientationType screenOrientationType = ScreenOrientationType.Screenorientation_Default;
     //是否隐藏指示器
@@ -217,5 +220,13 @@ public class ImageBrowserConfig {
 
     public void setTransformType(TransformType transformType) {
         this.transformType = transformType;
+    }
+
+    public OnActivityLifeListener getOnActivityLifeListener() {
+        return onActivityLifeListener;
+    }
+
+    public void setOnActivityLifeListener(OnActivityLifeListener onActivityLifeListener) {
+        this.onActivityLifeListener = onActivityLifeListener;
     }
 }
