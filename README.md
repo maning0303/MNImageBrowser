@@ -28,7 +28,7 @@
 	}
 ```
 
-### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.3.5)
+### [Support 适配版本源码，下载代码切换到support分支](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.3.5-support)
 
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
@@ -45,7 +45,7 @@
          //v4,v7包
          implementation 'com.android.support:appcompat-v7:28.0.0'
          implementation 'com.android.support:support-v4:28.0.0'
-         implementation 'com.github.maning0303:MNImageBrowser:V1.3.0'
+         implementation 'com.github.maning0303:MNImageBrowser:V1.3.5-support'
      }
 
 
@@ -352,7 +352,7 @@
 ## 详情见Demo
 
 ## 版本记录：
-##### 版本 V1.3.2:
+##### 版本 V1.3.5:
     1.优化底部导航栏颜色问题
     2.新增生命周期回调监听
 
@@ -363,12 +363,6 @@
 ##### 版本 V1.2.5:
     1.优化requestFeature() must be called before adding content，去除requestWindowFeature(Window.FEATURE_NO_TITLE);
     2.优化代码，防止未知崩溃
-
-##### 版本 V1.2.3:
-    1.修复8.0 fullscreen opaque activities can request orientation 错误（解决方案：主题设置8.0去掉下拉缩小效果，其他版本正常使用）
-    2.添加 下拉缩小效果 开关，可手动选择
-    3.PhotoView 引入源码，防止和应用冲突
-    4.优化代码，防止数据异常
 
 ## 推荐:
 Name | Describe |
