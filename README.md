@@ -28,7 +28,7 @@
 	}
 ```
 
-### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.3.1X)
+### [AndroidX 适配版本源码](https://github.com/maning0303/MNImageBrowser/releases/tag/V1.3.2X)
 
 #### 2.在app目录下的build.gradle中添加依赖
 ``` gradle
@@ -106,6 +106,28 @@
                     //图片滑动切换监听
                  }
              }
+             //生命周期监听
+             .setOnActivityLifeListener(new OnActivityLifeListener() {
+                 @Override
+                 public void onCreate() {
+                     Log.i(TAG, "OnActivityLifeListener:onCreate");
+                 }
+
+                 @Override
+                 public void onResume() {
+                     Log.i(TAG, "OnActivityLifeListener:onResume");
+                 }
+
+                 @Override
+                 public void onPause() {
+                     Log.i(TAG, "OnActivityLifeListener:onPause");
+                 }
+
+                 @Override
+                 public void onDestory() {
+                     Log.i(TAG, "OnActivityLifeListener:onDestory");
+                 }
+             })
              //全屏模式：默认非全屏模式
              .setFullScreenMode(isFulScreenMode)
              //手势下拉缩小效果是否开启
@@ -328,6 +350,10 @@
 ## 详情见Demo
 
 ## 版本记录：
+##### 版本 V1.3.2:
+    1.优化底部导航栏颜色问题
+    2.新增生命周期回调监听
+
 ##### 版本 V1.3.1:
     1.优化自定义控件自定义属性命名问题
     2.添加新功能，支持自定义显示图片View,可以实现Fresco加载，加载大图单独使用View等功能）
