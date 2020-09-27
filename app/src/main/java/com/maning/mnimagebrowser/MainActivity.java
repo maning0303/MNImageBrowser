@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.maning.imagebrowserlibrary.ImageEngine;
 import com.maning.imagebrowserlibrary.MNImageBrowser;
+import com.maning.imagebrowserlibrary.listeners.OnActivityLifeListener;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
@@ -216,6 +217,28 @@ public class MainActivity extends AppCompatActivity {
                                     if (tv_number_indicator != null) {
                                         tv_number_indicator.setText((position + 1) + "/" + MNImageBrowser.getImageList().size());
                                     }
+                                }
+                            })
+                            //生命周期监听
+                            .setOnActivityLifeListener(new OnActivityLifeListener() {
+                                @Override
+                                public void onCreate() {
+                                    Log.i(TAG, "OnActivityLifeListener:onCreate");
+                                }
+
+                                @Override
+                                public void onResume() {
+                                    Log.i(TAG, "OnActivityLifeListener:onResume");
+                                }
+
+                                @Override
+                                public void onPause() {
+                                    Log.i(TAG, "OnActivityLifeListener:onPause");
+                                }
+
+                                @Override
+                                public void onDestory() {
+                                    Log.i(TAG, "OnActivityLifeListener:onDestory");
                                 }
                             })
                             //全屏模式

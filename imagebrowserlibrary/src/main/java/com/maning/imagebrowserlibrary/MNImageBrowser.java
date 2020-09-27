@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.maning.imagebrowserlibrary.listeners.OnActivityLifeListener;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
@@ -131,6 +132,11 @@ public class MNImageBrowser {
 
     public MNImageBrowser setActivityExitAnime(@AnimRes int activityExitAnime) {
         imageBrowserConfig.setActivityExitAnime(activityExitAnime);
+        return this;
+    }
+
+    public MNImageBrowser setOnActivityLifeListener(OnActivityLifeListener onActivityLifeListener) {
+        imageBrowserConfig.setOnActivityLifeListener(onActivityLifeListener);
         return this;
     }
 
