@@ -134,7 +134,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             if (getImageBrowserConfig().isFullScreenMode()) {
                 ImmersionBar.with(this).statusBarColor(R.color.mn_ib_black).navigationBarColor(R.color.mn_ib_black).hideBar(BarHide.FLAG_HIDE_BAR).init();
             }else{
-                ImmersionBar.with(this).statusBarColor(R.color.mn_ib_black).navigationBarColor(R.color.mn_ib_black).init();
+                ImmersionBar.with(this).statusBarColor(R.color.mn_ib_trans).navigationBarColor(R.color.mn_ib_black).init();
             }
         }catch (Exception e){
             e.printStackTrace();

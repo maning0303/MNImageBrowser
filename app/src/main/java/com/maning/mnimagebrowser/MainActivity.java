@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                             //自定义显示View
                             .setCustomImageViewLayoutID(showCustomImageView ? R.layout.layout_custom_image_view_fresco : 0)
                             //显示：传入当前View
-                            .show(viewHolder.imageView);
+                            .show();
                 }
             });
 

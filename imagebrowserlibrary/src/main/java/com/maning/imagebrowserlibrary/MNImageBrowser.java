@@ -140,6 +140,10 @@ public class MNImageBrowser {
         return this;
     }
 
+    public void show() {
+        show(null);
+    }
+
     public void show(View view) {
         if (FastClickUtils.isFastClick()) {
             return;
@@ -163,19 +167,23 @@ public class MNImageBrowser {
     }
 
     private void startBrowserAvtivity(Context context, View view, Intent intent) {
-        if (imageBrowserConfig.getActivityOpenAnime() != R.anim.mn_browser_enter_anim) {
-            context.startActivity(intent);
-            ((Activity) context).overridePendingTransition(imageBrowserConfig.getActivityOpenAnime(), 0);
-        } else {
-            //android V4包的类,用于两个activity转场时的缩放效果实现
-            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(view, view.getWidth() / 2, view.getHeight() / 2, 0, 0);
-            try {
-                ActivityCompat.startActivity(context, intent, optionsCompat.toBundle());
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+        try {
+            if (imageBrowserConfig.getActivityOpenAnime() != R.anim.mn_browser_enter_anim) {
                 context.startActivity(intent);
-                ((Activity) context).overridePendingTransition(R.anim.mn_browser_enter_anim, 0);
+                ((Activity) context).overridePendingTransition(imageBrowserConfig.getActivityOpenAnime(), 0);
+            } else {
+                if (view == null) {
+                    context.startActivity(intent);
+                    ((Activity) context).overridePendingTransition(R.anim.mn_browser_enter_anim, 0);
+                    return;
+                }
+                //android V4包的类,用于两个activity转场时的缩放效果实现
+                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(view, view.getWidth() / 2, view.getHeight() / 2, 0, 0);
+                ActivityCompat.startActivity(context, intent, optionsCompat.toBundle());
             }
+        } catch (Exception e) {
+            context.startActivity(intent);
+            ((Activity) context).overridePendingTransition(R.anim.mn_browser_enter_anim, 0);
         }
 
     }
