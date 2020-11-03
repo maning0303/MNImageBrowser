@@ -3,17 +3,17 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 group='com.github.maning0303'
 
+def versions = rootProject.ext.versions
+def appId = rootProject.ext.appId
+
 android {
-    compileSdkVersion 28
-
+    compileSdkVersion versions.compileSdkVersion
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 28
-        versionCode 131
-        versionName "1.3.1"
-
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
+        versionCode versions.versionCode
+        versionName versions.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -25,6 +25,6 @@ android {
 
 dependencies {
 //    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly 'androidx.appcompat:appcompat:1.1.0'
+    compileOnly 'androidx.appcompat:appcompat:1.2.0'
     compileOnly 'androidx.legacy:legacy-support-v4:1.0.0'
 }
