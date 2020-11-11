@@ -3,6 +3,7 @@ package com.maning.imagebrowserlibrary.model;
 import android.view.View;
 
 import androidx.annotation.AnimRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.LayoutRes;
 
 import com.maning.imagebrowserlibrary.ImageEngine;
@@ -87,6 +88,69 @@ public class ImageBrowserConfig {
     //关闭动画
     @AnimRes
     private int activityExitAnime = R.anim.mn_browser_exit_anim;
+    //3.1.6新增
+    //状态字体是否黑色模式
+    private boolean isStatusBarDarkFont = false;
+    //自定义背景色
+    private String windowBackgroundColor = "#000000";
+    //文字指示器颜色
+    private String indicatorTextColor = "#FFFFFF";
+    //文字指示器文字大小，单位sp
+    private int indicatorTextSize = 16;
+    //指示器选中的背景
+    @DrawableRes
+    private int indicatorSelectedResId = R.drawable.mn_browser_indicator_bg_selected;
+    //指示器默认
+    @DrawableRes
+    private int indicatorUnSelectedResId = R.drawable.mn_browser_indicator_bg_unselected;
+
+    public int getIndicatorTextSize() {
+        return indicatorTextSize;
+    }
+
+    public void setIndicatorTextSize(int indicatorTextSize) {
+        this.indicatorTextSize = indicatorTextSize;
+    }
+
+    public String getWindowBackgroundColor() {
+        return windowBackgroundColor;
+    }
+
+    public void setWindowBackgroundColor(String windowBackgroundColor) {
+        this.windowBackgroundColor = windowBackgroundColor;
+    }
+
+    public String getIndicatorTextColor() {
+        return indicatorTextColor;
+    }
+
+    public void setIndicatorTextColor(String indicatorTextColor) {
+        this.indicatorTextColor = indicatorTextColor;
+    }
+
+    public int getIndicatorSelectedResId() {
+        return indicatorSelectedResId;
+    }
+
+    public void setIndicatorSelectedResId(int indicatorSelectedResId) {
+        this.indicatorSelectedResId = indicatorSelectedResId;
+    }
+
+    public int getIndicatorUnSelectedResId() {
+        return indicatorUnSelectedResId;
+    }
+
+    public void setIndicatorUnSelectedResId(int indicatorUnSelectedResId) {
+        this.indicatorUnSelectedResId = indicatorUnSelectedResId;
+    }
+
+    public boolean isStatusBarDarkFont() {
+        return isStatusBarDarkFont;
+    }
+
+    public void setStatusBarDarkFont(boolean statusBarDarkFont) {
+        isStatusBarDarkFont = statusBarDarkFont;
+    }
 
     public boolean isOpenPullDownGestureEffect() {
         return isOpenPullDownGestureEffect;

@@ -14,7 +14,6 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
@@ -73,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         context = this;
 
@@ -202,10 +200,10 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onLongClick(final FragmentActivity activity, final View imageView, int position, String url) {
                                     //TODO:注意，这里的View可能是ImageView,也可能是自定义setCustomImageViewLayout的View
-                                    if(imageView instanceof ImageView){
+                                    if (imageView instanceof ImageView) {
                                         showListDialog(activity, (ImageView) imageView);
-                                    }else{
-                                        MToast.makeTextShort(context,"自定义setCustomImageViewLayout的View,自己实现长按功能");
+                                    } else {
+                                        MToast.makeTextShort(context, "自定义setCustomImageViewLayout的View,自己实现长按功能");
                                     }
                                 }
                             })
@@ -251,8 +249,18 @@ public class MainActivity extends AppCompatActivity {
                             .setOpenPullDownGestureEffect(isOpenPullDownGestureEffect)
                             //自定义显示View
                             .setCustomImageViewLayoutID(showCustomImageView ? R.layout.layout_custom_image_view_fresco : 0)
-                            //显示：传入当前View
-                            .show();
+                            //自定义指示器显示
+                            .setIndicatorBackgroundResId(R.drawable.custom_indicator_bg_selected, R.drawable.custom_indicator_bg_unselected)
+                            //状态栏黑色字体
+                            .setStatusBarDarkFont(true)
+                            //数字指示器文字大小，sp
+                            .setIndicatorTextSize(18)
+                            //数字指示器文字颜色
+                            .setIndicatorTextColor("#000000")
+                            //整体背景色
+                            .setWindowBackgroundColor("#FFFFFF")
+                            //显示：传入当前View,可以不传
+                            .show(view);
                 }
             });
 

@@ -2,9 +2,11 @@ package com.maning.imagebrowserlibrary;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +35,9 @@ import com.maning.imagebrowserlibrary.transforms.ZoomOutSlideTransformer;
 import com.maning.imagebrowserlibrary.transforms.ZoomOutTransformer;
 import com.maning.imagebrowserlibrary.utils.immersionbar.BarHide;
 import com.maning.imagebrowserlibrary.utils.immersionbar.ImmersionBar;
-import com.maning.imagebrowserlibrary.view.CircleIndicator;
 import com.maning.imagebrowserlibrary.view.MNGestureView;
 import com.maning.imagebrowserlibrary.view.MNViewPager;
+import com.maning.imagebrowserlibrary.view.indicator.CircleIndicator;
 import com.maning.imagebrowserlibrary.view.photoview.PhotoView;
 
 import java.lang.ref.SoftReference;
@@ -60,7 +62,6 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     private TextView numberIndicator;
     private CircleIndicator circleIndicator;
     private LinearLayout ll_custom_view;
-    private FrameLayout fl_out;
 
     //图片地址
     private ArrayList<String> imageUrlList;
@@ -107,7 +108,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(onActivityLifeListener != null){
+        if (onActivityLifeListener != null) {
             onActivityLifeListener.onResume();
         }
     }
@@ -115,7 +116,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(onActivityLifeListener != null){
+        if (onActivityLifeListener != null) {
             onActivityLifeListener.onPause();
         }
     }
@@ -123,7 +124,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(onActivityLifeListener != null){
+        if (onActivityLifeListener != null) {
             onActivityLifeListener.onDestory();
         }
     }
@@ -133,10 +134,10 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             //判断是否全屏模式，隐藏状态栏
             if (getImageBrowserConfig().isFullScreenMode()) {
                 ImmersionBar.with(this).statusBarColor(R.color.mn_ib_black).navigationBarColor(R.color.mn_ib_black).hideBar(BarHide.FLAG_HIDE_BAR).init();
-            }else{
-                ImmersionBar.with(this).statusBarColor(R.color.mn_ib_trans).navigationBarColor(R.color.mn_ib_black).init();
+            } else {
+                ImmersionBar.with(this).statusBarDarkFont(getImageBrowserConfig().isStatusBarDarkFont()).statusBarColor(R.color.mn_ib_trans).navigationBarColor(R.color.mn_ib_black).init();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             Log.e(">>MNImageBrowser>>", "MNImageBrowserActivity-initBar异常：" + e.toString());
         }
@@ -150,7 +151,6 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         circleIndicator = (CircleIndicator) findViewById(R.id.circleIndicator);
         numberIndicator = (TextView) findViewById(R.id.numberIndicator);
         ll_custom_view = (LinearLayout) findViewById(R.id.ll_custom_view);
-        fl_out = (FrameLayout) findViewById(R.id.fl_out);
         circleIndicator.setVisibility(View.GONE);
         numberIndicator.setVisibility(View.GONE);
         ll_custom_view.setVisibility(View.GONE);
@@ -174,7 +174,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         screenOrientationType = getImageBrowserConfig().getScreenOrientationType();
         onPageChangeListener = getImageBrowserConfig().getOnPageChangeListener();
         onActivityLifeListener = getImageBrowserConfig().getOnActivityLifeListener();
-        if(onActivityLifeListener != null){
+        if (onActivityLifeListener != null) {
             onActivityLifeListener.onCreate();
         }
         if (imageUrlList == null) {
@@ -226,6 +226,15 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         //自定义ProgressView
         progressViewLayoutId = getImageBrowserConfig().getCustomProgressViewLayoutID();
         customImageViewLayoutId = getImageBrowserConfig().getCustomImageViewLayoutID();
+
+        //背景色
+        rl_black_bg.setBackgroundColor(Color.parseColor(getImageBrowserConfig().getWindowBackgroundColor()));
+        //文字指示器颜色
+        numberIndicator.setTextColor(Color.parseColor(getImageBrowserConfig().getIndicatorTextColor()));
+        numberIndicator.setTextSize(TypedValue.COMPLEX_UNIT_SP, getImageBrowserConfig().getIndicatorTextSize());
+        //指示器自定义
+        circleIndicator.updateIndicatorBackgroundResId(getImageBrowserConfig().getIndicatorSelectedResId(), getImageBrowserConfig().getIndicatorUnSelectedResId());
+
     }
 
     private void initViewPager() {
@@ -234,6 +243,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         viewPagerBrowser.setCurrentItem(currentPosition);
         setViewPagerTransforms();
         circleIndicator.setViewPager(viewPagerBrowser);
+        imageBrowserAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
         viewPagerBrowser.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

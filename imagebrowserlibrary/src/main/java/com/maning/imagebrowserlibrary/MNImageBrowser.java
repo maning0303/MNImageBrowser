@@ -5,12 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 
 import androidx.annotation.AnimRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -140,6 +143,32 @@ public class MNImageBrowser {
         return this;
     }
 
+    public MNImageBrowser setIndicatorBackgroundResId(@DrawableRes int indicatorSelectedResId, @DrawableRes int indicatorUnSelectedResId) {
+        imageBrowserConfig.setIndicatorSelectedResId(indicatorSelectedResId);
+        imageBrowserConfig.setIndicatorUnSelectedResId(indicatorUnSelectedResId);
+        return this;
+    }
+
+    public MNImageBrowser setIndicatorTextColor(String indicatorTextColor) {
+        imageBrowserConfig.setIndicatorTextColor(indicatorTextColor);
+        return this;
+    }
+
+    public MNImageBrowser setIndicatorTextSize(int indicatorTextSize) {
+        imageBrowserConfig.setIndicatorTextSize(indicatorTextSize);
+        return this;
+    }
+
+    public MNImageBrowser setStatusBarDarkFont(boolean isStatusBarDarkFont) {
+        imageBrowserConfig.setStatusBarDarkFont(isStatusBarDarkFont);
+        return this;
+    }
+
+    public MNImageBrowser setWindowBackgroundColor(String windowBackgroundColor) {
+        imageBrowserConfig.setWindowBackgroundColor(windowBackgroundColor);
+        return this;
+    }
+
     public void show() {
         show(null);
     }
@@ -166,6 +195,7 @@ public class MNImageBrowser {
         startBrowserAvtivity(context, view, intent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
     private void startBrowserAvtivity(Context context, View view, Intent intent) {
         try {
             if (imageBrowserConfig.getActivityOpenAnime() != R.anim.mn_browser_enter_anim) {

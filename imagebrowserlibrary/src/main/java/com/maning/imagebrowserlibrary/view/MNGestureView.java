@@ -120,7 +120,6 @@ public class MNGestureView extends RelativeLayout {
         setTranslationY(0);
         setScaleX(1);
         setScaleY(1);
-        setBackgroundColor(Color.BLACK);
     }
 
 

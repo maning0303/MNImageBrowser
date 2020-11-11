@@ -33,35 +33,35 @@
     <item
         android:id="@+id/menu_08"
         android:orderInCategory="1"
-        android:title="Indicator_Number" />
+        android:title="文字指示器" />
     <item
         android:id="@+id/menu_09"
         android:orderInCategory="1"
-        android:title="Indicator_Circle" />
+        android:title="圆形指示器" />
     <item
         android:id="@+id/menu_10"
         android:orderInCategory="1"
-        android:title="GlideImageEngine" />
+        android:title="Glide加载图片" />
     <item
         android:id="@+id/menu_11"
         android:orderInCategory="1"
-        android:title="PicassoImageEngine" />
+        android:title="Picasso加载图片" />
     <item
         android:id="@+id/menu_25"
         android:orderInCategory="1"
-        android:title="FrescoImageEngine" />
+        android:title="Fresco加载图片" />
     <item
         android:id="@+id/menu_12"
         android:orderInCategory="1"
-        android:title="Screenorientation_Default" />
+        android:title="屏幕默认支持横竖屏" />
     <item
         android:id="@+id/menu_13"
         android:orderInCategory="1"
-        android:title="ScreenOrientation_Portrait" />
+        android:title="竖屏展示" />
     <item
         android:id="@+id/menu_14"
         android:orderInCategory="1"
-        android:title="Screenorientation_Landscape" />
+        android:title="横屏展示" />
     <item
         android:id="@+id/menu_15"
         android:orderInCategory="1"
@@ -93,6 +93,7 @@
         android:id="@+id/menu_23"
         android:orderInCategory="1"
         android:title="开启手势下拉缩小效果(默认)" />
+    
     <item
         android:id="@+id/menu_24"
         android:orderInCategory="1"
@@ -102,6 +103,7 @@
         android:id="@+id/menu_21"
         android:orderInCategory="1"
         android:title="自定义打开关闭动画" />
+
     <item
         android:id="@+id/menu_22"
         android:orderInCategory="1"

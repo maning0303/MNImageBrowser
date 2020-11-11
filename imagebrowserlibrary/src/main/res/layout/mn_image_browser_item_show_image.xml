@@ -9,6 +9,7 @@
         android:id="@+id/mn_ib_photoview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/mn_ib_trans"
         android:layout_centerInParent="true" />
 
     <RelativeLayout

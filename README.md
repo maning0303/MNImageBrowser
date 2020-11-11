@@ -140,7 +140,7 @@
              .setActivityExitAnime(R.anim.activity_anmie_out)
              //自定义显示View，默认使用PhotoView，可以自定义View实现Fresco等加载
              .setCustomImageViewLayoutID(showCustomImageView ? R.layout.layout_custom_image_view_fresco : 0)
-             //打开
+             //打开，可以不传View
              .show(viewHolder.imageView);
              
              
@@ -352,6 +352,10 @@
 ## 详情见Demo
 
 ## 版本记录：
+##### 版本 V1.3.6:
+    1.优化顶部状态栏下拉透明
+    2.show()支持不传递view
+
 ##### 版本 V1.3.5:
     1.优化底部导航栏颜色问题
     2.新增生命周期回调监听
@@ -359,10 +363,6 @@
 ##### 版本 V1.3.1:
     1.优化自定义控件自定义属性命名问题
     2.添加新功能，支持自定义显示图片View,可以实现Fresco加载，加载大图单独使用View等功能）
-
-##### 版本 V1.2.5:
-    1.优化requestFeature() must be called before adding content，去除requestWindowFeature(Window.FEATURE_NO_TITLE);
-    2.优化代码，防止未知崩溃
 
 ## 推荐:
 Name | Describe |
