@@ -140,6 +140,16 @@
              .setActivityExitAnime(R.anim.activity_anmie_out)
              //自定义显示View，默认使用PhotoView，可以自定义View实现Fresco等加载
              .setCustomImageViewLayoutID(showCustomImageView ? R.layout.layout_custom_image_view_fresco : 0)
+             //自定义指示器显示
+             .setIndicatorBackgroundResId(R.drawable.custom_indicator_bg_selected, R.drawable.custom_indicator_bg_unselected)
+             //状态栏黑色字体
+             .setStatusBarDarkFont(true)
+             //数字指示器文字大小，sp
+             .setIndicatorTextSize(18)
+             //数字指示器文字颜色
+             .setIndicatorTextColor("#FF0000")
+             //整体背景色
+             .setWindowBackgroundColor("#FFFFFF")
              //打开，可以不传View
              .show(viewHolder.imageView);
              
@@ -355,6 +365,8 @@
 ##### 版本 V1.3.6:
     1.优化顶部状态栏下拉透明
     2.show()支持不传递view
+    3.支持修改背景色，状态栏文字颜色
+    4.支持修改圆形指示器Drawable，文字指示器文字大小和颜色
 
 ##### 版本 V1.3.5:
     1.优化底部导航栏颜色问题
