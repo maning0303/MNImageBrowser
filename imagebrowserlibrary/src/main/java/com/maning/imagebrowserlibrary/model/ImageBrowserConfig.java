@@ -42,12 +42,12 @@ public class ImageBrowserConfig {
 
     //枚举类型：屏幕方向
     public enum ScreenOrientationType {
-        //默认：横竖屏全部支持
-        Screenorientation_Default,
-        //竖屏
+        //默认：竖屏
         ScreenOrientation_Portrait,
         //横屏
         Screenorientation_Landscape,
+        //横竖屏全部支持
+        Screenorientation_All,
     }
 
     //当前位置
@@ -69,7 +69,7 @@ public class ImageBrowserConfig {
     //页面关闭监听
     private OnActivityLifeListener onActivityLifeListener;
     //设置屏幕的方向
-    private ScreenOrientationType screenOrientationType = ScreenOrientationType.Screenorientation_Default;
+    private ScreenOrientationType screenOrientationType = ScreenOrientationType.ScreenOrientation_Portrait;
     //是否隐藏指示器
     private boolean indicatorHide = false;
     //自定义View

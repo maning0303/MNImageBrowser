@@ -10,9 +10,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +42,7 @@ import com.maning.mnimagebrowser.engine.GlideImageEngine;
 import com.maning.mnimagebrowser.engine.PicassoImageEngine;
 import com.maning.mnimagebrowser.utils.BitmapUtils;
 import com.maning.mnimagebrowser.utils.DatasUtils;
+import com.maning.mnimagebrowser.view.SuperGridView;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
@@ -42,10 +50,9 @@ import com.yanzhenjie.permission.Permission;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
     private static final String TAG = "MainActivity";
-    protected GridView gvImages;
 
     private ArrayList<String> sourceImageList;
 
@@ -53,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     public ImageBrowserConfig.TransformType transformType = ImageBrowserConfig.TransformType.Transform_Default;
     public ImageBrowserConfig.IndicatorType indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Number;
-    public ImageBrowserConfig.ScreenOrientationType screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default;
+    public ImageBrowserConfig.ScreenOrientationType screenOrientationType = ImageBrowserConfig.ScreenOrientationType.ScreenOrientation_Portrait;
     private ImageEngine imageEngine = new GlideImageEngine();
     private int openAnim = R.anim.mn_browser_enter_anim;
     private int exitAnim = R.anim.mn_browser_exit_anim;
@@ -62,24 +69,250 @@ public class MainActivity extends AppCompatActivity {
     private boolean showCustomShadeView = false;
     //显示ProgressView
     private boolean showCustomProgressView = false;
-    //显示自定义ProgressView
+    //显示自定义ImageView
     private boolean showCustomImageView = false;
     //是不是全屏模式
     private boolean isFulScreenMode = false;
     //下拉缩小效果：默认开启true
     private boolean isOpenPullDownGestureEffect = true;
+    //自定义背景色
+    private String windowBackgroundColor = "#000000";
+    //文字指示器颜色
+    private String indicatorTextColor = "#FFFFFF";
+    //状态栏黑色字体
+    private boolean statusBarDarkFont = false;
+
+    /**
+     * Glide
+     */
+    private RadioButton mRbGlide;
+    /**
+     * Picasso
+     */
+    private RadioButton mRbPicasso;
+    /**
+     * Fresco(必须配合自定义ImageView实现-setCustomImageViewLayoutID)
+     */
+    private RadioButton mRbFresco;
+    private RadioGroup mRgImageEngine;
+    /**
+     * 黑色背景
+     */
+    private RadioButton mRbWindowbgBlack;
+    /**
+     * 白色背景
+     */
+    private RadioButton mRbWindowbgWhite;
+    private RadioGroup mRgWindowbg;
+    /**
+     * 文字指示器(支持自定义文字大小和颜色)
+     */
+    private RadioButton mRbIndicatorTxt;
+    /**
+     * 圆点指示器(支持自定义drawable)
+     */
+    private RadioButton mRbIndicatorDrawable;
+    private RadioGroup mRgIndicator;
+    /**
+     * 竖屏（默认）
+     */
+    private RadioButton mRbScreenOrientationPortrait;
+    /**
+     * 横屏
+     */
+    private RadioButton mRbScreenOrientationLandscape;
+    /**
+     * 全部支持
+     */
+    private RadioButton mRbScreenOrientationAll;
+    private RadioGroup mRgScreenOrientation;
+    /**
+     * 非全屏（默认）
+     */
+    private RadioButton mRbFullscreenNo;
+    /**
+     * 全屏
+     */
+    private RadioButton mRbFullscreenYes;
+    private RadioGroup mRgFullscreen;
+    /**
+     * 关闭手势下拉缩小效果
+     */
+    private CheckBox mCbPulldownGesture;
+    /**
+     * 自定义加载Progress效果
+     */
+    private CheckBox mCbCustomProgress;
+    /**
+     * 自定义遮罩层
+     */
+    private CheckBox mCbCustomShade;
+    /**
+     * 自定义打开关闭动画
+     */
+    private CheckBox mCbCustomAnim;
+    private Spinner mSpinner;
+    private SuperGridView mGvImages;
+    private RelativeLayout mActivityMain;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
+        initView();
+        initDatas();
+    }
 
-        gvImages = (GridView) findViewById(R.id.gv_images);
-
-
+    private void initDatas() {
         sourceImageList = DatasUtils.getDatas();
-        gvImages.setAdapter(new NineGridAdapter());
+        mGvImages.setAdapter(new NineGridAdapter());
+    }
+
+    private void initView() {
+        mRbGlide = (RadioButton) findViewById(R.id.rb_glide);
+        mRbPicasso = (RadioButton) findViewById(R.id.rb_picasso);
+        mRbFresco = (RadioButton) findViewById(R.id.rb_fresco);
+        mRgImageEngine = (RadioGroup) findViewById(R.id.rg_image_engine);
+        mRbWindowbgBlack = (RadioButton) findViewById(R.id.rb_windowbg_black);
+        mRbWindowbgWhite = (RadioButton) findViewById(R.id.rb_windowbg_white);
+        mRgWindowbg = (RadioGroup) findViewById(R.id.rg_windowbg);
+        mRbIndicatorTxt = (RadioButton) findViewById(R.id.rb_indicator_txt);
+        mRbIndicatorDrawable = (RadioButton) findViewById(R.id.rb_indicator_drawable);
+        mRgIndicator = (RadioGroup) findViewById(R.id.rg_indicator);
+        mRbScreenOrientationPortrait = (RadioButton) findViewById(R.id.rb_screen_orientation_portrait);
+        mRbScreenOrientationLandscape = (RadioButton) findViewById(R.id.rb_screen_orientation_landscape);
+        mRbScreenOrientationAll = (RadioButton) findViewById(R.id.rb_screen_orientation_all);
+        mRgScreenOrientation = (RadioGroup) findViewById(R.id.rg_screen_orientation);
+        mRbFullscreenNo = (RadioButton) findViewById(R.id.rb_fullscreen_no);
+        mRbFullscreenYes = (RadioButton) findViewById(R.id.rb_fullscreen_yes);
+        mRgFullscreen = (RadioGroup) findViewById(R.id.rg_fullscreen);
+        mCbPulldownGesture = (CheckBox) findViewById(R.id.cb_pulldown_gesture);
+        mCbCustomProgress = (CheckBox) findViewById(R.id.cb_custom_progress);
+        mCbCustomShade = (CheckBox) findViewById(R.id.cb_custom_shade);
+        mCbCustomAnim = (CheckBox) findViewById(R.id.cb_custom_anim);
+        mSpinner = (Spinner) findViewById(R.id.spinner);
+        mGvImages = (SuperGridView) findViewById(R.id.gv_images);
+        mActivityMain = (RelativeLayout) findViewById(R.id.activity_main);
+
+        mRgImageEngine.setOnCheckedChangeListener(this);
+        mRgWindowbg.setOnCheckedChangeListener(this);
+        mRgIndicator.setOnCheckedChangeListener(this);
+        mRgScreenOrientation.setOnCheckedChangeListener(this);
+        mRbScreenOrientationPortrait.setChecked(true);
+        mRgFullscreen.setOnCheckedChangeListener(this);
+        mRbGlide.setChecked(true);
+        mRbWindowbgBlack.setChecked(true);
+        mRbIndicatorDrawable.setChecked(true);
+        mRbFullscreenNo.setChecked(true);
+        mCbPulldownGesture.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                isOpenPullDownGestureEffect = !isChecked;
+            }
+        });
+        mCbCustomProgress.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                showCustomProgressView = isChecked;
+            }
+        });
+        mCbCustomShade.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                showCustomShadeView = isChecked;
+            }
+        });
+        mCbCustomAnim.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    openAnim = R.anim.activity_anmie_in;
+                    exitAnim = R.anim.activity_anmie_out;
+                } else {
+                    openAnim = R.anim.mn_browser_enter_anim;
+                    exitAnim = R.anim.mn_browser_exit_anim;
+                }
+            }
+        });
+        mCbPulldownGesture.setChecked(false);
+        mCbCustomProgress.setChecked(false);
+        mCbCustomShade.setChecked(false);
+        mCbCustomAnim.setChecked(false);
+
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    transformType = ImageBrowserConfig.TransformType.Transform_Default;
+                } else if (position == 1) {
+                    transformType = ImageBrowserConfig.TransformType.Transform_DepthPage;
+                } else if (position == 2) {
+                    transformType = ImageBrowserConfig.TransformType.Transform_RotateDown;
+                } else if (position == 3) {
+                    transformType = ImageBrowserConfig.TransformType.Transform_RotateUp;
+                } else if (position == 4) {
+                    transformType = ImageBrowserConfig.TransformType.Transform_ZoomIn;
+                } else if (position == 5) {
+                    transformType = ImageBrowserConfig.TransformType.Transform_ZoomOut;
+                } else if (position == 6) {
+                    transformType = ImageBrowserConfig.TransformType.Transform_ZoomOutSlide;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (R.id.rb_glide == checkedId) {
+            imageEngine = new GlideImageEngine();
+            showCustomImageView = false;
+        } else if (R.id.rb_picasso == checkedId) {
+            imageEngine = new PicassoImageEngine();
+            showCustomImageView = false;
+        } else if (R.id.rb_fresco == checkedId) {
+            imageEngine = new FrescoImageEngine();
+            showCustomImageView = true;
+        } else if (R.id.rb_windowbg_black == checkedId) {
+            windowBackgroundColor = "#000000";
+            indicatorTextColor = "#FFFFFF";
+            statusBarDarkFont = false;
+        } else if (R.id.rb_windowbg_white == checkedId) {
+            windowBackgroundColor = "#FFFFFF";
+            indicatorTextColor = "#000000";
+            statusBarDarkFont = true;
+        } else if (R.id.rb_indicator_txt == checkedId) {
+            indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Number;
+        } else if (R.id.rb_indicator_drawable == checkedId) {
+            indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Circle;
+        } else if (R.id.rb_screen_orientation_portrait == checkedId) {
+            screenOrientationType = ImageBrowserConfig.ScreenOrientationType.ScreenOrientation_Portrait;
+        } else if (R.id.rb_screen_orientation_landscape == checkedId) {
+            screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Landscape;
+        } else if (R.id.rb_screen_orientation_all == checkedId) {
+            screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_All;
+        } else if (R.id.rb_fullscreen_no == checkedId) {
+            isFulScreenMode = false;
+        } else if (R.id.rb_fullscreen_yes == checkedId) {
+            isFulScreenMode = true;
+        }
+    }
+
+    public void defaultOpen(View view) {
+        MNImageBrowser.with(context)
+                //当前位置
+                .setCurrentPosition(0)
+                //图片引擎
+                .setImageEngine(imageEngine)
+                //图片集合
+                .setImageList(sourceImageList)
+                .show(view);
     }
 
     private class NineGridAdapter extends BaseAdapter {
@@ -252,13 +485,13 @@ public class MainActivity extends AppCompatActivity {
                             //自定义指示器显示
                             .setIndicatorBackgroundResId(R.drawable.custom_indicator_bg_selected, R.drawable.custom_indicator_bg_unselected)
                             //状态栏黑色字体
-                            .setStatusBarDarkFont(true)
+                            .setStatusBarDarkFont(statusBarDarkFont)
                             //数字指示器文字大小，sp
                             .setIndicatorTextSize(18)
                             //数字指示器文字颜色
-                            .setIndicatorTextColor("#000000")
+                            .setIndicatorTextColor(indicatorTextColor)
                             //整体背景色
-                            .setWindowBackgroundColor("#FFFFFF")
+                            .setWindowBackgroundColor(windowBackgroundColor)
                             //显示：传入当前View,可以不传
                             .show(view);
                 }
@@ -311,101 +544,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).show(activity.getSupportFragmentManager(), "");
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_01:
-                transformType = ImageBrowserConfig.TransformType.Transform_Default;
-                break;
-            case R.id.menu_02:
-                transformType = ImageBrowserConfig.TransformType.Transform_DepthPage;
-                break;
-            case R.id.menu_03:
-                transformType = ImageBrowserConfig.TransformType.Transform_RotateDown;
-                break;
-            case R.id.menu_04:
-                transformType = ImageBrowserConfig.TransformType.Transform_RotateUp;
-                break;
-            case R.id.menu_05:
-                transformType = ImageBrowserConfig.TransformType.Transform_ZoomIn;
-                break;
-            case R.id.menu_06:
-                transformType = ImageBrowserConfig.TransformType.Transform_ZoomOutSlide;
-                break;
-            case R.id.menu_07:
-                transformType = ImageBrowserConfig.TransformType.Transform_ZoomOut;
-                break;
-            case R.id.menu_08:
-                indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Number;
-                break;
-            case R.id.menu_09:
-                indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Circle;
-                break;
-            case R.id.menu_10:
-                imageEngine = new GlideImageEngine();
-                showCustomImageView = false;
-                break;
-            case R.id.menu_11:
-                imageEngine = new PicassoImageEngine();
-                showCustomImageView = false;
-                break;
-            case R.id.menu_25:
-                imageEngine = new FrescoImageEngine();
-                showCustomImageView = true;
-                break;
-            case R.id.menu_12:
-                screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default;
-                break;
-            case R.id.menu_13:
-                screenOrientationType = ImageBrowserConfig.ScreenOrientationType.ScreenOrientation_Portrait;
-                break;
-            case R.id.menu_14:
-                screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Landscape;
-                break;
-            case R.id.menu_15:
-                showCustomShadeView = true;
-                break;
-            case R.id.menu_16:
-                showCustomShadeView = false;
-                break;
-            case R.id.menu_17:
-                showCustomProgressView = false;
-                break;
-            case R.id.menu_18:
-                showCustomProgressView = true;
-                break;
-            case R.id.menu_19:
-                isFulScreenMode = true;
-                break;
-            case R.id.menu_20:
-                isFulScreenMode = false;
-                break;
-            case R.id.menu_21:
-                openAnim = R.anim.activity_anmie_in;
-                exitAnim = R.anim.activity_anmie_out;
-                break;
-            case R.id.menu_22:
-                openAnim = R.anim.mn_browser_enter_anim;
-                exitAnim = R.anim.mn_browser_exit_anim;
-                break;
-            case R.id.menu_23:
-                isOpenPullDownGestureEffect = true;
-                break;
-            case R.id.menu_24:
-                isOpenPullDownGestureEffect = false;
-                break;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }

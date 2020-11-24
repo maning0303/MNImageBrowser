@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="transforms">
+        <item>Default</item>
+        <item>DepthPage</item>
+        <item>RotateDown</item>
+        <item>RotateUp</item>
+        <item>ZoomIn</item>
+        <item>ZoomOut</item>
+        <item>ZoomOutSlide</item>
+    </string-array>
+
+</resources>

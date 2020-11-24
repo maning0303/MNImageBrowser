@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="图片加载引擎" />
+
+    <RadioGroup
+        android:id="@+id/rg_image_engine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_glide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Glide" />
+
+        <RadioButton
+            android:id="@+id/rb_picasso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Picasso" />
+
+        <RadioButton
+            android:id="@+id/rb_fresco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fresco(必须配合自定义ImageView实现-setCustomImageViewLayoutID)" />
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="自定义背景色（#000000 格式）" />
+
+    <RadioGroup
+        android:id="@+id/rg_windowbg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_windowbg_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="黑色背景" />
+
+        <RadioButton
+            android:id="@+id/rb_windowbg_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="白色背景" />
+
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="指示器样式" />
+
+    <RadioGroup
+        android:id="@+id/rg_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb_indicator_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="文字指示器(支持自定义文字大小和颜色)" />
+
+        <RadioButton
+            android:id="@+id/rb_indicator_drawable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="圆点指示器(支持自定义drawable)" />
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="横竖屏设置" />
+
+    <RadioGroup
+        android:id="@+id/rg_screen_orientation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_screen_orientation_portrait"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="竖屏（默认）" />
+
+        <RadioButton
+            android:id="@+id/rb_screen_orientation_landscape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="横屏" />
+
+        <RadioButton
+            android:id="@+id/rb_screen_orientation_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全部支持" />
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全屏设置" />
+
+    <RadioGroup
+        android:id="@+id/rg_fullscreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_fullscreen_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="非全屏（默认）" />
+
+        <RadioButton
+            android:id="@+id/rb_fullscreen_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全屏" />
+
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="手势下拉缩小效果" />
+
+    <CheckBox
+        android:id="@+id/cb_pulldown_gesture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="关闭手势下拉缩小效果" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="图片加载Progress（配合setCustomProgressViewLayoutID使用）" />
+
+    <CheckBox
+        android:id="@+id/cb_custom_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="自定义加载Progress效果" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="自定义遮罩层（配合setCustomShadeView使用）" />
+
+    <CheckBox
+        android:id="@+id/cb_custom_shade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="自定义遮罩层" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="自定义打开关闭动画" />
+
+    <CheckBox
+        android:id="@+id/cb_custom_anim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="自定义打开关闭动画" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="自定义打开关闭动画" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:entries="@array/transforms" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorAccent" />
+
+</LinearLayout>
