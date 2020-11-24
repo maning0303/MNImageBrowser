@@ -31,7 +31,7 @@ dependencies {
     dependenciesCompiler.each { k, v -> annotationProcessor v }
 
     //测试gradle
-//    implementation 'com.github.maning0303:MNImageBrowser:V1.3.5'
+//    implementation 'com.github.maning0303:MNImageBrowser:V1.3.6'
     implementation project(':imagebrowserlibrary')
 
 }

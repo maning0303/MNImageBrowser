@@ -8,6 +8,7 @@
 ![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser001.gif)
 
 #### 截图:
+![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser006.jpg)
 ![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser002.png)
 ![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser004.png)
 ![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser003.png)
@@ -37,7 +38,7 @@
      dependencies {
          implementation 'androidx.appcompat:appcompat:1.1.0'
          implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-         implementation 'com.github.maning0303:MNImageBrowser:V1.3.5'
+         implementation 'com.github.maning0303:MNImageBrowser:V1.3.6'
      }
 
      //android support (后期不再支持support升级)
