@@ -29,6 +29,7 @@ dependencies {
     dependenciesGoogle.each { k, v -> api v }
     dependenciesOther.each { k, v -> api v }
     dependenciesCompiler.each { k, v -> annotationProcessor v }
+    dependenciesDebug.each { k, v -> debugImplementation v }
 
     //测试gradle
 //    implementation 'com.github.maning0303:MNImageBrowser:V1.3.6'

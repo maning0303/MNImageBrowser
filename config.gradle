@@ -42,4 +42,8 @@ ext {
             "glide_compiler": "com.github.bumptech.glide:compiler:4.11.0",
     ]
 
+    dependenciesDebug = [
+            "leakcanary": "com.squareup.leakcanary:leakcanary-android:2.5",
+    ]
+
 }
