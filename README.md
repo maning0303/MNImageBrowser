@@ -5,16 +5,16 @@
 ## 截图
 
 #### gif比较慢:
-![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser001.gif)
+![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_ib_001.gif)
 
 #### 截图:
-![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser006.jpg)
-![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser002.png)
-![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser004.png)
-![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser003.png)
+![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_ib_002.jpg)
+![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_ib_003.jpg)
+![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_ib_004.jpg)
+![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_ib_006.jpg)
 
 ##### 自定义任意的遮罩层:
-![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_imagebrowser005.png)
+![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_ib_005.jpg)
 
 ## 如何添加
 
@@ -343,12 +343,12 @@
 
     //枚举类型：屏幕方向
     public enum ScreenOrientationType {
-        //默认：横竖屏全部支持
-        Screenorientation_Default,
-        //竖屏
+        //默认：竖屏
         ScreenOrientation_Portrait,
         //横屏
         Screenorientation_Landscape,
+        //全部支持
+        Screenorientation_All,
     }
 
 ```
@@ -358,11 +358,17 @@
 
 [ImmersionBar](https://github.com/gyf-dev/ImmersionBar)
 
+[XPopup](https://github.com/li-xiaojun/XPopup)
+
 [感谢所有开源的人]
 
 ## 详情见Demo
 
 ## 版本记录：
+##### 版本 V1.3.7:
+    1.默认支持长图显示
+    2.代码优化
+    
 ##### 版本 V1.3.6:
     1.优化顶部状态栏下拉透明
     2.show()支持不传递view
