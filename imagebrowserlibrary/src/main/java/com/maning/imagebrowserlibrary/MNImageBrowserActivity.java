@@ -413,7 +413,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
             View inflate = layoutInflater.inflate(R.layout.mn_image_browser_item_show_image, container, false);
-            final PhotoView imageView = (PhotoView) inflate.findViewById(R.id.mn_ib_photoview);
+            final PhotoView photoView = (PhotoView) inflate.findViewById(R.id.mn_ib_photoview);
             final RelativeLayout rl_browser_root = (RelativeLayout) inflate.findViewById(R.id.mn_ib_rl_browser_root);
             final RelativeLayout custom_image_view = (RelativeLayout) inflate.findViewById(R.id.mn_ib_custom_image_view);
             final RelativeLayout progress_view = (RelativeLayout) inflate.findViewById(R.id.mn_ib_progress_view);
@@ -426,23 +426,18 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                     finishBrowser();
                 }
             });
-            custom_image_view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finishBrowser();
-                }
-            });
 
-            imageView.setOnClickListener(new View.OnClickListener() {
+            photoView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //单击事件
                     if (onClickListener != null) {
-                        onClickListener.onClick(MNImageBrowserActivity.this, imageView, position, url);
+                        onClickListener.onClick(MNImageBrowserActivity.this, photoView, position, url);
                     }
                     finishBrowser();
                 }
             });
+
             custom_image_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -454,11 +449,11 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                 }
             });
 
-            imageView.setOnLongClickListener(new View.OnLongClickListener() {
+            photoView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
                     if (onLongClickListener != null) {
-                        onLongClickListener.onLongClick(MNImageBrowserActivity.this, imageView, position, url);
+                        onLongClickListener.onLongClick(MNImageBrowserActivity.this, photoView, position, url);
                     }
                     return false;
                 }
@@ -503,7 +498,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             }
 
             //图片加载
-            imageEngine.loadImage(context, url, imageView, progress_view, custom_image_view);
+            imageEngine.loadImage(context, url, photoView, progress_view, custom_image_view);
 
             container.addView(inflate);
             return inflate;
