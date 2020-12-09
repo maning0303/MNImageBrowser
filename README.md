@@ -38,7 +38,7 @@
      dependencies {
          implementation 'androidx.appcompat:appcompat:1.1.0'
          implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-         implementation 'com.github.maning0303:MNImageBrowser:V1.3.6'
+         implementation 'com.github.maning0303:MNImageBrowser:V1.3.7'
      }
 
      //android support (后期不再支持support升级)
@@ -62,10 +62,22 @@
 
 ## 代码使用(详情见Demo):
 ``` java
+    //最简单的调用方式：
+    imageEngine = new GlideImageEngine();
+    MNImageBrowser.with(context)
+            //当前位置
+            .setCurrentPosition(0)
+            //图片引擎
+            .setImageEngine(imageEngine)
+            //图片集合
+            .setImageList(sourceImageList)
+            .show();
+    //-------------------------------------------    
 
+    //自定义调用
     public ImageBrowserConfig.TransformType transformType = ImageBrowserConfig.TransformType.Transform_Default;
     public ImageBrowserConfig.IndicatorType indicatorType = ImageBrowserConfig.IndicatorType.Indicator_Number;
-    public ImageBrowserConfig.ScreenOrientationType screenOrientationType = ImageBrowserConfig.ScreenOrientationType.Screenorientation_Default;
+    public ImageBrowserConfig.ScreenOrientationType screenOrientationType = ImageBrowserConfig.ScreenOrientationType.ScreenOrientation_Portrait;
 
     MNImageBrowser.with(context)
              //必须-当前位置
@@ -379,9 +391,6 @@
     1.优化底部导航栏颜色问题
     2.新增生命周期回调监听
 
-##### 版本 V1.3.1:
-    1.优化自定义控件自定义属性命名问题
-    2.添加新功能，支持自定义显示图片View,可以实现Fresco加载，加载大图单独使用View等功能）
 
 ## 推荐:
 Name | Describe |
