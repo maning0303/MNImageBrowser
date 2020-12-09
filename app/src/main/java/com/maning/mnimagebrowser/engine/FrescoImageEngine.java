@@ -36,7 +36,7 @@ public class FrescoImageEngine implements ImageEngine {
         if (customImageView != null) {
             SimpleDraweeView draweeView = (SimpleDraweeView) customImageView.findViewById(R.id.fresco_image_view);
             if (draweeView != null) {
-                setControllerListener(draweeView, url, getScreenWidth(context),progressView);
+                setControllerListener(draweeView, url, getScreenWidth(context), getScreenHeight(context), progressView);
             }
         }
     }
@@ -47,10 +47,10 @@ public class FrescoImageEngine implements ImageEngine {
      * * @param imagePath  Uri
      * * @param imageWidth width
      */
-    public static void setControllerListener(final SimpleDraweeView simpleDraweeView, String imagePath, final int imageWidth, final View progressView) {
+    public static void setControllerListener(final SimpleDraweeView simpleDraweeView, String imagePath, final int imageWidth, final int imageHeight, final View progressView) {
         final ViewGroup.LayoutParams layoutParams = simpleDraweeView.getLayoutParams();
         layoutParams.width = imageWidth;
-        layoutParams.height = 200;
+        layoutParams.height = imageHeight;
         simpleDraweeView.setLayoutParams(layoutParams);
 
         ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
@@ -74,8 +74,7 @@ public class FrescoImageEngine implements ImageEngine {
 
             @Override
             public void onFailure(String id, Throwable throwable) {
-                throwable.printStackTrace();
-
+                Log.e("======", "throwable:" + throwable.toString());
                 progressView.setVisibility(View.GONE);
             }
         };
@@ -90,5 +89,13 @@ public class FrescoImageEngine implements ImageEngine {
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
         return outMetrics.widthPixels;
+    }
+
+    public static int getScreenHeight(Context context) {
+        WindowManager wm = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.heightPixels;
     }
 }

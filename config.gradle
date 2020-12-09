@@ -12,7 +12,7 @@ ext {
 
             compileSdkVersion: 29,
             minSdkVersion    : 14,
-            targetSdkVersion : 29,
+            targetSdkVersion : 28,
 
     ]
 

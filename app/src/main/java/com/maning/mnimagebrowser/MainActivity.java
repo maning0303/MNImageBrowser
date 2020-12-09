@@ -305,6 +305,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     public void defaultOpen(View view) {
+        imageEngine = new GlideImageEngine();
         MNImageBrowser.with(context)
                 //当前位置
                 .setCurrentPosition(0)

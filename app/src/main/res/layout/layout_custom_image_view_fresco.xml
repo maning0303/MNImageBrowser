@@ -9,8 +9,10 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/fresco_image_view"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        fresco:placeholderImage="@drawable/default_placeholder" />
+        fresco:failureImage="@mipmap/ic_launcher"
+        fresco:placeholderImage="@drawable/default_placeholder"
+        fresco:placeholderImageScaleType="fitCenter" />
 
 </FrameLayout>
