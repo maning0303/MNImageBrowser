@@ -4,17 +4,14 @@
 
 ## 截图
 
-#### gif比较慢:
-![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_ib_001.gif)
-
-#### 截图:
-![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_ib_002.jpg)
-![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_ib_003.jpg)
-![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_ib_004.jpg)
-![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_ib_006.jpg)
-
-##### 自定义任意的遮罩层:
-![](https://github.com/maning0303/MNImageBrowser/raw/master/screenshots/mn_ib_005.jpg)
+<div align="center">
+<img src = "screenshots/mn_ib_001.gif" width=180 >
+<img src = "screenshots/mn_ib_002.jpg" width=180 >
+<img src = "screenshots/mn_ib_003.jpg" width=180 >
+<img src = "screenshots/mn_ib_004.jpg" width=180 >
+<img src = "screenshots/mn_ib_006.jpg" width=180 >
+<img src = "screenshots/mn_ib_005.jpg" width=180 >
+</div>
 
 ## 如何添加
 
