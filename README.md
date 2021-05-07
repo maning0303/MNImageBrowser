@@ -9,13 +9,13 @@
 <img src = "screenshots/mn_ib_002.jpg" width=180 >
 <img src = "screenshots/mn_ib_003.jpg" width=180 >
 <img src = "screenshots/mn_ib_004.jpg" width=180 >
-<img src = "screenshots/mn_ib_006.jpg" width=180 >
+<img src = "screenshots/mn_ib_005.jpg" width=180 >
 </div>
 
 ### 自定义相关属性
 
 <div>
-<img src = "screenshots/mn_ib_005.jpg" width=180 >
+<img src = "screenshots/mn_ib_006.jpg" width=180 >
 </div>
 
 ## 如何添加
