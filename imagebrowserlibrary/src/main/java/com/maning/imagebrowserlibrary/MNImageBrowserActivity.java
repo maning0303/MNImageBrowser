@@ -433,8 +433,9 @@ public class MNImageBrowserActivity extends AppCompatActivity {
                     //单击事件
                     if (onClickListener != null) {
                         onClickListener.onClick(MNImageBrowserActivity.this, photoView, position, url);
+                    }else{
+                        finishBrowser();
                     }
-                    finishBrowser();
                 }
             });
 
