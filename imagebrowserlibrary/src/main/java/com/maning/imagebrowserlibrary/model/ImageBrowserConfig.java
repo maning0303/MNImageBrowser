@@ -58,6 +58,8 @@ public class ImageBrowserConfig {
     private IndicatorType indicatorType = IndicatorType.Indicator_Number;
     //图片源
     private ArrayList<String> imageList;
+
+    private List<Bitmap> bitmapList;
     //图片加载引擎
     private ImageEngine imageEngine;
     //单击监听
@@ -262,6 +264,14 @@ public class ImageBrowserConfig {
 
     public void setImageList(ArrayList<String> imageList) {
         this.imageList = imageList;
+    }
+
+    public List<Bitmap> getBitmapList() {
+        return bitmapList;
+    }
+    
+    public void setBitmapList(List<Bitmap> bitmapList){
+        this.bitmapList = bitmapList;
     }
 
     public int getPosition() {

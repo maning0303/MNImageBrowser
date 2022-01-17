@@ -58,6 +58,13 @@ public class MNImageBrowser {
         return this;
     }
 
+    public MNImageBrowser setBitmapList(List<Bitmap> bitmapList) {
+        List<Bitmap> newBitmapList = new ArrayList<>();
+        newBitmapList.addAll(bitmapList);
+        imageBrowserConfig.setImageList(newImageList);
+        return this;
+    }
+
     public MNImageBrowser setCurrentPosition(int position) {
         imageBrowserConfig.setPosition(position);
         return this;

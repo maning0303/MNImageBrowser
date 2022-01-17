@@ -2,6 +2,7 @@ package com.maning.imagebrowserlibrary;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -64,7 +65,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     private LinearLayout ll_custom_view;
 
     //图片地址
-    private ArrayList<String> imageUrlList;
+    private List<Bitmap> imageUrlList;
     //当前位置
     private int currentPosition;
     //当前切换的动画
@@ -164,7 +165,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        imageUrlList = getImageBrowserConfig().getImageList();
+        imageUrlList = getImageBrowserConfig().getBitmapList();
         currentPosition = getImageBrowserConfig().getPosition();
         transformType = getImageBrowserConfig().getTransformType();
         imageEngine = getImageBrowserConfig().getImageEngine();
@@ -196,7 +197,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             }
             if (indicatorType == ImageBrowserConfig.IndicatorType.Indicator_Number) {
                 numberIndicator.setVisibility(View.VISIBLE);
-                numberIndicator.setText((currentPosition + 1) + "/" + imageUrlList.size());
+//                numberIndicator.setText((currentPosition + 1) + "/" + imageUrlList.size());
             } else {
                 circleIndicator.setVisibility(View.VISIBLE);
             }
@@ -253,7 +254,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 currentPosition = position;
-                numberIndicator.setText((currentPosition + 1) + "/" + imageUrlList.size());
+//                numberIndicator.setText((currentPosition + 1) + "/" + imageUrlList.size());
                 if (onPageChangeListener != null) {
                     onPageChangeListener.onPageSelected(position);
                 }
@@ -418,7 +419,7 @@ public class MNImageBrowserActivity extends AppCompatActivity {
             final RelativeLayout custom_image_view = (RelativeLayout) inflate.findViewById(R.id.mn_ib_custom_image_view);
             final RelativeLayout progress_view = (RelativeLayout) inflate.findViewById(R.id.mn_ib_progress_view);
 
-            final String url = imageUrlList.get(position);
+            final Bitmap url = imageUrlList.get(position);
 
             rl_browser_root.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -613,9 +614,9 @@ public class MNImageBrowserActivity extends AppCompatActivity {
      * @return
      */
     public static ArrayList<String> getImageList() {
-        if (sActivityRef != null && sActivityRef.get() != null) {
-            return sActivityRef.get().imageUrlList;
-        }
+//        if (sActivityRef != null && sActivityRef.get() != null) {
+//            return sActivityRef.get().imageUrlList;
+//        }
         return new ArrayList<>();
     }
 

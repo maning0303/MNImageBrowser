@@ -16,11 +16,11 @@ public interface ImageEngine {
      * 加载图片方法
      *
      * @param context         上下文
-     * @param url             图片地址
+     * @param bitmap             图片
      * @param imageView       ImageView
      * @param progressView    进度View
      * @param customImageView 自定义加载图片，替换PhotoView
      */
-    void loadImage(Context context, String url, ImageView imageView, View progressView, View customImageView);
+    void loadImage(Context context, Bitmap bitmap, ImageView imageView, View progressView, View customImageView);
 
 }
