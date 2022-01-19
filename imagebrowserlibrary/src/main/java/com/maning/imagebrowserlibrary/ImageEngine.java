@@ -3,6 +3,7 @@ package com.maning.imagebrowserlibrary;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.graphics.Bitmap;
 
 /**
  * author : maning

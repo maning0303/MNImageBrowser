@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
+import android.graphics.Bitmap;
 
 import android.os.Build;
 import android.view.View;

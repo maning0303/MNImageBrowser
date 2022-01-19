@@ -12,6 +12,7 @@ import com.maning.imagebrowserlibrary.listeners.OnActivityLifeListener;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnLongClickListener;
 import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
+import android.graphics.Bitmap;
 
 import java.util.ArrayList;
 
