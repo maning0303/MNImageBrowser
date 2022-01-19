@@ -190,7 +190,7 @@ public class MNImageBrowser {
             imageBrowserConfig = new ImageBrowserConfig();
         }
         //判断是不是空
-        if (imageBrowserConfig.getImageList() == null || imageBrowserConfig.getImageList().size() <= 0) {
+        if (imageBrowserConfig.getBitmapList() == null || imageBrowserConfig.getBitmapList().size() <= 0) {
             return;
         }
         if (imageBrowserConfig.getImageEngine() == null) {
