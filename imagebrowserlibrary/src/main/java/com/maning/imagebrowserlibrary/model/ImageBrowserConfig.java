@@ -15,6 +15,7 @@ import com.maning.imagebrowserlibrary.listeners.OnPageChangeListener;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * author : maning
@@ -266,6 +267,8 @@ public class ImageBrowserConfig {
     public void setImageList(ArrayList<String> imageList) {
         this.imageList = imageList;
     }
+
+
 
     public List<Bitmap> getBitmapList() {
         return bitmapList;

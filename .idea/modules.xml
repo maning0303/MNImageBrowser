@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MNImageBrowser.iml" filepath="$PROJECT_DIR$/MNImageBrowser.iml" group="MNImageBrowser" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="MNImageBrowser/app" />
-      <module fileurl="file://$PROJECT_DIR$/imagebrowserlibrary/imagebrowserlibrary.iml" filepath="$PROJECT_DIR$/imagebrowserlibrary/imagebrowserlibrary.iml" group="MNImageBrowser/imagebrowserlibrary" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ImageBrowser.iml" filepath="$PROJECT_DIR$/.idea/modules/ImageBrowser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ImageBrowser.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ImageBrowser.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/imagebrowserlibrary/ImageBrowser.imagebrowserlibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/imagebrowserlibrary/ImageBrowser.imagebrowserlibrary.iml" />
     </modules>
   </component>
 </project>

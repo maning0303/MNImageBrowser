@@ -26,6 +26,7 @@ import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
 import com.maning.imagebrowserlibrary.utils.FastClickUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author : maning
@@ -62,7 +63,7 @@ public class MNImageBrowser {
     public MNImageBrowser setBitmapList(List<Bitmap> bitmapList) {
         List<Bitmap> newBitmapList = new ArrayList<>();
         newBitmapList.addAll(bitmapList);
-        imageBrowserConfig.setImageList(newImageList);
+        imageBrowserConfig.setBitmapList(newBitmapList);
         return this;
     }
 
