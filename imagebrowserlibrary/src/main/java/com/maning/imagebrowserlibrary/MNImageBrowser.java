@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
+import android.graphics.Bitmap;
 
 import android.os.Build;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
 import com.maning.imagebrowserlibrary.utils.FastClickUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author : maning
@@ -55,6 +57,13 @@ public class MNImageBrowser {
         ArrayList<String> newImageList = new ArrayList<>();
         newImageList.addAll(imageList);
         imageBrowserConfig.setImageList(newImageList);
+        return this;
+    }
+
+    public MNImageBrowser setBitmapList(List<Bitmap> bitmapList) {
+        List<Bitmap> newBitmapList = new ArrayList<>();
+        newBitmapList.addAll(bitmapList);
+        imageBrowserConfig.setBitmapList(newBitmapList);
         return this;
     }
 
@@ -181,7 +190,7 @@ public class MNImageBrowser {
             imageBrowserConfig = new ImageBrowserConfig();
         }
         //判断是不是空
-        if (imageBrowserConfig.getImageList() == null || imageBrowserConfig.getImageList().size() <= 0) {
+        if (imageBrowserConfig.getBitmapList() == null || imageBrowserConfig.getBitmapList().size() <= 0) {
             return;
         }
         if (imageBrowserConfig.getImageEngine() == null) {

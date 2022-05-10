@@ -1,5 +1,6 @@
 package com.maning.imagebrowserlibrary.listeners;
 
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -13,6 +14,6 @@ import androidx.fragment.app.FragmentActivity;
  */
 public interface OnClickListener {
 
-    void onClick(FragmentActivity activity, View view, int position, String url);
+    void onClick(FragmentActivity activity, View view, int position, Bitmap bitmap);
 
 }
